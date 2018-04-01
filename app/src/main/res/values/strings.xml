@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Edu_YunZhi</string>
+    <string name="app_name">云智教育</string>
+    <string name="str_home_first">我的课程</string>
+    <string name="str_home_second">校方公告</string>
+    <string name="str_home_third">任务中心</string>
+    <string name="str_home_fourth">各类活动</string>
+    <string name="str_home_fifth">成绩查询</string>
+    <string name="str_home_fifth_teacher">数据分析</string>
+    <string name="str_home_sixth">错题分析</string>
+    <string name="str_home_seventh">综合实训</string>
+    <string name="str_home_eighth">能力档案</string>
+
 </resources>

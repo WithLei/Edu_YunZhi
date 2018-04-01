@@ -5,7 +5,7 @@ package com.android.renly.edu_yunzhi.Common;
  */
 
 public class AppNetConfig {
-    public static final String HOST = "192.168.155.1";//提供IP地址
+    public static final String HOST = "172.20.10.6";//提供IP地址
 
     public static final String BASE_URL = "http://" + HOST + ":8080/P2PInvest/";//本地后台地址
 
