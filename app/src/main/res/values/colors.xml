@@ -30,4 +30,6 @@
 
     <color name="white">#ffffff</color>
 
+    <color name="black_alpha_112">#70000000</color>
+
 </resources>

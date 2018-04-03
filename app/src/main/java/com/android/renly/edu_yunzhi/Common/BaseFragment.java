@@ -1,5 +1,7 @@
 package com.android.renly.edu_yunzhi.Common;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.android.renly.edu_yunzhi.UI.LoadingPage;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import butterknife.ButterKnife;
 
@@ -45,6 +49,7 @@ public abstract class BaseFragment extends Fragment {
 //        ButterKnife.bind(this,view);
 //        initTitle();
 //        initData();
+        initImageLoader(MyApplication.context);
         return loadingPage;
     }
 
@@ -78,5 +83,13 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    //Toolbar
+    public static void initImageLoader(Context context) {
+        ImageLoaderConfiguration config =
+                new ImageLoaderConfiguration.Builder(context).threadPoolSize(5).build();
+
+        ImageLoader.getInstance().init(config);
     }
 }

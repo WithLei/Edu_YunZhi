@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.android.renly.edu_yunzhi.Fragment.HomeFragment">
 
-    <ScrollView
+    <com.android.renly.edu_yunzhi.UI.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -153,7 +153,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="#CCCCCC" />
+                android:background="#DDDDDD" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,6 +167,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </com.android.renly.edu_yunzhi.UI.MyScrollView>
 
 </FrameLayout>
