@@ -19,7 +19,7 @@
                 android:id="@+id/rl_mine"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/my_title_bg"
+                android:background="@drawable/shape_bg_blue_0283df_r4dp"
                 android:gravity="center">
 
                 <RelativeLayout

@@ -38,7 +38,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener{
     @Bind(R.id.banner)
     Banner banner;
     @Bind(R.id.iv_home_first)
@@ -194,6 +194,36 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_home_first:
+                Toast.makeText(MyApplication.context,"我的课程",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_second:
+                Toast.makeText(MyApplication.context,"校方公告",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_third:
+                Toast.makeText(MyApplication.context,"任务中心",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_fourth:
+                Toast.makeText(MyApplication.context,"各类活动",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_fifth:
+                Toast.makeText(MyApplication.context,"成绩查询",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_sixth:
+                Toast.makeText(MyApplication.context,"错题分析",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_seventh:
+                Toast.makeText(MyApplication.context,"综合实训",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_home_eighth:
+                Toast.makeText(MyApplication.context,"能力档案",Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     public class GlideImageLoader extends ImageLoader {

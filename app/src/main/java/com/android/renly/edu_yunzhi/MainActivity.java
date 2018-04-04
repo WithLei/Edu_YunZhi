@@ -15,16 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Common.AppManager;
+import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Fragment.HomeFragment;
 import com.android.renly.edu_yunzhi.Fragment.LearningFragment;
 import com.android.renly.edu_yunzhi.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi.Fragment.MsgFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.iv_main_bottom_mainpage)
     ImageView ivMainBottomMainpage;
@@ -55,16 +55,17 @@ public class MainActivity extends FragmentActivity {
     private FragmentTransaction transaction;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
+    protected void initData() {
         //将当前的Activity添加到栈管理中
         AppManager.getInstance().addActivity(this);
 
         //默认显示首页
         setSelect(0);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @OnClick({R.id.ll_main_bottom_mainpage, R.id.ll_main_bottom_learning, R.id.ll_main_bottom_msg, R.id.ll_main_bottom_mine})
