@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
+import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
@@ -87,11 +88,13 @@ public class LearningFragment extends BaseFragment {
     }
 
     private void setUpViews() {
+        setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        setHasOptionsMenu(true);
         mCollapsingToolbar.setTitleEnabled(false);
         mCollapsingToolbar.getLayoutParams().height =
                 (UIUtils.isLand(MyApplication.context) ? UIUtils.getDisplayDimen(MyApplication.context).y :
@@ -150,7 +153,7 @@ public class LearningFragment extends BaseFragment {
             }
         });
 
-        mAdapter = new ViewPagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager());
+        mAdapter = new ViewPagerAdapter((getActivity()).getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(mAdapter.getCount());
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -208,14 +211,6 @@ public class LearningFragment extends BaseFragment {
             mToolbar.getLayoutParams().height = actionBarHeight + tabHeight;
             mToolbar.requestLayout();
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override

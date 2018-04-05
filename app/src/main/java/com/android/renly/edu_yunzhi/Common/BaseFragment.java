@@ -24,25 +24,24 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loadingPage = new LoadingPage(container.getContext()) {
             @Override
+            public int layoutId() {
+                return getLayoutid();
+            }
+
+            @Override
+            protected void onSuccss(ResultState resultState, View view_success) {
+                ButterKnife.bind(BaseFragment.this,view_success);
+                initData(resultState.getContent());
+            }
+
+            @Override
             protected RequestParams params() {
                 return getParams();
             }
 
             @Override
-            protected String url() {
+            public String url() {
                 return getUrl();
-            }
-
-            @Override
-            protected void onSuccess(ResultState resultState, View successView) {
-                ButterKnife.bind(BaseFragment.this,successView);
-                initData(resultState.getContent());
-                Log.e("TAG","content:" + resultState.getContent());
-            }
-
-            @Override
-            public int layoutID() {
-                return getLayoutid();
             }
         };
 //        View view = UIUtils.getView(getLayoutid());
@@ -70,7 +69,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void show() {
-        Log.e("TADG",(loadingPage == null) + " ");
         loadingPage.show();
     }
 

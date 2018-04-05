@@ -55,12 +55,12 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected String getUrl() {
-        return AppNetConfig.INDEX;
+        return null;
     }
 
     @Override
     protected RequestParams getParams() {
-        return new RequestParams();
+        return null;
     }
 
     @Override
