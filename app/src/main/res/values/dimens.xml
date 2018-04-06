@@ -5,4 +5,12 @@
 
     <dimen name="tab_height">48dp</dimen>
 
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="Card">2dp</dimen>
+
+    <dimen name="toolbarHeight">52dp</dimen>
+    <dimen name="bottombarHeight">52dp</dimen>
+
 </resources>
