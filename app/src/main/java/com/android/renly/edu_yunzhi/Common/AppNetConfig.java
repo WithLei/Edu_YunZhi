@@ -5,8 +5,8 @@ package com.android.renly.edu_yunzhi.Common;
  */
 
 public class AppNetConfig {
-    //论坛基地址
-    public static final String BASE_URL_RS = "http://rsbbs.xidian.edu.cn/";
+    //校园基论坛
+    public static final String BASE_URL_ME = "http://rsbbs.xidian.edu.cn/";
 
     public static final String HOST = "172.20.10.6";//提供IP地址
 
@@ -24,4 +24,7 @@ public class AppNetConfig {
     public static final String REGISTAR = BASE_URL + "UserRegister";//注册
 
     public static final String FEEDBACK = BASE_URL + "FeedBack";//用户反馈
+
+    //学生登录
+//    public static final String STUDENTLOGIN = BASE_URL + "app-studentRegister?username="+"&password=";
 }

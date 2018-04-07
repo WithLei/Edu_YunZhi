@@ -1,79 +1,145 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 
-import android.app.Fragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.renly.edu_yunzhi.Adapter.BaseAdapter;
-import com.android.renly.edu_yunzhi.Adapter.HotNewListAdapter;
-import com.android.renly.edu_yunzhi.Bean.ArticleListData;
-import com.android.renly.edu_yunzhi.Bean.GalleryData;
-import com.android.renly.edu_yunzhi.Common.BaseFragment2;
-import com.android.renly.edu_yunzhi.Listener.LoadMoreListener;
+import com.android.renly.edu_yunzhi.Bean.Topics;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
+import com.android.renly.edu_yunzhi.Common.BaseFragment;
+import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
-import com.android.renly.edu_yunzhi.UI.MyListDivider;
+import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
+import com.loopj.android.http.RequestParams;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by free2 on 16-3-19.
- * 简单的fragment 首页第二页 展示最新的帖子等
- */
-public class MsgFragment extends BaseFragment2 implements LoadMoreListener.OnLoadMoreListener {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.WHAT_REQUEST_ERROR;
+import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.WHAT_REQUEST_SUCCESS;
+
+public class MsgFragment extends BaseFragment implements OnClickListener {
 
     private static final int TYPE_HOT = 0;
     private static final int TYPE_NEW = 1;
 
     private int currentType = 1;
-    protected RecyclerView postList;
-    protected SwipeRefreshLayout refreshLayout;
-    private List<GalleryData> galleryDatas = new ArrayList<>();
-    private List<ArticleListData> mydataset = new ArrayList<>();
-    private HotNewListAdapter adapter;
-    private boolean isEnableLoadMore = false;
     private int CurrentPage = 1;
 
+    @Bind(R.id.btn_1)
+    RadioButton btn1;
+    @Bind(R.id.btn_2)
+    RadioButton btn2;
+    @Bind(R.id.btn_3)
+    RadioButton btn3;
+    @Bind(R.id.btn_change)
+    RadioGroup btnChange;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Bind(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    protected String getUrl() {
+        return AppNetConfig.BASE_URL_ME;
+    }
 
-        ((RadioButton) mRootView.findViewById(R.id.btn_1)).setText("新帖");
-        mRootView.findViewById(R.id.btn_2).setVisibility(View.GONE);
-        ((RadioButton) mRootView.findViewById(R.id.btn_3)).setText("热贴");
+    @Override
+    protected RequestParams getParams() {
+        return new RequestParams();
+    }
 
-        postList = mRootView.findViewById(R.id.recycler_view);
-        refreshLayout = mRootView.findViewById(R.id.refresh_layout);
-        refreshLayout.setColorSchemeResources(R.color.red_light, R.color.green_light, R.color.blue_light, R.color.orange_light);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        postList.setLayoutManager(mLayoutManager);
-        postList.addItemDecoration(new MyListDivider(getActivity(), MyListDivider.VERTICAL));
-        //设置可以滑出底栏
-        postList.setClipToPadding(false);
-        postList.setPadding(0, 0, 0, (int) getResources().getDimension(R.dimen.bottombarHeight));
-        adapter = new HotNewListAdapter(getActivity(), mydataset, galleryDatas);
-        postList.setAdapter(adapter);
-        postList.addOnScrollListener(new LoadMoreListener((LinearLayoutManager) mLayoutManager, this, 10));
+    @Override
+    protected void initData(String content) {
+        initTopicsdata();
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        adapter = new topicItemInfoAdapter(data);
+        CustomLinearLayoutManager layoutmanager = new CustomLinearLayoutManager(MyApplication.context);
+        layoutmanager.setScrollEnabled(true);
+        //设置RecyclerView 布局
+        recyclerView.setLayoutManager(layoutmanager);
+
+        //解决swipelayout与Recyclerview的冲突
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                //计算Recyclerview第一个item的位置是否可见
+                int topRowVerticalPosition
+                        =(recyclerView == null ||recyclerView.getChildCount() == 0) ? -1 : 1;
+
+                //当第一个item不可见时，设置SwipeRefreshLayout不可用
+                refreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    //暂时模拟读取json数据
+                    handler.sendEmptyMessage(WHAT_REQUEST_SUCCESS);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(WHAT_REQUEST_ERROR);
+                    Log.e("TAG", "加载数据失败");
+                }
+
+            }
+        }.start();
+    }
+
+    @Override
+    public int getLayoutid() {
+        return R.layout.fragment_msg;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_1:
+                Toast.makeText(MyApplication.context, "热帖界面", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_3:
+                Toast.makeText(MyApplication.context, "消息界面", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        btn1.setText("热帖");
+        btn2.setVisibility(View.GONE);
+        btn3.setText("消息");
+
         refreshLayout.setOnRefreshListener(this::refresh);
 
-        RadioGroup swictchMes = mRootView.findViewById(R.id.btn_change);
-        swictchMes.setOnCheckedChangeListener((radioGroup, id) -> {
+        btnChange.setOnCheckedChangeListener((radioGroup, id) -> {
             int pos = -1;
             if (id == R.id.btn_1) {
                 pos = TYPE_NEW;
@@ -87,24 +153,13 @@ public class MsgFragment extends BaseFragment2 implements LoadMoreListener.OnLoa
                 refresh();
             }
         });
-        return mRootView;
+        return rootView;
     }
 
     @Override
-    public void onFirstUserVisible() {
-        getData();
-    }
-
-    @Override
-    public void ScrollToTop() {
-        if (mydataset.size() > 0)
-            postList.scrollToPosition(0);
-    }
-
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_msg;
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     private void refresh() {
@@ -112,125 +167,148 @@ public class MsgFragment extends BaseFragment2 implements LoadMoreListener.OnLoa
         getData();
     }
 
-    @Override
-    public void onLoadMore() {
-        if (isEnableLoadMore) {
-            CurrentPage++;
-            getData();
-        }
-    }
-
     private void getData() {
-        isEnableLoadMore = false;
-        adapter.changeLoadMoreState(BaseAdapter.STATE_LOADING);
-        if (App.IS_SCHOOL_NET) {
-            new GetGalleryTask().execute();
-        }
-        String type = (currentType == TYPE_HOT) ? "hot" : "new";
-        String url = "forum.php?mod=guide&view=" + type + "&page=" + CurrentPage + "&mobile=2";
-        HttpUtil.get(url, new ResponseHandler() {
-            @Override
-            public void onSuccess(byte[] response) {
-                new GetNewArticleListTaskMe().execute(new String(response));
-            }
-
-            @Override
-            public void onFailure(Throwable e) {
-                refreshLayout.postDelayed(() -> refreshLayout.setRefreshing(false), 300);
-
-                adapter.changeLoadMoreState(BaseAdapter.STATE_LOAD_FAIL);
-            }
-        });
+        handler.sendEmptyMessageDelayed(DELAY, 2000);
     }
 
-    private class GetGalleryTask extends AsyncTask<Void, Void, List<GalleryData>> {
-        @Override
-        protected List<GalleryData> doInBackground(Void... voids) {
-            List<GalleryData> temps = new ArrayList<>();
-            String url = App.BASE_URL_RS + "forum.php";
-            Document doc;
-            try {
-                doc = Jsoup.connect(url).userAgent(SyncHttpClient.DEFAULT_USER_AGENT).get();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return temps;
-            }
+    private static final int DELAY = 5;
 
-            Elements listgallerys = doc.select("#wp").select("ul.slideshow");
-            for (Element e : listgallerys.select("li")) {
-                String title = e.text();
-                String titleurl = e.select("a").attr("href");
-                String imgurl = e.select("img").attr("src");
-                temps.add(new GalleryData(imgurl, title, titleurl));
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DELAY:
+                    refreshLayout.setRefreshing(false);
+                    break;
+                case WHAT_REQUEST_SUCCESS:
+                    recyclerView.setAdapter(adapter);
             }
-            return temps;
+        }
+    };
+
+    public List<Topics> data;
+    public MsgFragment.topicItemInfoAdapter adapter;
+
+    public class topicItemInfoAdapter extends RecyclerView.Adapter<MsgFragment.topicItemInfoAdapter.ViewHolder> {
+        private List<Topics> topicsList;
+
+        class ViewHolder extends RecyclerView.ViewHolder{
+            TextView article_title;
+            TextView author_name;
+            TextView reply_count;
+            TextView is_image;
+
+            public ViewHolder(View view) {
+                super(view);
+                article_title = view.findViewById(R.id.article_title);
+                author_name = view.findViewById(R.id.author_name);
+                reply_count = view.findViewById(R.id.reply_count);
+                is_image = view.findViewById(R.id.is_image);
+            }
         }
 
-        @Override
-        protected void onPostExecute(List<GalleryData> data) {
-            super.onPostExecute(data);
-            if (data.size() == 0) {
-                return;
-            }
-            if (galleryDatas.size() == 0) {
-                galleryDatas.addAll(data);
-            } else if (galleryDatas.size() != data.size()) {//进行了一下优化 只有不相同时才刷行
-                galleryDatas.clear();
-                galleryDatas.addAll(data);
-            } else {
-                return;
-            }
-            adapter.notifyItemChanged(0);
-        }
-    }
-
-    private class GetNewArticleListTaskMe extends AsyncTask<String, Void, List<ArticleListData>> {
-        @Override
-        protected List<ArticleListData> doInBackground(String... params) {
-            List<ArticleListData> dataset = new ArrayList<>();
-            Document doc = Jsoup.parse(params[0]);
-            Elements body = doc.select("div[class=threadlist]"); // 具有 href 属性的链接
-            Elements links = body.select("li");
-            for (Element src : links) {
-                String url = src.select("a").attr("href");
-                int titleColor = GetId.getColor(getActivity(), src.select("a").attr("style"));
-                String author = src.select(".by").text();
-                src.select("span.by").remove();
-                String replyCount = src.select("span.num").text();
-                src.select("span.num").remove();
-                String title = src.select("a").text();
-                String img = src.select("img").attr("src");
-                boolean hasImage = img.contains("icon_tu.png");
-                dataset.add(new ArticleListData(hasImage, title, url, author, replyCount, titleColor));
-            }
-
-            MyDB myDB = new MyDB(getActivity());
-            return myDB.handReadHistoryList(dataset);
+        public topicItemInfoAdapter(List<Topics> topicsList) {
+            this.topicsList = topicsList;
         }
 
+        //加载item 的布局  创建ViewHolder实例
         @Override
-        protected void onPostExecute(List<ArticleListData> datas) {
-            refreshLayout.postDelayed(() -> refreshLayout.setRefreshing(false), 300);
-            if (CurrentPage == 1) {
-                mydataset.clear();
-                mydataset.addAll(datas);
-                adapter.notifyDataSetChanged();
-            } else {
-                if (datas.size() == 0) {
-                    adapter.changeLoadMoreState(BaseAdapter.STATE_LOAD_NOTHING);
-                    return;
-                } else {
-                    int size = mydataset.size();
-                    mydataset.addAll(datas);
-                    adapter.changeLoadMoreState(BaseAdapter.STATE_LOAD_OK);
-                    if (galleryDatas.size() > 0) {
-                        size++;
-                    }
-                    adapter.notifyItemRangeInserted(size, datas.size());
-                }
+        public MsgFragment.topicItemInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_me,parent,false);
+            MsgFragment.topicItemInfoAdapter.ViewHolder holder = new MsgFragment.topicItemInfoAdapter.ViewHolder(view);
+            return holder;
+        }
+
+        //对RecyclerView子项数据进行赋值
+        @Override
+        public void onBindViewHolder(MsgFragment.topicItemInfoAdapter.ViewHolder holder, int position) {
+            Topics topics = topicsList.get(position);
+            //设置数据
+            holder.article_title.setText(topics.title);
+            holder.author_name.setText("\uf2c0 "+topics.name);
+            holder.reply_count.setText("\uf0e6 "+topics.comment);
+            if(topics.hasImg == false){
+                holder.is_image.setVisibility(View.GONE);
             }
-            isEnableLoadMore = true;
+        }
+
+        //返回子项个数
+        @Override
+        public int getItemCount() {
+            return topicsList.size();
         }
     }
 
+
+    //论坛【暂时写死
+    public void initTopicsdata() {
+        data = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            //1.
+            Topics firstTopic = new Topics();
+            firstTopic.title = "图书馆4.23世界图书日系列活动第一弹";
+            firstTopic.name = "西电图书馆";
+            firstTopic.comment = 151;
+            firstTopic.hasImg = false;
+
+            //2.
+            Topics secondTopic = new Topics();
+            secondTopic.title = "马上生日了，还在图书馆自习";
+            secondTopic.name = "doubihui";
+            secondTopic.comment = 47;
+            secondTopic.hasImg = false;
+
+            //3.
+            Topics thirdTopic = new Topics();
+            thirdTopic.title = "大佬们，学校附近有没有专业的给眼睛验光的医院啊";
+            thirdTopic.name = "合伙人";
+            thirdTopic.comment = 100;
+            thirdTopic.hasImg = false;
+
+            //4.
+            Topics forthTopic = new Topics();
+            forthTopic.title = "求C++大佬";
+            forthTopic.name = "vimm";
+            forthTopic.comment = 71;
+            forthTopic.hasImg = false;
+
+            //5
+            Topics fifthTopic = new Topics();
+            fifthTopic.title = "Paperpass18% 笔杆8%，知网大概什么水平？";
+            fifthTopic.name = "依旧彷徨";
+            fifthTopic.comment = 54;
+            fifthTopic.hasImg = true;
+
+            //6
+            Topics sixthTopic = new Topics();
+            sixthTopic.title = "和省内流量说拜拜！移动新版流量包上线：5元30M成最大槽点";
+            sixthTopic.name = "激萌路小叔";
+            sixthTopic.comment = 25;
+            sixthTopic.hasImg = true;
+
+            //7
+            Topics seventhTopic = new Topics();
+            seventhTopic.title = "欲望总是不可控制";
+            seventhTopic.name = "zhjcyh";
+            seventhTopic.comment = 268;
+            seventhTopic.hasImg = false;
+
+            //8
+            Topics eigthTopic = new Topics();
+            eigthTopic.title = "和喜欢的人提分手是一种什么体验？";
+            eigthTopic.name = "eigthTopic";
+            eigthTopic.comment = 64;
+            eigthTopic.hasImg = false;
+
+            data.add(firstTopic);
+            data.add(secondTopic);
+            data.add(thirdTopic);
+            data.add(forthTopic);
+            data.add(fifthTopic);
+            data.add(sixthTopic);
+            data.add(seventhTopic);
+            data.add(eigthTopic);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +39,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener{
+public class    HomeFragment extends BaseFragment implements View.OnClickListener{
     @Bind(R.id.banner)
     Banner banner;
     @Bind(R.id.iv_home_first)
@@ -131,6 +132,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     @Override
     protected void initData(String content) {
         initNewsdata();
+        initOnclickEvent();
         adapter = new itemInfoAdapter(data);
         CustomLinearLayoutManager layoutmanager = new CustomLinearLayoutManager(MyApplication.context);
         layoutmanager.setScrollEnabled(false);
@@ -152,6 +154,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         //初始化轮播图
         initBanner();
 
+    }
+
+    private void initOnclickEvent() {
+        llHomeFirst.setOnClickListener(this);
+        llHomeSecond.setOnClickListener(this);
+        llHomeThird.setOnClickListener(this);
+        llHomeFourth.setOnClickListener(this);
+        llHomeFifth.setOnClickListener(this);
+        llHomeSixth.setOnClickListener(this);
+        llHomeSeventh.setOnClickListener(this);
+        llHomeEighth.setOnClickListener(this);
     }
 
     private void initBanner() {

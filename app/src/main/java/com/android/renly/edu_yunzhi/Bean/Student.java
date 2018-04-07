@@ -6,7 +6,7 @@ public class Student extends User{
     List<Course> courses;//课程
     List<Task> tasks;//任务
     String school;//所属学校
-//    List<Praxis> errors;//���⼯
+//    List<Praxis> errors;//题目
 
     public List<Course> getCourses() {
         return courses;

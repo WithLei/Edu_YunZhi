@@ -1,5 +1,6 @@
 package com.android.renly.edu_yunzhi.UI;
 
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -57,3 +58,4 @@ public class BatchRadioButton extends android.support.v7.widget.AppCompatRadioBu
         }
     }
 }
+
