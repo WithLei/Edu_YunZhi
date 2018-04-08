@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
     private MsgFragment msgFragment;
     private MineFragment mineFragment;
 
-    public void setSelect(int select) {
+    private void setSelect(int select) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
