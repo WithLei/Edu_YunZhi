@@ -1,7 +1,10 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +12,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
@@ -133,6 +138,8 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
     protected void initData(String content) {
         initNewsdata();
         initOnclickEvent();
+        //登录判断
+//        isLogin();
         adapter = new itemInfoAdapter(data);
         CustomLinearLayoutManager layoutmanager = new CustomLinearLayoutManager(MyApplication.context);
         layoutmanager.setScrollEnabled(false);
@@ -342,51 +349,30 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-//        private ImageLoader imageLoader;
-//
-//        public itemInfoAdapter(){
-//            imageLoader = new ImageLoader
-//        }
+    private void isLogin() {
+        //查看本地是否有用户的登录信息
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String name = sp.getString("name", "");
+        if (TextUtils.isEmpty(name)) {
+            //本地没有保存过用户信息，给出提示：登录
+            doLogin();
+        }
+    }
 
-//        @Override
-//        public int getCount() {
-//            return data.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return data.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return 0;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            if (convertView == null) {
-//                convertView = View.inflate(MyApplication.context, R.layout.newsitem, null);
-//            }
-//            //得到当前行的数据对象
-//            News news = data.get(position);
-//            //得到当前的子view
-//            ImageView iv_news_img = convertView.findViewById(R.id.iv_news_img);
-//            TextView tv_item_title = convertView.findViewById(R.id.tv_item_title);
-//            TextView tv_item_content = convertView.findViewById(R.id.tv_item_content);
-//            TextView tv_item_commentCount = convertView.findViewById(R.id.tv_item_commentCount);
-//            TextView tv_item_name = convertView.findViewById(R.id.tv_item_name);
-//            TextView tv_item_time = convertView.findViewById(R.id.tv_item_time);
-//
-//            //设置数据
-//            tv_item_name.setText(news.username);
-//            tv_item_title.setText(news.title);
-//            tv_item_content.setText(news.content);
-//            tv_item_commentCount.setText(news.replyCount + "");
-//            tv_item_time.setText(news.time + "");
-//            String imagePath = news.img;
-//            Picasso.with(MyApplication.context).load(imagePath).into(iv_news_img);
-//
-//            return convertView;
-//        }
+    //给出提示：登录
+    private void doLogin() {
+        Toast.makeText(MyApplication.context,"未登录",Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this.getActivity())
+                .setTitle("提示")
+                .setMessage("您还没有登录哦！么么~")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                            UIUtils.toast("进入登录页面",false);
+                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class,null);
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
 }

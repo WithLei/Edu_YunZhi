@@ -1,16 +1,24 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
+import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.BatchRadioButton;
 import com.loopj.android.http.RequestParams;
@@ -46,6 +54,8 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
     protected void initData(String content) {
         //默认显示首页
         setSelect(0);
+        //登录判断
+//        isLogin();
     }
 
     private MyclassFragment myclassFragment;
@@ -139,5 +149,32 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
                 setSelect(2);
                 break;
         }
+    }
+
+    private void isLogin() {
+        //查看本地是否有用户的登录信息
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String name = sp.getString("name", "");
+        if (TextUtils.isEmpty(name)) {
+            //本地没有保存过用户信息，给出提示：登录
+            doLogin();
+        }
+    }
+
+    //给出提示：登录
+    private void doLogin() {
+        Toast.makeText(MyApplication.context,"未登录",Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this.getActivity())
+                .setTitle("提示")
+                .setMessage("您还没有登录哦！么么~")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                            UIUtils.toast("进入登录页面",false);
+                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class,null);
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 }

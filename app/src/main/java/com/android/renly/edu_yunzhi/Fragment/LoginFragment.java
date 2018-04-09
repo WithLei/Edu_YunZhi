@@ -19,6 +19,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,10 +42,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     private ImageView iv_show_pwd;
     private Button btn_login;
     private TextView forget_password;
+    private RadioButton rb_stu;
+    private RadioButton rb_teacher;
 
     private int screenHeight = 0;//屏幕高度
     private float scale = 0.8f; //logo缩放比例
-    private View service, body;
+    private View body;
+    private RadioGroup service;
     private KeyboardWatcher keyboardWatcher;
 
     private View root;
@@ -62,19 +67,43 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     }
 
     private void initView(View view) {
-        logo = (DrawableTextView) view.findViewById(R.id.logo);
-        et_mobile = (EditText) view.findViewById(R.id.et_mobile);
-        et_password = (EditText) view.findViewById(R.id.et_password);
-        iv_clean_phone = (ImageView) view.findViewById(R.id.iv_clean_phone);
-        clean_password = (ImageView) view.findViewById(R.id.clean_password);
-        iv_show_pwd = (ImageView) view.findViewById(R.id.iv_show_pwd);
-        btn_login = (Button) view.findViewById(R.id.btn_login);
-        forget_password = (TextView) view.findViewById(R.id.forget_password);
+        logo = view.findViewById(R.id.logo);
+        et_mobile = view.findViewById(R.id.et_mobile);
+        et_password = view.findViewById(R.id.et_password);
+        iv_clean_phone = view.findViewById(R.id.iv_clean_phone);
+        clean_password = view.findViewById(R.id.clean_password);
+        iv_show_pwd = view.findViewById(R.id.iv_show_pwd);
+        btn_login = view.findViewById(R.id.btn_login);
+        forget_password = view.findViewById(R.id.forget_password);
+        rb_stu = view.findViewById(R.id.rb_login_stu);
+        rb_teacher = view.findViewById(R.id.rb_login_teacher);
         service = view.findViewById(R.id.service);
+        service.setOnCheckedChangeListener(new MyRadioButtonListener());
         body = view.findViewById(R.id.body);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
         root = view.findViewById(R.id.root);
         view.findViewById(R.id.close).setOnClickListener(this);
+    }
+
+    class MyRadioButtonListener implements RadioGroup.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (checkedId){
+                case R.id.rb_login_stu:
+                    //当用户选中学生时
+                    root.setBackground(getContext().getDrawable(R.mipmap.ic_login_background));
+                    rb_stu.setEnabled(false);
+                    rb_teacher.setEnabled(true);
+                    break;
+                case R.id.rb_login_teacher:
+                    //当用户选中老师时
+                    root.setBackground(getContext().getDrawable(R.drawable.four_screen_bg));
+                    rb_stu.setEnabled(true);
+                    rb_teacher.setEnabled(false);
+                    break;
+            }
+        }
     }
 
     private void initListener() {
@@ -242,4 +271,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         super.onDestroy();
         keyboardWatcher.removeSoftKeyboardStateListener(this);
     }
+
 }

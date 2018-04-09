@@ -10,7 +10,7 @@
     <string name="str_home_seventh">综合实训</string>
     <string name="str_home_eighth">能力档案</string>
 
-    <string name="hint_login_username">请输入手机号码</string>
+    <string name="hint_login_username">请输入账号或手机号</string>
     <string name="hint_login_password">输入密码</string>
     <string name="login">登录</string>
     <string name="login_forget_pwd">忘记密码</string>

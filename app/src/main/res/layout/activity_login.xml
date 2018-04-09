@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ic_mobile_flag" />
+                android:src="@drawable/account" />
 
             <EditText
                 android:id="@+id/et_mobile"
@@ -180,7 +180,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RadioGroup
             android:id="@+id/service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -190,12 +190,15 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <TextView
+            <RadioButton
+                android:id="@+id/rb_login_stu"
+                android:button="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="联系客服"
-                android:textColor="@color/color_b0b8b2"
+                android:text="学生登录"
+                android:textColor="@color/color_radiobutton"
+                android:checked="true"
                 android:textSize="14dp" />
 
             <View
@@ -205,13 +208,15 @@
                 android:layout_marginRight="10dp"
                 android:background="@color/color_eeeeee" />
 
-            <TextView
+            <RadioButton
+                android:id="@+id/rb_login_teacher"
+                android:button="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="关于我们"
-                android:textColor="@color/color_b0b8b2"
+                android:text="老师登录"
+                android:textColor="@color/color_radiobutton"
                 android:textSize="14dp" />
-        </LinearLayout>
+        </RadioGroup>
     </RelativeLayout>
 </LinearLayout>
