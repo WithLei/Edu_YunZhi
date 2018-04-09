@@ -5,19 +5,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +22,6 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
-import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
@@ -107,12 +103,12 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected String getUrl() {
-        return AppNetConfig.INDEX;
+        return null;
     }
 
     @Override
     protected RequestParams getParams() {
-        return new RequestParams();
+        return null;
     }
 
     protected static final int WHAT_REQUEST_SUCCESS = 1;
@@ -140,6 +136,14 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
         initOnclickEvent();
         //登录判断
 //        isLogin();
+        //初始化List
+        initList();
+        //初始化轮播图
+        initBanner();
+
+    }
+
+    private void initList() {
         adapter = new itemInfoAdapter(data);
         CustomLinearLayoutManager layoutmanager = new CustomLinearLayoutManager(MyApplication.context);
         layoutmanager.setScrollEnabled(false);
@@ -158,9 +162,6 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
 
             }
         }.start();
-        //初始化轮播图
-        initBanner();
-
     }
 
     private void initOnclickEvent() {
@@ -323,7 +324,7 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
         //加载item 的布局  创建ViewHolder实例
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newsitem,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news,parent,false);
             ViewHolder holder = new ViewHolder(view);
             return holder;
         }

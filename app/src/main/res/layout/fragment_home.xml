@@ -194,7 +194,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="#DDDDDD" />
+                android:background="@color/bottom_unselect" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -15,9 +15,8 @@
         <TextView
             android:id="@+id/tv_item_title"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -106,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/bottom_unselect"/>
 
     </RelativeLayout>
 

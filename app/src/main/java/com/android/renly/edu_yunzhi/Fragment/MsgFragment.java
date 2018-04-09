@@ -56,12 +56,12 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
 
     @Override
     protected String getUrl() {
-        return AppNetConfig.BASE_URL_ME;
+        return null;
     }
 
     @Override
     protected RequestParams getParams() {
-        return new RequestParams();
+        return null;
     }
 
     @Override

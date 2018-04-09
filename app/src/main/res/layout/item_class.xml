@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_item_class_title"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:text="Python免费公开课：零基础入门课程"/>
+
+        <ImageView
+            android:id="@+id/iv_item_class_img"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/backgroundstudy"/>
+
+        <TextView
+            android:id="@+id/tv_item_class_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_item_class_img"
+            android:layout_alignStart="@+id/tv_item_class_title"
+            android:text="孙麒"
+            android:textColor="@color/home_back_selected"/>
+
+        <View
+            android:layout_below="@id/iv_item_class_img"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/bottom_unselect"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

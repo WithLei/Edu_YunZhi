@@ -59,12 +59,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        UIUtils.getHandler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                show();
-//            }
-//        },2000);
         show();
     }
 
