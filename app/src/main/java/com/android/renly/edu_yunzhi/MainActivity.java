@@ -207,6 +207,10 @@ public class MainActivity extends BaseActivity {
         return super.onKeyUp(keyCode, event);
     }
 
+    public void gotoLearningFragment(){
+        setSelect(1);
+    }
+
     //当出现未捕获的异常时，能够给用户一个相对友好的提示
     //在出现异常时，能够将异常信息发送给后台，便于在后续的版本中解决Bug
 //    @Override

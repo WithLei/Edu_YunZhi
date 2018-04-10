@@ -1,42 +1,27 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
-import com.android.renly.edu_yunzhi.Bean.Course;
-import com.android.renly.edu_yunzhi.Bean.News;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.BatchRadioButton;
-import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
-import com.youth.banner.loader.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -178,7 +163,7 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
 
     //给出提示：登录
     private void doLogin() {
-        Toast.makeText(MyApplication.context,"未登录",Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApplication.context, "未登录", Toast.LENGTH_SHORT).show();
         new AlertDialog.Builder(this.getActivity())
                 .setTitle("提示")
                 .setMessage("您还没有登录哦！么么~")
@@ -186,11 +171,15 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                            UIUtils.toast("进入登录页面",false);
-                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class,null);
+                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
                     }
                 })
                 .setCancelable(false)
                 .show();
+    }
+
+    public void gotoClassFragment(){
+        setSelect(0);
     }
 
 }

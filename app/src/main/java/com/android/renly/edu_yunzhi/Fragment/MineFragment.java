@@ -6,21 +6,24 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
 import com.android.renly.edu_yunzhi.Bean.User;
-import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
-import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
+import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.Utils.BitmapUtils;
 import com.android.renly.edu_yunzhi.Utils.UIUtils;
@@ -90,6 +93,7 @@ public class MineFragment extends BaseFragment {
 
         } else {
             //已经登录过，则直接加载用户的信息并显示
+            tvMineLogout.setVisibility(View.VISIBLE);
             doUser();
         }
 
@@ -154,7 +158,7 @@ public class MineFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                            UIUtils.toast("进入登录页面",false);
-                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class,null);
+                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
                     }
                 })
                 .setCancelable(false)
@@ -164,10 +168,10 @@ public class MineFragment extends BaseFragment {
     @OnClick(R.id.iv_mine_icon)
     public void setting(View view) {
         //启动用户信息界面的Activity
-        if(userisLogin())
+        if (userisLogin())
             ((BaseActivity) this.getActivity()).goToActivity(UserInfoActivity.class, null);
         else
-            LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class,null);
+            LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
     }
 
     @Override
@@ -199,5 +203,31 @@ public class MineFragment extends BaseFragment {
         }
         return false;
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @OnClick({R.id.tv_mine_class, R.id.tv_mine_task, R.id.tv_mine_grade, R.id.tv_mine_logout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_mine_class://课程管理
+                MainActivity mainActivity = (MainActivity) getActivity();
+//                LearningFragment learningFragment = getFragmentManager().findFragmentById(R.layout.fragment_myclass);
+                mainActivity.gotoLearningFragment();
+
+                break;
+            case R.id.tv_mine_task://实训任务
+                break;
+            case R.id.tv_mine_grade://成绩查询
+                break;
+            case R.id.tv_mine_logout://退出登录
+                break;
+        }
     }
 }

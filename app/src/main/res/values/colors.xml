@@ -44,4 +44,6 @@
     <color name="text_color_pri">#ff050505</color>
     <color name="text_color_sec">#ff5f5f5f</color>
 
+    <color name="summerGreen">#3CB371</color>
+
 </resources>
