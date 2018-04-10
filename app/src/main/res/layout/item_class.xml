@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp">
 
 
     <RelativeLayout
@@ -10,6 +12,11 @@
         android:layout_height="wrap_content"
         android:paddingRight="5dp"
         android:paddingLeft="10dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bottom_unselect"/>
 
         <TextView
             android:id="@+id/tv_item_class_title"
@@ -38,13 +45,6 @@
             android:layout_alignStart="@+id/tv_item_class_title"
             android:text="孙麒"
             android:textColor="@color/home_back_selected"/>
-
-        <View
-            android:layout_below="@id/iv_item_class_img"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/bottom_unselect"/>
 
     </RelativeLayout>
 
