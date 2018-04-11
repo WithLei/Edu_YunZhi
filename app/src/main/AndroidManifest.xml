@@ -44,6 +44,7 @@
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.LoadFragmentActivity"/>
         <activity android:name=".Activity.NoticeActivity"/>
+        <activity android:name=".Activity.TaskActivity"/>
     </application>
 
 </manifest>

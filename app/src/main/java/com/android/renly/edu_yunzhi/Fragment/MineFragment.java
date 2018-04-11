@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
 import com.android.renly.edu_yunzhi.Bean.User;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
@@ -223,6 +224,7 @@ public class MineFragment extends BaseFragment {
 
                 break;
             case R.id.tv_mine_task://实训任务
+                ((BaseActivity) this.getActivity()).goToActivity(TaskActivity.class, null);
                 break;
             case R.id.tv_mine_grade://成绩查询
                 break;

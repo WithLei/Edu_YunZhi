@@ -1,6 +1,7 @@
 package com.android.renly.edu_yunzhi.Utils;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -126,5 +127,22 @@ public class UIUtils {
     public static boolean isLand(Context context) {
         return context.getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * 获取屏幕尺寸
+     */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public static Point getScreenSize(Context context){
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2){
+            return new Point(display.getWidth(), display.getHeight());
+        }else{
+            Point point = new Point();
+            display.getSize(point);
+            return point;
+        }
     }
 }

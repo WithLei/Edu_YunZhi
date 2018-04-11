@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
+import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
@@ -243,7 +244,7 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
                 Toast.makeText(MyApplication.context,"错题分析",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll_home_seventh:
-                Toast.makeText(MyApplication.context,"综合实训",Toast.LENGTH_SHORT).show();
+                ((BaseActivity) this.getActivity()).goToActivity(TaskActivity.class, null);
                 break;
             case R.id.ll_home_eighth:
                 Toast.makeText(MyApplication.context,"能力档案",Toast.LENGTH_SHORT).show();
