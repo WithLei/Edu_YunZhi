@@ -21,9 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
+import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
+import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
@@ -219,15 +222,16 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        MainActivity mainActivity = (MainActivity) getActivity();
         switch (v.getId()){
             case R.id.ll_home_first:
-                Toast.makeText(MyApplication.context,"我的课程",Toast.LENGTH_SHORT).show();
+                mainActivity.gotoLearningFragment();
                 break;
             case R.id.ll_home_second:
-                Toast.makeText(MyApplication.context,"校方公告",Toast.LENGTH_SHORT).show();
+                ((BaseActivity) this.getActivity()).goToActivity(NoticeActivity.class, null);
                 break;
             case R.id.ll_home_third:
-                Toast.makeText(MyApplication.context,"任务中心",Toast.LENGTH_SHORT).show();
+                mainActivity.gotoLearningFragment();
                 break;
             case R.id.ll_home_fourth:
                 Toast.makeText(MyApplication.context,"各类活动",Toast.LENGTH_SHORT).show();

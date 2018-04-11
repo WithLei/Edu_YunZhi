@@ -43,6 +43,7 @@
         </activity>
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.LoadFragmentActivity"/>
+        <activity android:name=".Activity.NoticeActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/tv_item_notice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="【开课啦】本学期课程通知"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_item_notice_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_notice_title"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="发布者 ： " />
+
+        <TextView
+            android:id="@+id/tv_item_notice_teachername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_item_notice_teacher"
+            android:layout_toEndOf="@+id/tv_item_notice_teacher"
+            android:text="孙麒" />
+
+        <TextView
+            android:id="@+id/tv_item_notice_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_notice_teacher"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/history"
+            android:gravity="center"
+            android:text="  2018 - 03 - 01 09:59" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/right" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/tv_item_notice_time"
+            android:background="@color/bottom_unselect" />
+
+    </RelativeLayout>
+
+</LinearLayout>

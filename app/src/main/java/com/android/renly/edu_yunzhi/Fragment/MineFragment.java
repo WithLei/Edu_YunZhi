@@ -218,8 +218,8 @@ public class MineFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_mine_class://课程管理
                 MainActivity mainActivity = (MainActivity) getActivity();
-//                LearningFragment learningFragment = getFragmentManager().findFragmentById(R.layout.fragment_myclass);
                 mainActivity.gotoLearningFragment();
+//                LearningFragment learningFragment = (LearningFragment) getFragmentManager().findFragmentById(R.layout.fragment_myclass);
 
                 break;
             case R.id.tv_mine_task://实训任务

@@ -58,9 +58,9 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
 //        isLogin();
     }
 
-    private MyclassFragment myclassFragment;
-    private MyworkFragment myworkFragment;
-    private MynoteFragment mynoteFragment;
+    private static MyclassFragment myclassFragment;
+    private static MyworkFragment myworkFragment;
+    private static MynoteFragment mynoteFragment;
     private FragmentTransaction transaction;
 
     private void setSelect(int select) {
