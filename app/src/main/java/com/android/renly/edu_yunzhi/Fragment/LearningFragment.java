@@ -27,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LearningFragment extends BaseFragment implements View.OnClickListener {
+public class LearningFragment extends BaseFragment{
 
     @Bind(R.id.btn_1)
     BatchRadioButton btn1;
@@ -110,11 +110,6 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
     @Override
     public int getLayoutid() {
         return R.layout.fragment_learning;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override

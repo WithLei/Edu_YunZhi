@@ -1,90 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:text="在学的课程"
+            android:textColor="@color/text_color_pri"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_myclass_addclass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/add"
+            android:gravity="center_vertical|right"
+            android:padding="5dp"
+            android:text="添加课程  "
+            android:textColor="@color/text_color_sec" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:padding="15dp"
-                android:text="在学的课程"
-                android:textColor="@color/text_color_pri"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_myclass_addclass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableRight="@drawable/add"
-                android:gravity="center_vertical|right"
-                android:padding="5dp"
-                android:text="添加课程  "
-                android:textColor="@color/text_color_sec" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_myclass_learning"
+            android:orientation="vertical">
+            
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/divider_line" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_myclass_learning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:padding="15dp"
-                android:text="已学的课程"
-                android:textColor="@color/text_color_pri"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_myclass_seeall"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableRight="@drawable/right"
-                android:gravity="center_vertical|right"
-                android:padding="5dp"
-                android:text="查看全部  "
-                android:textColor="@color/text_color_sec" />
+                android:layout_height="10dp"
+                android:background="@color/divider_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:text="已学的课程"
+                    android:textColor="@color/text_color_pri"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_myclass_seeall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/right"
+                    android:gravity="center_vertical|right"
+                    android:padding="5dp"
+                    android:text="查看全部  "
+                    android:textColor="@color/text_color_sec" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_myclass_learnt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_myclass_learnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

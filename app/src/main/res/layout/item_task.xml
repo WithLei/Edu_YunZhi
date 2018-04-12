@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/item_task_img"
+            android:layout_marginTop="10dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/activitieslisticontesting"/>
+
+        <TextView
+            android:id="@+id/task_process"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="7dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/item_task_img"
+            android:textColor="@color/text_progress"
+            android:background="@drawable/shape_label"
+            android:text="进行中"/>
+
+        <TextView
+            android:id="@+id/tv_item_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/task_process"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="7dp"
+            android:text="测试活动"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_item_task_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_task_title"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/item_task_img"
+            android:layout_marginLeft="7dp"
+            android:gravity="center"
+            android:text="发布者 ： " />
+
+        <TextView
+            android:id="@+id/tv_item_task_teachername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_item_task_teacher"
+            android:layout_toEndOf="@+id/tv_item_task_teacher"
+            android:text="孙麒" />
+
+        <TextView
+            android:id="@+id/tv_item_task_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_task_teacher"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/item_task_img"
+            android:gravity="center"
+            android:text="2018 - 04 - 10" />
+
+        <TextView
+            android:id="@+id/task_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" · "
+            android:gravity="center"
+            android:layout_toRightOf="@id/tv_item_task_time"
+            android:layout_alignBaseline="@id/tv_item_task_time"/>
+
+        <TextView
+            android:id="@+id/tv_item_task_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/task_point"
+            android:layout_alignBaseline="@id/task_point"
+            android:text="共 63 人参与"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_item_task_time"
+            android:background="@color/bottom_unselect" />
+
+    </RelativeLayout>
+
+</LinearLayout>
