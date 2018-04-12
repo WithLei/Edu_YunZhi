@@ -45,6 +45,7 @@
         <activity android:name=".Activity.LoadFragmentActivity"/>
         <activity android:name=".Activity.NoticeActivity"/>
         <activity android:name=".Activity.TaskActivity"/>
+        <activity android:name=".Activity.SearchActivity"/>
     </application>
 
 </manifest>
