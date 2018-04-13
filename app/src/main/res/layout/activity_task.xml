@@ -10,16 +10,15 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp">
 
-        <com.android.renly.edu_yunzhi.UI.CircleImageView
+        <ImageView
             android:id="@+id/task_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
-            android:src="@drawable/back"
-            YunZhi:civ_border_color="@color/white"
-            YunZhi:civ_border_width="1dp" />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/task_title"

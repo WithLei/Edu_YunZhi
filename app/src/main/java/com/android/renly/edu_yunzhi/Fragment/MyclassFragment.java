@@ -1,6 +1,7 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Activity.CourseDetailsActivity;
+import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Bean.Course;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
@@ -54,6 +57,23 @@ public class MyclassFragment extends BaseFragment {
         initCoursedata();
         //初始化列表
         initList();
+        initItemClickListener();
+    }
+
+    private void initItemClickListener() {
+        learningAdapter.setOnItemClickListener(new courseInfoAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+//                Toast.makeText(MyApplication.context,"您点击了"+position+"行",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyApplication.context,CourseDetailsActivity.class);
+                intent.putExtra("title",learningAdapter.learningData.get(position).name);
+                startActivity(intent);
+            }
+            @Override
+            public void onLongClick(int position) {
+//                Toast.makeText(MyApplication.context,"您长按点击了"+position+"行",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -78,7 +98,7 @@ public class MyclassFragment extends BaseFragment {
     public List<Course> learningData;//正在学习的课程
     public List<Course> learntData;//已经学习的课程
     public courseInfoAdapter learningAdapter;
-    public courseInfoAdapter learntAdapter;
+//    public courseInfoAdapter learntAdapter;
 
     //初始化课程列表【暂时写死
     public void initCoursedata() {
@@ -115,11 +135,12 @@ public class MyclassFragment extends BaseFragment {
 
     @OnClick(R.id.tv_myclass_addclass)
     public void onViewClicked() {
-        Toast.makeText(MyApplication.context,"长度为" + learningData.size(),Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MyApplication.context,SearchActivity.class));
     }
 
-    public class courseInfoAdapter extends RecyclerView.Adapter<courseInfoAdapter.ViewHolder> {
-        private List<Course> learningData;//正在学习的课程
+    public static class courseInfoAdapter extends RecyclerView.Adapter<courseInfoAdapter.ViewHolder> {
+        public List<Course> learningData;//正在学习的课程
+        private OnItemClickListener mOnItemClickListener;
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView img;
@@ -155,6 +176,22 @@ public class MyclassFragment extends BaseFragment {
             holder.teacher.setText(course.teacherName);
             String imagePath = course.imgUrl;
             Picasso.with(MyApplication.context).load(imagePath).into(holder.img);
+
+            if( mOnItemClickListener!= null){
+                holder.itemView.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(position);
+                    }
+                });
+                holder.itemView.setOnLongClickListener( new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mOnItemClickListener.onLongClick(position);
+                        return false;
+                    }
+                });
+            }
         }
 
         //返回子项个数
@@ -162,6 +199,16 @@ public class MyclassFragment extends BaseFragment {
         public int getItemCount() {
             return learningData.size();
         }
+
+        public interface OnItemClickListener{
+            void onClick( int position);
+            void onLongClick( int position);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
+            this. mOnItemClickListener=onItemClickListener;
+        }
+
     }
 
     protected static final int WHAT_REQUEST_SUCCESS = 1;

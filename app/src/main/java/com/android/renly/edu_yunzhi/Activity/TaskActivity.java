@@ -36,7 +36,7 @@ import butterknife.OnClick;
 
 public class TaskActivity extends BaseActivity {
     @Bind(R.id.task_img)
-    CircleImageView taskImg;
+    ImageView taskImg;
     @Bind(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
     @Bind(R.id.task_title)

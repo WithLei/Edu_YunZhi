@@ -10,6 +10,11 @@
         <item name="android:statusBarColor">#30000000</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="iv_home_style">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>

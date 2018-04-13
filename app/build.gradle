@@ -45,5 +45,6 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 
 }

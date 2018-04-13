@@ -31,8 +31,6 @@ import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
-import com.android.renly.edu_yunzhi.UI.BatchRadioButton;
-import com.android.renly.edu_yunzhi.UI.CircleImageView;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
@@ -185,6 +183,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         llHomeSixth.setOnClickListener(this);
         llHomeSeventh.setOnClickListener(this);
         llHomeEighth.setOnClickListener(this);
+        ivHomeSearch.setOnClickListener(this);
     }
 
     private void initBanner() {
@@ -258,9 +257,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Toast.makeText(MyApplication.context, "能力档案", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_home_search:
-//                startActivity(new Intent(MyApplication.context,SearchActivity.class));
-                Toast.makeText(MyApplication.context, "搜索页面", Toast.LENGTH_SHORT).show();
-                ((BaseActivity) this.getActivity()).goToActivity(SearchActivity.class, null);
+                startActivity(new Intent(MyApplication.context,SearchActivity.class));
+//                ((BaseActivity) this.getActivity()).goToActivity(SearchActivity.class, null);
                 break;
         }
     }

@@ -19,6 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="25dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:text="取消"
             android:textColor="#333333"
