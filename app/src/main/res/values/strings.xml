@@ -16,4 +16,7 @@
     <string name="login_forget_pwd">忘记密码</string>
     <string name="please_input_limit_pwd">请输入数字或字母</string>
 
+    <string name="coursecontent">由浅到深，老师将会带你进入神奇的Android开发世界。该课程需要有面向对象编程基础和熟悉Java语言，不满足该条件的同学，可先报名老师发布的《Java面向对象编程》课程</string>
+    <string name="suitstudent">有Java编程基础，有面向对象编程经验，不满足该条件的同学，可先报名老师发布的《Java面向对象编程》课程</string>
+    <string name="teacherintro">该讲师曾在阿里巴巴担任资深开发工程师，有8年编程开发经验（使用的编程语言包括python、C、C++、Java、Objeictive-c、Swift等）</string>
 </resources>

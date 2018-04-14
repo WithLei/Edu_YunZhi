@@ -36,6 +36,7 @@
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:layout_width="250dp"
+            android:lineSpacingExtra="5dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_item_title"
             android:text="content"/>

@@ -42,10 +42,10 @@ public class CourseIntroductionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_courseintro, container, false);
 
-        initData();
-        mRecyclerView = v.findViewById(R.id.courseintro_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-        mRecyclerView.setAdapter(new RecyclerAdapter(mRecyclerView.getContext(), mDatas));
+//        initData();
+//        mRecyclerView = v.findViewById(R.id.courseintro_recyclerview);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+//        mRecyclerView.setAdapter(new RecyclerAdapter(mRecyclerView.getContext(), mDatas));
 
         return v;
     }

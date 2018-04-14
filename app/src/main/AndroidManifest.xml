@@ -47,6 +47,7 @@
         <activity android:name=".Activity.TaskActivity"/>
         <activity android:name=".Activity.SearchActivity"/>
         <activity android:name=".Activity.CourseDetailsActivity"/>
+        <activity android:name=".Activity.LiveActivity"/>
     </application>
 
 </manifest>
