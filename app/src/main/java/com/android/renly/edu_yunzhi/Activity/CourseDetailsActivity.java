@@ -24,7 +24,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private CoordinatorTabLayout mCoordinatorTabLayout;
     private int[] mImageArray, mColorArray;
     private ArrayList<Fragment> mFragments;
-    private final String[] mTitles = {"介绍", "目录", "评价", "直播"};
+    private final String[] mTitles = {"介绍", "知识清单", "评价", "直播"};
     private ViewPager mViewPager;
     Intent intent;
 

@@ -47,4 +47,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 
+    implementation 'com.github.liuwei1993:MultiLevelList:v1.0'
+
+    implementation 'com.github.GrenderG:Toasty:1.2.5'
+
+
 }

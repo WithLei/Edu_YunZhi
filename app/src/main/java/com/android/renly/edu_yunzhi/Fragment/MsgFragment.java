@@ -98,7 +98,7 @@ public class MsgFragment extends BaseFragment{
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
-        btn1.setText("热帖");
+        btn1.setText("动态圈");
         btn2.setVisibility(View.GONE);
         btn3.setText("我的消息");
         return rootView;
