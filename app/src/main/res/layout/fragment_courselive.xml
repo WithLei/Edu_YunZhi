@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/ll_live"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,5 +47,13 @@
                 android:text="@string/teacherintro"/>
         </LinearLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/open_btn"
+        android:background="@color/summerGreen"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="进入直播" />
 
 </LinearLayout>
