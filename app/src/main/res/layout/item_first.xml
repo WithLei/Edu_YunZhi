@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/tv_item_first"
         android:layout_centerInParent="true"
+        android:textColor="@color/text_color_pri"
         android:textSize="16sp"
         android:padding="10dp"
         android:layout_width="match_parent"

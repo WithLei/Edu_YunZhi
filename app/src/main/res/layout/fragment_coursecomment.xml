@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:YunZhi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发起评价"
-        android:layout_gravity="center"
-        YunZhi:layout_constraintBottom_toBottomOf="parent"
-        android:onClick="evaluate"
-        YunZhi:layout_constraintLeft_toLeftOf="parent"
-        YunZhi:layout_constraintRight_toRightOf="parent"
-        YunZhi:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:text="课程评价"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <com.xiaweizi.library.EvaluationRatingBar
+                android:id="@+id/evaluate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="10dp"
+                YunZhi:editable="true"
+                YunZhi:height="30dp"
+                YunZhi:intervalWidth="5dp"
+                YunZhi:layout_constraintLeft_toLeftOf="parent"
+                YunZhi:layout_constraintRight_toRightOf="parent"
+                YunZhi:selectedCount="4"
+                YunZhi:starResId="@drawable/selector_rating_bar_default"
+                YunZhi:starTotal="5" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="@color/divider_line" />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/text_color_pri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:text="评论详情"/>
+
+        <include layout="@layout/item_comment" />
+        <include layout="@layout/item_comment1" />
+    </LinearLayout>
+</ScrollView>

@@ -50,6 +50,6 @@ dependencies {
     implementation 'com.github.liuwei1993:MultiLevelList:v1.0'
 
     implementation 'com.github.GrenderG:Toasty:1.2.5'
-
+    implementation project(':library')
 
 }

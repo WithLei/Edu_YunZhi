@@ -1,19 +1,34 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
+import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.loopj.android.http.RequestParams;
+import com.xiaweizi.library.EvaluationCardView;
+import com.xiaweizi.library.EvaluationRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
+
 public class CourseCommentFragment extends BaseFragment {
     private static final String ARG_TITLE = "title";
+    @Bind(R.id.evaluate)
+    EvaluationRatingBar evaluate;
+
     public static CourseCommentFragment getInstance(String title) {
         CourseCommentFragment fra = new CourseCommentFragment();
         Bundle bundle = new Bundle();
@@ -37,13 +52,15 @@ public class CourseCommentFragment extends BaseFragment {
 
     }
 
+    EvaluationCardView cardView;
+
     public void click() {
-        EvaluationCardView cardView = new EvaluationCardView(this);
+        cardView = new EvaluationCardView(this.getActivity());
         List<String> reasonsData = new ArrayList<>();
-        reasonsData.add("回复太慢");
-        reasonsData.add("对业务不了解");
-        reasonsData.add("服务态度差");
-        reasonsData.add("问题没有得到解决");
+        reasonsData.add("上课人数过多");
+        reasonsData.add("老师上课不认真");
+        reasonsData.add("课程难度较大");
+        reasonsData.add("作业量过多");
         cardView.setReasonsData(reasonsData);
         cardView.show();
         cardView.setOnEvaluationCallback(new EvaluationCardView.OnEvaluationCallback() {
@@ -53,18 +70,46 @@ public class CourseCommentFragment extends BaseFragment {
                 for (String reason : reasons) {
                     sb.append("\n").append(reason);
                 }
-                Toasty.success(EvaluationCardViewActivity.this, "评价成功\n" + "星星数量：" + starCount + "\n差评理由：" + sb.toString(), Toast.LENGTH_LONG, true).show();
+                handler.sendEmptyMessage(CARDVIEWDISMISS);
+                Toasty.success(MyApplication.context, "评价成功\n" + "星星数量：" + starCount + "\n差评理由：" + sb.toString(), Toast.LENGTH_LONG, true).show();
             }
         });
     }
 
-    public void evaluate(View view) {
-        click();
-    }
-
-
     @Override
     public int getLayoutid() {
         return R.layout.fragment_coursecomment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    public static final int CARDVIEWDISMISS = 3;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case CARDVIEWDISMISS:
+                    cardView.dismiss();
+                    break;
+            }
+        }
+    };
+
+    @OnClick(R.id.evaluate)
+    public void onViewClicked() {
+        click();
     }
 }

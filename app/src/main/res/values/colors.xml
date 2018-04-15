@@ -54,4 +54,8 @@
     <color name="check_bg">#f2f2f2</color>
     <color name="un_press_color">#9C27B0</color>
 
+    <color name="colorAuthor">#529ECC</color>
+    <color name="bg_primary">#ffffffff</color>
+
+
 </resources>
