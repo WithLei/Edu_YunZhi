@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
@@ -26,11 +27,16 @@ import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
+import com.android.renly.edu_yunzhi.UI.CircleImageView;
 import com.android.renly.edu_yunzhi.Utils.BitmapUtils;
 import com.android.renly.edu_yunzhi.Utils.UIUtils;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
@@ -41,7 +47,7 @@ import butterknife.OnClick;
 public class MineFragment extends BaseFragment {
 
     @Bind(R.id.iv_mine_icon)
-    ImageView ivMineIcon;
+    CircleImageView ivMineIcon;
     @Bind(R.id.rl_mine_icon)
     RelativeLayout rlMineIcon;
     @Bind(R.id.tv_mine_name)
@@ -81,13 +87,34 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
+    }
+
+    public static class MessageEvent{
+        public final String message;
+
+        public MessageEvent(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+    };
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+        tvMineName.setText("懒羊羊");
+        tvMineLogout.setVisibility(View.VISIBLE);
     }
 
     private void isLogin() {
         //查看本地是否有用户的登录信息
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String name = sp.getString("name", "");
+        String name = sp.getString("username", "");
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
             doLogin();
@@ -95,22 +122,8 @@ public class MineFragment extends BaseFragment {
         } else {
             //已经登录过，则直接加载用户的信息并显示
             tvMineLogout.setVisibility(View.VISIBLE);
-            doUser();
-        }
-
-    }
-
-    private boolean userisLogin() {
-        //查看本地是否有用户的登录信息
-        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String name = sp.getString("name", "");
-        if (TextUtils.isEmpty(name)) {
-            //本地没有保存过用户信息，给出提示：登录
-            return false;
-
-        } else {
-            //已经登录过，则直接加载用户的信息并显示
-            return true;
+            ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+            tvMineName.setText("懒羊羊");
         }
 
     }
@@ -154,7 +167,7 @@ public class MineFragment extends BaseFragment {
     private void doLogin() {
         new AlertDialog.Builder(this.getActivity())
                 .setTitle("提示")
-                .setMessage("您还没有登录哦！么么~")
+                .setMessage("您还没有登录哦！亲(^_−)−☆")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -162,23 +175,27 @@ public class MineFragment extends BaseFragment {
                         LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
                     }
                 })
-                .setCancelable(false)
+                .setCancelable(true)
                 .show();
     }
 
     @OnClick(R.id.iv_mine_icon)
     public void setting(View view) {
         //启动用户信息界面的Activity
-        if (userisLogin())
-            ((BaseActivity) this.getActivity()).goToActivity(UserInfoActivity.class, null);
-        else
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String name = sp.getString("username", "");
+        if (TextUtils.isEmpty(name)){
+            Toast.makeText(MyApplication.context,"打开登录页面",Toast.LENGTH_SHORT).show();
             LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+        }
+        else
+            ((BaseActivity) this.getActivity()).goToActivity(UserInfoActivity.class, null);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("TAG", "onResume()");
+        Log.e("TAG", "mine.onResume()");
 
         //读取本地保存的图片
         readImage();
@@ -210,6 +227,7 @@ public class MineFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -229,6 +247,11 @@ public class MineFragment extends BaseFragment {
             case R.id.tv_mine_grade://成绩查询
                 break;
             case R.id.tv_mine_logout://退出登录
+                SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPre.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(MyApplication.context,"已删除",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

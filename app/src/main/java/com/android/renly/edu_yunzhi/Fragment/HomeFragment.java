@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
+import com.android.renly.edu_yunzhi.UI.CircleImageView;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
@@ -38,6 +40,10 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,11 +109,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     com.android.renly.edu_yunzhi.UI.CircleImageView CircleImageView;
     @Bind(R.id.iv_home_search)
     ImageView ivHomeSearch;
+    @Bind(R.id.civ_scool)
+    com.android.renly.edu_yunzhi.UI.CircleImageView civScool;
+    @Bind(R.id.rl_home_school)
+    RelativeLayout rlHomeSchool;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
+        EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -142,9 +153,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData(String content) {
+        isLogin();
         initNewsdata();
         initOnclickEvent();
-        //登录判断
+//        登录判断
 //        isLogin();
         //初始化List
         initList();
@@ -184,6 +196,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         llHomeSeventh.setOnClickListener(this);
         llHomeEighth.setOnClickListener(this);
         ivHomeSearch.setOnClickListener(this);
+        CircleImageView.setOnClickListener(this);
     }
 
     private void initBanner() {
@@ -225,12 +238,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MineFragment.MessageEvent messageEvent) {
+        CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+        rlHomeSchool.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onClick(View v) {
         MainActivity mainActivity = (MainActivity) getActivity();
+        isLogin();
         switch (v.getId()) {
             case R.id.ll_home_first:
                 mainActivity.gotoLearningFragment();
@@ -257,8 +278,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Toast.makeText(MyApplication.context, "能力档案", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_home_search:
-                startActivity(new Intent(MyApplication.context,SearchActivity.class));
+                startActivity(new Intent(MyApplication.context, SearchActivity.class));
 //                ((BaseActivity) this.getActivity()).goToActivity(SearchActivity.class, null);
+                break;
+            case R.id.CircleImageView:
+//                isLogin();
                 break;
         }
     }
@@ -280,8 +304,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         for (int i = 0; i < 10; i++) {
             //1.
             News firstAd = new News();
-            firstAd.title = "点赞！我校新增1个博士学位授权一级学科";
-            firstAd.content = "目前，《国务院学位委员会关于下达2017年审核增列的博士、硕士学位...";
+            firstAd.title = "区块链 技术峰会";
+            firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
             firstAd.replyCount = 233;
             firstAd.username = "微社区";
             firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
@@ -290,7 +314,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             //2.
             News secondAd = new News();
             secondAd.title = "一起来看看色彩与树洞的故事";
-            secondAd.content = "由福建师范大学学生社团联合会主办、观鸟协会联合美术学院承办的...";
+            secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
             secondAd.replyCount = 568;
             secondAd.username = "资讯";
             secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
@@ -301,7 +325,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             thirdAd.title = "水情教育进校园，传递节水正能量";
             thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
             thirdAd.replyCount = 1024;
-            thirdAd.username = "浙江理工大学";
+            thirdAd.username = "家里蹲大学";
             thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
             thirdAd.time = 10;
 
@@ -370,27 +394,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void isLogin() {
         //查看本地是否有用户的登录信息
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String name = sp.getString("name", "");
+        String name = sp.getString("username", "");
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
             doLogin();
+        }
+        else{
+            CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+            rlHomeSchool.setVisibility(View.VISIBLE);
         }
     }
 
     //给出提示：登录
     private void doLogin() {
-        Toast.makeText(MyApplication.context, "未登录", Toast.LENGTH_SHORT).show();
-        new AlertDialog.Builder(this.getActivity())
-                .setTitle("提示")
-                .setMessage("您还没有登录哦！么么~")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                            UIUtils.toast("进入登录页面",false);
-                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
-                    }
-                })
-                .setCancelable(false)
-                .show();
+        Toast.makeText(MyApplication.context, "您还没有登录", Toast.LENGTH_SHORT).show();
+//        new AlertDialog.Builder(this.getActivity())
+//                .setTitle("提示")
+//                .setMessage("您还没有登录哦！亲(^_−)−☆")
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+////                            UIUtils.toast("进入登录页面",false);
+//                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+//                    }
+//                })
+//                .setCancelable(false)
+//                .show();
     }
 }

@@ -55,6 +55,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name="com.example.answer.AnalogyExaminationActivity"/>
+        <activity android:name="com.example.answer.MyErrorQuestionActivity"/>
+        <activity android:name="com.example.answer.MyErrorQuestionDetailActivity"/>
     </application>
 
 </manifest>

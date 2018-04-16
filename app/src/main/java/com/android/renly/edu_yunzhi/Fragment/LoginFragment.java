@@ -2,6 +2,8 @@ package com.android.renly.edu_yunzhi.Fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,9 +26,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi.Utils.KeyboardWatcher;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -60,7 +65,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         View view = inflater.inflate(R.layout.activity_login, container, false);
         initView(view);
         initListener();
-
         keyboardWatcher = new KeyboardWatcher(getActivity().findViewById(Window.ID_ANDROID_CONTENT));
         keyboardWatcher.addSoftKeyboardStateListener(this);
         return view;
@@ -74,6 +78,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         clean_password = view.findViewById(R.id.clean_password);
         iv_show_pwd = view.findViewById(R.id.iv_show_pwd);
         btn_login = view.findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(this);
         forget_password = view.findViewById(R.id.forget_password);
         rb_stu = view.findViewById(R.id.rb_login_stu);
         rb_teacher = view.findViewById(R.id.rb_login_teacher);
@@ -232,21 +237,37 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                 if (!TextUtils.isEmpty(pwd))
                     et_password.setSelection(pwd.length());
                 break;
+            case R.id.btn_login:
+                Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
+                String password = et_password.getText().toString();
+                String username = et_mobile.getText().toString();
+                // 获取SharedPreferences对象
+                SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                // 获取Editor对象
+                SharedPreferences.Editor editor = sharedPre.edit();
+                // 设置参数
+                editor.putString("username", username);
+                editor.putString("password", password);
+                // 提交
+                editor.commit();
+
+                //发送事件
+                EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
+
+                getActivity().finish();
+                break;
         }
     }
 
 
+
     @Override
     public void onSoftKeyboardOpened(int keyboardSize) {
-        Log.e("wenzhihao", "----->show" + keyboardSize);
         int[] location = new int[2];
         body.getLocationOnScreen(location); //获取body在屏幕中的坐标,控件左上角
         int x = location[0];
         int y = location[1];
-        Log.e("wenzhihao", "y = " + y + ",x=" + x);
         int bottom = screenHeight - (y + body.getHeight());
-        Log.e("wenzhihao", "bottom = " + bottom);
-        Log.e("wenzhihao", "con-h = " + body.getHeight());
         if (keyboardSize > bottom) {
             ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(body, "translationY", 0.0f, -(keyboardSize - bottom));
             mAnimatorTranslateY.setDuration(300);
@@ -259,13 +280,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
 
     @Override
     public void onSoftKeyboardClosed() {
-        Log.e("wenzhihao", "----->hide");
         ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(body, "translationY", body.getTranslationY(), 0);
         mAnimatorTranslateY.setDuration(300);
         mAnimatorTranslateY.setInterpolator(new AccelerateDecelerateInterpolator());
         mAnimatorTranslateY.start();
         zoomOut(logo);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

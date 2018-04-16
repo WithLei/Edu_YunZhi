@@ -1,11 +1,16 @@
 package com.android.renly.edu_yunzhi;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,14 +19,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Common.AppManager;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
+import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.Fragment.HomeFragment;
 import com.android.renly.edu_yunzhi.Fragment.LearningFragment;
+import com.android.renly.edu_yunzhi.Fragment.LoginFragment;
 import com.android.renly.edu_yunzhi.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi.Fragment.MsgFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
@@ -55,6 +68,11 @@ public class MainActivity extends BaseActivity {
     private FragmentTransaction transaction;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void initData() {
         //将当前的Activity添加到栈管理中
         AppManager.getInstance().addActivity(this);
@@ -71,20 +89,25 @@ public class MainActivity extends BaseActivity {
     @OnClick({R.id.ll_main_bottom_mainpage, R.id.ll_main_bottom_learning, R.id.ll_main_bottom_msg, R.id.ll_main_bottom_mine})
     public void showTab(View view) {
 //        Toast.makeText(MainActivity.this,"响应",Toast.LENGTH_SHORT).show();
-        switch (view.getId()) {
-            case R.id.ll_main_bottom_mainpage:
-                setSelect(0);
-                break;
-            case R.id.ll_main_bottom_learning:
-                setSelect(1);
-                break;
-            case R.id.ll_main_bottom_msg:
-                setSelect(2);
-                break;
-            case R.id.ll_main_bottom_mine:
-                setSelect(3);
-                break;
-        }
+        SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String name = sp.getString("username", "");
+        if(!TextUtils.isEmpty(name)){
+            switch (view.getId()) {
+                case R.id.ll_main_bottom_mainpage:
+                    setSelect(0);
+                    break;
+                case R.id.ll_main_bottom_learning:
+                    setSelect(1);
+                    break;
+                case R.id.ll_main_bottom_msg:
+                    setSelect(2);
+                    break;
+                case R.id.ll_main_bottom_mine:
+                    setSelect(3);
+                    break;
+            }
+        }else
+            doLogin();
     }
 
     private HomeFragment homeFragment;
@@ -190,6 +213,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
         //移除所有的未被执行的消息
         handler.removeCallbacksAndMessages(null);
     }
@@ -209,6 +233,33 @@ public class MainActivity extends BaseActivity {
 
     public void gotoLearningFragment(){
         setSelect(1);
+    }
+
+    private void isLogin() {
+        //查看本地是否有用户的登录信息
+        SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String name = sp.getString("username", "");
+        if (TextUtils.isEmpty(name)) {
+            //本地没有保存过用户信息，给出提示：登录
+            doLogin();
+        }
+    }
+
+    //给出提示：登录
+    private void doLogin() {
+        Toast.makeText(MyApplication.context, "未登录", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("您还没有登录哦！亲(^_−)−☆")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                            UIUtils.toast("进入登录页面",false);
+                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+                    }
+                })
+                .setCancelable(true)
+                .show();
     }
 
     //当出现未捕获的异常时，能够给用户一个相对友好的提示

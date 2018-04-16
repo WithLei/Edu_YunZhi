@@ -1,6 +1,7 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,7 @@ import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.android.renly.edu_yunzhi.Utils.UIUtils;
+import com.example.answer.AnalogyExaminationActivity;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +51,23 @@ public class MyworkFragment extends BaseFragment {
     protected void initData(String content) {
         initHomeworkdata();
         initList();
+        initItemClickListener();
+    }
+
+    private void initItemClickListener() {
+        homeworkAdapter.setOnItemClickListener(new homeworkInfoAdapter.OnItemClickListener(){
+
+            @Override
+            public void onClick(int position) {
+                Intent intent=new Intent(getActivity(),AnalogyExaminationActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(int position) {
+
+            }
+        });
     }
 
     @Override
@@ -73,9 +92,9 @@ public class MyworkFragment extends BaseFragment {
             //1.
             Homework firstHomework = new Homework();
             firstHomework.name = "命题的等值演算、范式与应用";
-            firstHomework.workTime = "2小时30分钟";
+            firstHomework.workTime = "5分钟";
             firstHomework.publishTime = "2018.04.11 20:10";
-            firstHomework.teacherName = "翁凯";
+            firstHomework.teacherName = "潘老师";
             firstHomework.situation = "待完成";
 
             //2.
@@ -83,7 +102,7 @@ public class MyworkFragment extends BaseFragment {
             secondHomework.name = "推理理论、一阶逻辑的基本概念";
             secondHomework.workTime = "1小时40分钟";
             secondHomework.publishTime = "2018.03.28 12:25";
-            secondHomework.teacherName = "孙麒";
+            secondHomework.teacherName = "陈老师";
             secondHomework.situation = "待批";
 
             //3.
@@ -92,7 +111,7 @@ public class MyworkFragment extends BaseFragment {
             thirdHomework.workTime = "30分钟";
             thirdHomework.publishTime = "2018.03.18 8:10";
             thirdHomework.situation = "90分";
-            thirdHomework.teacherName = "云智教育";
+            thirdHomework.teacherName = "周老师";
 
             homeworkList.add(firstHomework);
             homeworkList.add(secondHomework);
@@ -100,8 +119,9 @@ public class MyworkFragment extends BaseFragment {
         }
     }
 
-    public class homeworkInfoAdapter extends RecyclerView.Adapter<homeworkInfoAdapter.ViewHolder> {
+    public static class homeworkInfoAdapter extends RecyclerView.Adapter<homeworkInfoAdapter.ViewHolder> {
         private List<Homework> homeworkList;//作业列表
+        private OnItemClickListener mOnItemClickListener;
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView title;
@@ -157,12 +177,37 @@ public class MyworkFragment extends BaseFragment {
                 default:
                     holder.situantion.setTextColor(UIUtils.getColor(R.color.color_c61a04));
             }
+
+            if( mOnItemClickListener!= null){
+                holder.itemView.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(position);
+                    }
+                });
+                holder.itemView.setOnLongClickListener( new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mOnItemClickListener.onLongClick(position);
+                        return false;
+                    }
+                });
+            }
         }
 
         //返回子项个数
         @Override
         public int getItemCount() {
             return homeworkList.size();
+        }
+
+        public interface OnItemClickListener{
+            void onClick( int position);
+            void onLongClick( int position);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
+            this. mOnItemClickListener=onItemClickListener;
         }
     }
 

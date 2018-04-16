@@ -11,7 +11,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:text="请对本次服务进行评分"
+        android:text="请对本堂课程进行评分"
         android:textColor="#253750"
         android:textSize="16sp"
         android:textStyle="bold"

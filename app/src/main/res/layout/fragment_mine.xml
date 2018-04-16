@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:YunZhi="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -35,12 +36,14 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/my_user_bg_icon" />
 
-                    <ImageView
+                    <com.android.renly.edu_yunzhi.UI.CircleImageView
                         android:id="@+id/iv_mine_icon"
+                        android:scaleType="centerCrop"
                         android:layout_width="62dp"
                         android:layout_height="62dp"
                         android:layout_centerInParent="true"
-                        android:scaleType="fitXY"
+                        YunZhi:civ_border_color="@color/white"
+                        YunZhi:civ_border_width="1dp"
                         android:src="@drawable/my_user_default" />
                 </RelativeLayout>
 
@@ -80,7 +83,6 @@
                 android:text="成绩查询" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
@@ -89,6 +91,7 @@
                 android:layout_marginRight="70dp"
                 >
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_mine_logout"
                     style="@style/LogoutStyle"
                     android:text="退出登录" />

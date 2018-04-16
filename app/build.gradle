@@ -38,20 +38,16 @@ dependencies {
     implementation files('libs/android-async-http-master.jar')
     implementation files('libs/fastjson-1.2.4.jar')
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     implementation 'com.nineoldandroids:library:2.4.0'
-
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
-
     implementation 'com.github.liuwei1993:MultiLevelList:v1.0'
-
     implementation 'com.github.GrenderG:Toasty:1.2.5'
     implementation project(':library')
-
     implementation 'com.shuyu:GSYVideoPlayer:4.1.2'
-
+    implementation project(':answer')
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }

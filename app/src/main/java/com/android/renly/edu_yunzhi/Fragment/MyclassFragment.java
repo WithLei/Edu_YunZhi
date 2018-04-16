@@ -109,19 +109,19 @@ public class MyclassFragment extends BaseFragment {
             Course firstCourse = new Course();
             firstCourse.name = "Python免费公开课：零基础入门课程";
             firstCourse.imgUrl = "http://edu-image.nosdn.127.net/73b5696e-4dfa-4eeb-8525-4a65f05c3b05.jpg?imageView&quality=100";
-            firstCourse.teacherName = "翁凯";
+            firstCourse.teacherName = "陈老师";
 
             //2.
             Course secondCourse = new Course();
             secondCourse.name = "Android开发基础教程";
             secondCourse.imgUrl = "http://edu-image.nosdn.127.net/F230B3E8A64D765AC0F35C4173AECA03.jpg?imageView&thumbnail=223y124&quality=100";
-            secondCourse.teacherName = "孙麒";
+            secondCourse.teacherName = "王老师";
 
             //3.
             Course thirdCourse = new Course();
             thirdCourse.name = "Spark大数据技术";
             thirdCourse.imgUrl = "http://edu-image.nosdn.127.net/0731fab7-4070-4c1d-ba6a-2291a42f32cd.jpg?imageView&quality=100";
-            thirdCourse.teacherName = "云智教育";
+            thirdCourse.teacherName = "李老师";
 
             learningData.add(firstCourse);
             learningData.add(secondCourse);
