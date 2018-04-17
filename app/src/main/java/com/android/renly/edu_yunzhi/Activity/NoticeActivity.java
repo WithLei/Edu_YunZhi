@@ -56,19 +56,19 @@ public class NoticeActivity extends BaseActivity {
             Notice firstNotice = new Notice();
             firstNotice.title = "【开课啦】本学期课程通知";
             firstNotice.time = "2018 - 03 - 01 09:59";
-            firstNotice.teacherName = "翁凯";
+            firstNotice.teacherName = "陈老师";
 
             //2.
             Notice secondNotice = new Notice();
             secondNotice.title = "【停课】本周数据库课程停课通知";
             secondNotice.time = "2018 - 02 - 29 14:32";
-            secondNotice.teacherName = "孙麒";
+            secondNotice.teacherName = "潘老师";
 
             //3.
             Notice thirdNotice = new Notice();
             thirdNotice.title = "【更换教室】本周实验课更换教室通知";
             thirdNotice.time = "2018 - 02 - 12 12:34";
-            thirdNotice.teacherName = "云智教育";
+            thirdNotice.teacherName = "周老师";
 
             noticeList.add(firstNotice);
             noticeList.add(secondNotice);

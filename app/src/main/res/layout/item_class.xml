@@ -39,12 +39,20 @@
             android:src="@drawable/backgroundstudy"/>
 
         <TextView
+            android:id="@+id/tv_item_class_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_item_class_img"
+            android:layout_alignStart="@id/tv_item_class_title"
+            android:text="课程教师："/>
+
+        <TextView
             android:id="@+id/tv_item_class_teacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_item_class_img"
-            android:layout_alignStart="@+id/tv_item_class_title"
-            android:text="孙麒"
+            android:layout_alignBottom="@id/iv_item_class_img"
+            android:layout_toRightOf="@id/tv_item_class_t"
+            android:text="潘老师"
             android:textColor="@color/home_back_selected"/>
 
     </RelativeLayout>

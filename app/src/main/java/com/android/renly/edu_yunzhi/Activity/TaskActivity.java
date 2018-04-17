@@ -155,7 +155,7 @@ public class TaskActivity extends BaseActivity {
             Task firstTask = new Task();
             firstTask.title = "测试 - 答疑讨论";
             firstTask.startTime = "2018 - 04 - 10";
-            firstTask.teacherName = "翁凯";
+            firstTask.teacherName = "陈老师";
             firstTask.joinNum = 33;
             firstTask.process = "进行中";
             firstTask.type = "答疑讨论";
@@ -164,7 +164,7 @@ public class TaskActivity extends BaseActivity {
             Task secondTask = new Task();
             secondTask.title = "测试 - 课外活动";
             secondTask.startTime = "2018 - 04 - 07";
-            secondTask.teacherName = "孙麒";
+            secondTask.teacherName = "王老师";
             secondTask.joinNum = 65;
             secondTask.process = "进行中";
             secondTask.type = "课外活动";
@@ -173,7 +173,7 @@ public class TaskActivity extends BaseActivity {
             Task thirdTask = new Task();
             thirdTask.title = "测试 - 实验设计";
             thirdTask.startTime = "2018 - 04 - 05";
-            thirdTask.teacherName = "云智教育";
+            thirdTask.teacherName = "潘老师";
             thirdTask.joinNum = 18;
             thirdTask.process = "已结束";
             thirdTask.type = "实验设计";

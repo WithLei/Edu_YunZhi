@@ -22,8 +22,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.renly.edu_yunzhi.Activity.AbilityActivity;
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
+import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
@@ -263,7 +265,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 mainActivity.gotoLearningFragment();
                 break;
             case R.id.ll_home_fourth:
-                Toast.makeText(MyApplication.context, "各类活动", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MyApplication.context, PKActivity.class));
+//                Toast.makeText(MyApplication.context, "知识对抗", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll_home_fifth:
                 Toast.makeText(MyApplication.context, "成绩查询", Toast.LENGTH_SHORT).show();
@@ -275,7 +278,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((BaseActivity) this.getActivity()).goToActivity(TaskActivity.class, null);
                 break;
             case R.id.ll_home_eighth:
-                Toast.makeText(MyApplication.context, "能力档案", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MyApplication.context, AbilityActivity.class));
+//                Toast.makeText(MyApplication.context, "能力档案", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_home_search:
                 startActivity(new Intent(MyApplication.context, SearchActivity.class));
@@ -301,7 +305,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     //广告【暂时写死
     public void initNewsdata() {
         data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             //1.
             News firstAd = new News();
             firstAd.title = "区块链 技术峰会";

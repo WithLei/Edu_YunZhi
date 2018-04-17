@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tv_item_task_teacher"
             android:layout_toEndOf="@+id/tv_item_task_teacher"
-            android:text="孙麒" />
+            android:text="潘老师" />
 
         <TextView
             android:id="@+id/tv_item_task_time"
