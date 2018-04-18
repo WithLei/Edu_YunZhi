@@ -35,7 +35,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:drawableLeft="@drawable/live"
-                    android:text="  讲师正在直播"/>
+                    android:text="  课程学习"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_courseintro_teacherintro"
@@ -54,6 +54,6 @@
         android:layout_gravity="center"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:text="进入直播" />
+        android:text="进入课程学习" />
 
 </LinearLayout>
