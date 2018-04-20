@@ -7,6 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:id="@+id/toolbar"
         android:background="?attr/colorPrimary"
         android:elevation="4dp">
 
@@ -55,6 +56,12 @@
                 android:textColor="@color/text_primary_white"
                 android:textSize="13sp" />
         </RadioGroup>
+        <Button
+            android:id="@+id/btn_test"
+            android:background="@drawable/add"
+            android:layout_gravity="right"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
     </FrameLayout>
 
