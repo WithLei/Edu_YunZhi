@@ -6,10 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +52,6 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
     RadioButton btn3;
     @Bind(R.id.btn_change)
     RadioGroup btnChange;
-    @Bind(R.id.btn_test)
-    Button btnTest;
 
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
@@ -59,13 +60,42 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getActivity().getSupportFragmentManager();
-        btnTest.setOnClickListener(new View.OnClickListener() {
+        initToolbar();
+        initMenuFragment();
+        addFragment(new MyMsgFragment(), true, R.id.container);
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar = findViewById(R.id.tb_test);
+        TextView mToolBarTextView = findViewById(R.id.text_view_toolbar_title);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        mToolbar.setNavigationIcon(R.drawable.btn_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onBackPressed();
             }
         });
-        initMenuFragment();
+        mToolBarTextView.setText("Samantha");
+    }
+
+    protected void addFragment(Fragment fragment, boolean addToBackStack, int containerId) {
+        getActivity().invalidateOptionsMenu();
+        String backStackName = fragment.getClass().getName();
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
+        if (!fragmentPopped) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(containerId, fragment, backStackName)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            if (addToBackStack)
+                transaction.addToBackStack(backStackName);
+            transaction.commit();
+        }
     }
 
 
@@ -129,9 +159,16 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_test, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.btn_test:
+            case R.id.context_menu:
                 if (fragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
                     mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG);
                 }
@@ -167,7 +204,7 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
 
     @Override
     protected void initData(String content) {
-        setSelect(0);
+//        setSelect(0);
     }
 
     @Override
@@ -175,39 +212,39 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
         return R.layout.fragment_msg;
     }
 
-    private void setSelect(int select) {
-        FragmentManager fragmentManager = this.getFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-        //隐藏所有fragment
-        hideFragments();
-        switch (select) {
-            case 0:
-                if (hotNewsFragment == null) {
-                    hotNewsFragment = new HotNewsFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_msg, hotNewsFragment);
-                }
-                transaction.show(hotNewsFragment);//显示当前的Fragment
-                break;
-            case 1:
-                if (myMsgFragment == null) {
-                    myMsgFragment = new MyMsgFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_msg, myMsgFragment);
-                }
-                transaction.show(myMsgFragment);//显示当前的Fragment
-                break;
-        }
-        //提交事务
-        transaction.commit();
-    }
-
-    private void hideFragments() {
-        if (hotNewsFragment != null) {
-            transaction.hide(hotNewsFragment);
-        }
-        if (myMsgFragment != null) {
-            transaction.hide(myMsgFragment);
-        }
-    }
+//    private void setSelect(int select) {
+//        FragmentManager fragmentManager = this.getFragmentManager();
+//        transaction = fragmentManager.beginTransaction();
+//        //隐藏所有fragment
+//        hideFragments();
+//        switch (select) {
+//            case 0:
+//                if (hotNewsFragment == null) {
+//                    hotNewsFragment = new HotNewsFragment();//commit()后调用生命周期方法
+//                    transaction.add(R.id.fl_msg, hotNewsFragment);
+//                }
+//                transaction.show(hotNewsFragment);//显示当前的Fragment
+//                break;
+//            case 1:
+//                if (myMsgFragment == null) {
+//                    myMsgFragment = new MyMsgFragment();//commit()后调用生命周期方法
+//                    transaction.add(R.id.fl_msg, myMsgFragment);
+//                }
+//                transaction.show(myMsgFragment);//显示当前的Fragment
+//                break;
+//        }
+//        //提交事务
+//        transaction.commit();
+//    }
+//
+//    private void hideFragments() {
+//        if (hotNewsFragment != null) {
+//            transaction.hide(hotNewsFragment);
+//        }
+//        if (myMsgFragment != null) {
+//            transaction.hide(myMsgFragment);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -226,15 +263,15 @@ public class MsgFragment extends BaseFragment  implements OnMenuItemClickListene
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.btn_1, R.id.btn_3,R.id.btn_test})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_1:
-                setSelect(0);
-                break;
-            case R.id.btn_3:
-                setSelect(1);
-                break;
-        }
+//    @OnClick({R.id.btn_1, R.id.btn_3})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.btn_1:
+//                setSelect(0);
+//                break;
+//            case R.id.btn_3:
+//                setSelect(1);
+//                break;
+//        }
     }
 }
