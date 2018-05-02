@@ -3,6 +3,7 @@ package com.android.renly.edu_yunzhi.Fragment;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Common.MyApplication;
+import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi.Utils.KeyboardWatcher;
@@ -238,7 +240,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                     et_password.setSelection(pwd.length());
                 break;
             case R.id.btn_login:
-                Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
                 String password = et_password.getText().toString();
                 String username = et_mobile.getText().toString();
                 // 获取SharedPreferences对象
@@ -251,10 +252,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                 // 提交
                 editor.commit();
 
-                //发送事件
-                EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
+                Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
 
-                getActivity().finish();
+                if(rb_stu.isChecked()){//学生登录
+                    //发送事件
+                    EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
+                    getActivity().finish();
+                }
+                else{
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
                 break;
         }
     }

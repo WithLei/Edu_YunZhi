@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.renly.edu_yunzhi.UI.SlideLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <include android:id="@+id/item_content" layout="@layout/item_notice"></include>
+    <include android:id="@+id/item_menu" layout="@layout/item_notice_menu"></include>
+
+</com.android.renly.edu_yunzhi.UI.SlideLayout>

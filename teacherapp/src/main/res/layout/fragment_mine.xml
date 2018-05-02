@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.android.renly.edu_yunzhi.UI.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_mine"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="?attr/colorPrimary"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/rl_mine_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/my_user_bg_icon" />
+
+                    <ImageView
+                        android:id="@+id/iv_mine_icon"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/my_user_default" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_mine_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_mine_icon"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="您好，请登录"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#DDDDDD" />
+            <!--充分使用textview属性代替LinearLayout布局-->
+            <TextView
+                android:id="@+id/tv_mine_class"
+                style="@style/LoginStyle"
+                android:drawableLeft="@drawable/classmanage"
+                android:text="课程管理" />
+
+            <TextView
+                android:id="@+id/tv_mine_task"
+                style="@style/LoginStyle"
+                android:drawableLeft="@drawable/shixunrenwu"
+                android:text="实训任务" />
+
+            <TextView
+                android:id="@+id/tv_mine_grade"
+                style="@style/LoginStyle"
+                android:drawableLeft="@drawable/gradesource"
+                android:text="成绩查询" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="150dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                >
+                <TextView
+                    android:id="@+id/tv_mine_logout"
+                    style="@style/LogoutStyle"
+                    android:text="退出登录" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.android.renly.edu_yunzhi.UI.MyScrollView>
+
+</LinearLayout>

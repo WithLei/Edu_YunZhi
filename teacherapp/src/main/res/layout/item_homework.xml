@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bottom_unselect" />
+
+        <TextView
+            android:id="@+id/tv_item_homework_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="课堂测试-命题概念与符号化"
+            android:textColor="@color/text_color_pri"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_item_homework_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_homework_title"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:text="发布者 ： " />
+
+        <TextView
+            android:id="@+id/tv_item_homework_teachername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_item_homework_teacher"
+            android:layout_toEndOf="@+id/tv_item_homework_teacher"
+            android:text="孙麒" />
+
+        <TextView
+            android:id="@+id/tv_item_homework_worktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_homework_teacher"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/worktime"
+            android:gravity="center"
+            android:text="  2小时30分钟" />
+
+        <TextView
+            android:id="@+id/tv_item_homework_publishtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_homework_worktime"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/taskmanagement"
+            android:gravity="center"
+            android:text="  2018.04.11 20:10" />
+
+        <TextView
+            android:id="@+id/tv_item_homework_situation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_item_homework_publishtime"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:text="待完成"
+            android:textColor="@color/home_back_selected"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
