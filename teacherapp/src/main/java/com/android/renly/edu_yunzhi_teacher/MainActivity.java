@@ -21,36 +21,36 @@ import com.android.renly.edu_yunzhi_teacher.Fragment.LearningFragment;
 import com.android.renly.edu_yunzhi_teacher.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi_teacher.Fragment.MsgFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.iv_main_bottom_mainpage)
+    @BindView(R2.id.iv_main_bottom_mainpage)
     ImageView ivMainBottomMainpage;
-    @Bind(R.id.tv_main_bottom_mainpage)
+    @BindView(R2.id.tv_main_bottom_mainpage)
     TextView tvMainBottomMainpage;
-    @Bind(R.id.fl_main)
+    @BindView(R2.id.fl_main)
     FrameLayout flMain;
-    @Bind(R.id.ll_main_bottom_mainpage)
+    @BindView(R2.id.ll_main_bottom_mainpage)
     LinearLayout llMainBottomMainpage;
-    @Bind(R.id.iv_main_bottom_learning)
+    @BindView(R2.id.iv_main_bottom_learning)
     ImageView ivMainBottomLearning;
-    @Bind(R.id.tv_main_bottom_learning)
+    @BindView(R2.id.tv_main_bottom_learning)
     TextView tvMainBottomLearning;
-    @Bind(R.id.ll_main_bottom_learning)
+    @BindView(R2.id.ll_main_bottom_learning)
     LinearLayout llMainBottomLearning;
-    @Bind(R.id.iv_main_bottom_msg)
+    @BindView(R2.id.iv_main_bottom_msg)
     ImageView ivMainBottomMsg;
-    @Bind(R.id.tv_main_bottom_msg)
+    @BindView(R2.id.tv_main_bottom_msg)
     TextView tvMainBottomMsg;
-    @Bind(R.id.ll_main_bottom_msg)
+    @BindView(R2.id.ll_main_bottom_msg)
     LinearLayout llMainBottomMsg;
-    @Bind(R.id.iv_main_bottom_mine)
+    @BindView(R2.id.iv_main_bottom_mine)
     ImageView ivMainBottomMine;
-    @Bind(R.id.tv_main_bottom_mine)
+    @BindView(R2.id.tv_main_bottom_mine)
     TextView tvMainBottomMine;
-    @Bind(R.id.ll_main_bottom_mine)
+    @BindView(R2.id.ll_main_bottom_mine)
     LinearLayout llMainBottomMine;
     private FragmentTransaction transaction;
 
@@ -68,20 +68,20 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.ll_main_bottom_mainpage, R.id.ll_main_bottom_learning, R.id.ll_main_bottom_msg, R.id.ll_main_bottom_mine})
+    @OnClick({R2.id.ll_main_bottom_mainpage, R2.id.ll_main_bottom_learning, R2.id.ll_main_bottom_msg, R2.id.ll_main_bottom_mine})
     public void showTab(View view) {
 //        Toast.makeText(MainActivity.this,"响应",Toast.LENGTH_SHORT).show();
         switch (view.getId()) {
-            case R.id.ll_main_bottom_mainpage:
+            case R2.id.ll_main_bottom_mainpage:
                 setSelect(0);
                 break;
-            case R.id.ll_main_bottom_learning:
+            case R2.id.ll_main_bottom_learning:
                 setSelect(1);
                 break;
-            case R.id.ll_main_bottom_msg:
+            case R2.id.ll_main_bottom_msg:
                 setSelect(2);
                 break;
-            case R.id.ll_main_bottom_mine:
+            case R2.id.ll_main_bottom_mine:
                 setSelect(3);
                 break;
         }
@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
             case 0:
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_main, homeFragment);
+                    transaction.add(R2.id.fl_main, homeFragment);
                 }
                 transaction.show(homeFragment);//显示当前的Fragment
 
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity {
             case 1:
                 if (learningFragment == null) {
                     learningFragment = new LearningFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_main, learningFragment);
+                    transaction.add(R2.id.fl_main, learningFragment);
                 }
                 transaction.show(learningFragment);//显示当前的Fragment
 
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
             case 2:
                 if (msgFragment == null) {
                     msgFragment = new MsgFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_main, msgFragment);
+                    transaction.add(R2.id.fl_main, msgFragment);
                 }
                 transaction.show(msgFragment);//显示当前的Fragment
 
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity {
             case 3:
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_main, mineFragment);
+                    transaction.add(R2.id.fl_main, mineFragment);
                 }
                 transaction.show(mineFragment);//显示当前的Fragment
 

@@ -9,24 +9,24 @@ import android.widget.ImageView;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PKActivity extends BaseActivity {
-    @Bind(R.id.iv_pk_a)
+    @BindView(R.id.iv_pk_a)
     ImageView ivPkA;
-    @Bind(R.id.iv_pk_b)
+    @BindView(R.id.iv_pk_b)
     ImageView ivPkB;
-    @Bind(R.id.iv_pk_c)
+    @BindView(R.id.iv_pk_c)
     ImageView ivPkC;
-    @Bind(R.id.iv_pk_d)
+    @BindView(R.id.iv_pk_d)
     ImageView ivPkD;
-    @Bind(R.id.iv_pk_e)
+    @BindView(R.id.iv_pk_e)
     ImageView ivPkE;
-    @Bind(R.id.iv_pk_f)
+    @BindView(R.id.iv_pk_f)
     ImageView ivPkF;
-    @Bind(R.id.iv_pk_g)
+    @BindView(R.id.iv_pk_g)
     ImageView ivPkG;
 
     @Override

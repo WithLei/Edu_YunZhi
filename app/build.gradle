@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 27
@@ -32,11 +33,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'com.youth.banner:banner:1.4.2'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation files('libs/android-async-http-master.jar')
-    implementation files('libs/fastjson-1.2.4.jar')
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
@@ -52,4 +52,6 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.Yalantis:Context-Menu.Android:1.0.8'
     implementation project(':teacherapp')
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.alibaba:fastjson:1.2.46'
 }

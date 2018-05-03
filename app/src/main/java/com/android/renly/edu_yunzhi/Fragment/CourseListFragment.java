@@ -17,13 +17,14 @@ import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.loopj.android.http.RequestParams;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class CourseListFragment extends BaseFragment {
 
     private static final String ARG_TITLE = "title";
-    @Bind(R.id.recyclerview_courselist)
+    @BindView(R.id.recyclerview_courselist)
     RecyclerView recyclerviewCourselist;
 
     public static CourseListFragment getInstance(String title) {
@@ -122,17 +123,19 @@ public class CourseListFragment extends BaseFragment {
         return R.layout.fragment_courselist;
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

@@ -16,14 +16,14 @@ import com.android.renly.edu_yunzhi.Common.AppManager;
 import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Welcome extends Activity {
 
-    @Bind(R.id.iv_welcome_icon)
+    @BindView(R.id.iv_welcome_icon)
     ImageView ivWelcomeIcon;
-    @Bind(R.id.rl_welcome)
+    @BindView(R.id.rl_welcome)
     RelativeLayout rlWelcome;
 
     public static final int LEAVE_WELCOMEPAGE = 3;

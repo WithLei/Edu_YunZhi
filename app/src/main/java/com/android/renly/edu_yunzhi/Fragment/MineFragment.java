@@ -40,27 +40,28 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MineFragment extends BaseFragment {
 
-    @Bind(R.id.iv_mine_icon)
+    @BindView(R.id.iv_mine_icon)
     CircleImageView ivMineIcon;
-    @Bind(R.id.rl_mine_icon)
+    @BindView(R.id.rl_mine_icon)
     RelativeLayout rlMineIcon;
-    @Bind(R.id.tv_mine_name)
+    @BindView(R.id.tv_mine_name)
     TextView tvMineName;
-    @Bind(R.id.rl_mine)
+    @BindView(R.id.rl_mine)
     RelativeLayout rlMine;
-    @Bind(R.id.tv_mine_class)
+    @BindView(R.id.tv_mine_class)
     TextView tvMineClass;
-    @Bind(R.id.tv_mine_task)
+    @BindView(R.id.tv_mine_task)
     TextView tvMineTask;
-    @Bind(R.id.tv_mine_grade)
+    @BindView(R.id.tv_mine_grade)
     TextView tvMineGrade;
-    @Bind(R.id.tv_mine_logout)
+    @BindView(R.id.tv_mine_logout)
     TextView tvMineLogout;
 
     @Override
@@ -88,7 +89,7 @@ public class MineFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public static class MessageEvent{
@@ -223,12 +224,14 @@ public class MineFragment extends BaseFragment {
 
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         EventBus.getDefault().register(this);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 

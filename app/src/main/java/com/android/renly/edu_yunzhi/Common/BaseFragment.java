@@ -16,9 +16,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private LoadingPage loadingPage;
+    private Unbinder unbinder;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
 
             @Override
             protected void onSuccss(ResultState resultState, View view_success) {
-                ButterKnife.bind(BaseFragment.this,view_success);
+                unbinder = ButterKnife.bind(BaseFragment.this,view_success);
                 initData(resultState.getContent());
             }
 
@@ -74,7 +76,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     //Toolbar

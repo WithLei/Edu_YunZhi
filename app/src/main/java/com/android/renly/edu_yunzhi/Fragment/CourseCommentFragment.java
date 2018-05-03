@@ -19,14 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 
 public class CourseCommentFragment extends BaseFragment {
     private static final String ARG_TITLE = "title";
-    @Bind(R.id.evaluate)
+    @BindView(R.id.evaluate)
     EvaluationRatingBar evaluate;
 
     public static CourseCommentFragment getInstance(String title) {
@@ -81,18 +82,20 @@ public class CourseCommentFragment extends BaseFragment {
         return R.layout.fragment_coursecomment;
     }
 
+
+    private Unbinder unbinder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public static final int CARDVIEWDISMISS = 3;

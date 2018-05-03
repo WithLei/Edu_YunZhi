@@ -17,6 +17,7 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Notice;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CircleImageView;
 import com.android.renly.edu_yunzhi_teacher.UI.CustomLinearLayoutManager;
 import com.android.renly.edu_yunzhi_teacher.UI.SlideLayout;
@@ -25,17 +26,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NoticeActivity extends BaseActivity {
-    @Bind(R.id.notice_img)
+    @BindView(R2.id.notice_img)
     CircleImageView noticeImg;
-    @Bind(R.id.notice_title)
+    @BindView(R2.id.notice_title)
     TextView noticeTitle;
-    @Bind(R.id.notice_add)
+    @BindView(R2.id.notice_add)
     CircleImageView noticeAdd;
-    @Bind(R.id.lv_notice_noticeList)
+    @BindView(R2.id.lv_notice_noticeList)
     RecyclerView lvNoticeNoticeList;
 
     @Override
@@ -94,8 +95,8 @@ public class NoticeActivity extends BaseActivity {
 
             public ViewHolder(View view) {
                 super(view);
-                content = view.findViewById(R.id.item_content);
-                menu = view.findViewById(R.id.item_menu);
+                content = view.findViewById(R2.id.item_content);
+                menu = view.findViewById(R2.id.item_menu);
                 SlideLayout slideLayout = (SlideLayout) view;
                 slideLayout.setOnStateChangeListenter(new MyOnStateChangeListenter());
             }
@@ -115,12 +116,12 @@ public class NoticeActivity extends BaseActivity {
 
         //对RecyclerView子项数据进行赋值
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Notice notice = noticeList.get(position);
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            final Notice notice = noticeList.get(position);
             //设置数据
-            TextView title= (TextView)holder.content.findViewById(R.id.tv_item_notice_title);
-            TextView teachername= (TextView)holder.content.findViewById(R.id.tv_item_notice_teachername);
-            TextView time= (TextView)holder.content.findViewById(R.id.tv_item_notice_time);
+            TextView title= (TextView)holder.content.findViewById(R2.id.tv_item_notice_title);
+            TextView teachername= (TextView)holder.content.findViewById(R2.id.tv_item_notice_teachername);
+            TextView time= (TextView)holder.content.findViewById(R2.id.tv_item_notice_time);
             title.setText(notice.title);
             teachername.setText(notice.teacherName);
             time.setText(notice.time);
@@ -130,8 +131,8 @@ public class NoticeActivity extends BaseActivity {
                     Toast.makeText(NoticeActivity.this,"具体内容 position =" +position,Toast.LENGTH_SHORT).show();
                 }
             });
-            TextView delete = (TextView)holder.menu.findViewById(R.id.notice_menu_delete);
-            TextView modify = (TextView)holder.menu.findViewById(R.id.notice_menu_modify);
+            TextView delete = (TextView)holder.menu.findViewById(R2.id.notice_menu_delete);
+            TextView modify = (TextView)holder.menu.findViewById(R2.id.notice_menu_modify);
             //设置修改TextView的点击事件监听，通过带回调的intent启动NoticeModifyActivity进入修改界面
             //并把当前项删除，刷新界面
             modify.setOnClickListener(new View.OnClickListener() {
@@ -205,13 +206,13 @@ public class NoticeActivity extends BaseActivity {
     //设置返回按钮notice_img以及新建按钮notice_add的点击事件监听
     //返回按钮：finish当前NoticeActivity
     //新建按钮：带回调的Intent启动NoticeAddActivity进入新建页面
-    @OnClick({R.id.notice_img, R.id.notice_add})
+    @OnClick({R2.id.notice_img, R2.id.notice_add})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.notice_img:
+            case R2.id.notice_img:
                 finish();
                 break;
-            case R.id.notice_add:
+            case R2.id.notice_add:
                 int requestCode = 1;
                 Intent intent = new Intent(NoticeActivity.this, NoticeAddActivity.class);
                 startActivityForResult(intent, requestCode);

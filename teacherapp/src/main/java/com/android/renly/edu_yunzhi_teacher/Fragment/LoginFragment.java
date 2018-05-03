@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi_teacher.Utils.KeyboardWatcher;
 
@@ -63,22 +64,22 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     }
 
     private void initView(View view) {
-        logo = view.findViewById(R.id.logo);
-        et_mobile = view.findViewById(R.id.et_mobile);
-        et_password = view.findViewById(R.id.et_password);
-        iv_clean_phone = view.findViewById(R.id.iv_clean_phone);
-        clean_password = view.findViewById(R.id.clean_password);
-        iv_show_pwd = view.findViewById(R.id.iv_show_pwd);
-        btn_login = view.findViewById(R.id.btn_login);
-        forget_password = view.findViewById(R.id.forget_password);
-        rb_stu = view.findViewById(R.id.rb_login_stu);
-        rb_teacher = view.findViewById(R.id.rb_login_teacher);
-        service = view.findViewById(R.id.service);
+        logo = view.findViewById(R2.id.logo);
+        et_mobile = view.findViewById(R2.id.et_mobile);
+        et_password = view.findViewById(R2.id.et_password);
+        iv_clean_phone = view.findViewById(R2.id.iv_clean_phone);
+        clean_password = view.findViewById(R2.id.clean_password);
+        iv_show_pwd = view.findViewById(R2.id.iv_show_pwd);
+        btn_login = view.findViewById(R2.id.btn_login);
+        forget_password = view.findViewById(R2.id.forget_password);
+        rb_stu = view.findViewById(R2.id.rb_login_stu);
+        rb_teacher = view.findViewById(R2.id.rb_login_teacher);
+        service = view.findViewById(R2.id.service);
         service.setOnCheckedChangeListener(new MyRadioButtonListener());
-        body = view.findViewById(R.id.body);
+        body = view.findViewById(R2.id.body);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
-        root = view.findViewById(R.id.root);
-        view.findViewById(R.id.close).setOnClickListener(this);
+        root = view.findViewById(R2.id.root);
+        view.findViewById(R2.id.close).setOnClickListener(this);
     }
 
     class MyRadioButtonListener implements RadioGroup.OnCheckedChangeListener{
@@ -86,13 +87,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId){
-                case R.id.rb_login_stu:
+                case R2.id.rb_login_stu:
                     //当用户选中学生时
                     root.setBackground(getContext().getDrawable(R.mipmap.ic_login_background));
                     rb_stu.setEnabled(false);
                     rb_teacher.setEnabled(true);
                     break;
-                case R.id.rb_login_teacher:
+                case R2.id.rb_login_teacher:
                     //当用户选中老师时
                     root.setBackground(getContext().getDrawable(R.drawable.four_screen_bg));
                     rb_stu.setEnabled(true);
@@ -205,16 +206,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.iv_clean_phone:
+            case R2.id.iv_clean_phone:
                 et_mobile.setText("");
                 break;
-            case R.id.clean_password:
+            case R2.id.clean_password:
                 et_password.setText("");
                 break;
-            case R.id.close:
+            case R2.id.close:
                 getActivity().finish();
                 break;
-            case R.id.iv_show_pwd:
+            case R2.id.iv_show_pwd:
                 if (flag == true) {
                     et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     iv_show_pwd.setImageResource(R.drawable.pass_gone);

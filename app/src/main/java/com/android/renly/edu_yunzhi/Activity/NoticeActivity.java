@@ -23,16 +23,16 @@ import com.android.renly.edu_yunzhi.Utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NoticeActivity extends BaseActivity {
-    @Bind(R.id.notice_img)
+    @BindView(R.id.notice_img)
     CircleImageView noticeImg;
-    @Bind(R.id.notice_title)
+    @BindView(R.id.notice_title)
     TextView noticeTitle;
-    @Bind(R.id.lv_notice_noticeList)
+    @BindView(R.id.lv_notice_noticeList)
     RecyclerView lvNoticeNoticeList;
 
     @Override

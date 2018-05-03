@@ -12,7 +12,7 @@ import com.android.renly.edu_yunzhi.R;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -75,7 +75,7 @@ public class ListDropDownAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @Bind(R.id.text)
+        @BindView(R.id.text)
         TextView mText;
 
         ViewHolder(View view) {

@@ -27,18 +27,19 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MyclassFragment extends BaseFragment {
-    @Bind(R.id.tv_myclass_addclass)
+    @BindView(R.id.tv_myclass_addclass)
     public TextView tvMyclassAddclass;
-    @Bind(R.id.recycler_myclass_learning)
+    @BindView(R.id.recycler_myclass_learning)
     public RecyclerView recyclerMyclassLearning;
-    @Bind(R.id.tv_myclass_seeall)
+    @BindView(R.id.tv_myclass_seeall)
     public TextView tvMyclassSeeall;
-    @Bind(R.id.recycler_myclass_learnt)
+    @BindView(R.id.recycler_myclass_learnt)
     public RecyclerView recyclerMyclassLearnt;
 
     @Override
@@ -81,18 +82,20 @@ public class MyclassFragment extends BaseFragment {
         return R.layout.fragment_myclass;
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public List<Course> learningData;//正在学习的课程

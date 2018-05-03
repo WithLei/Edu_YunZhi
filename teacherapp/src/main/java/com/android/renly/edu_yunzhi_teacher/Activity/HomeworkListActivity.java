@@ -13,22 +13,23 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Class_forCorrect;
 import com.android.renly.edu_yunzhi_teacher.Bean.Homework_correct;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class HomeworkListActivity extends BaseActivity {
 
-    @Bind(R.id.iv_homeworklist_back)
+    @BindView(R2.id.iv_homeworklist_back)
     ImageView ivHomeworklistBack;
-    @Bind(R.id.iv_homeworklist_search)
+    @BindView(R2.id.iv_homeworklist_search)
     ImageView ivHomeworklistSearch;
-    @Bind(R.id.iv_homeworklist_more)
+    @BindView(R2.id.iv_homeworklist_more)
     ImageView ivHomeworklistMore;
-    @Bind(R.id.lv_homeworklist_homework)
+    @BindView(R2.id.lv_homeworklist_homework)
     ListView lvHomeworklistHomework;
     private List<Homework_correct> homeworkList = new ArrayList<>();
 
@@ -89,18 +90,18 @@ public class HomeworkListActivity extends BaseActivity {
             }
         });
     }
-    @OnClick({R.id.iv_homeworklist_back,R.id.iv_homeworklist_search,R.id.iv_homeworklist_more})
+    @OnClick({R2.id.iv_homeworklist_back,R2.id.iv_homeworklist_search,R2.id.iv_homeworklist_more})
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.iv_homeworklist_back:
+            case R2.id.iv_homeworklist_back:
                 //实现回退操作
                 finish();
                 break;
-            case R.id.iv_homeworklist_search:
+            case R2.id.iv_homeworklist_search:
                 //实现搜索操作
                 Toast.makeText(HomeworkListActivity.this,"搜索",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.iv_homeworklist_more:
+            case R2.id.iv_homeworklist_more:
                 //实现更多操作
                 Toast.makeText(HomeworkListActivity.this,"更多",Toast.LENGTH_SHORT).show();
                 break;

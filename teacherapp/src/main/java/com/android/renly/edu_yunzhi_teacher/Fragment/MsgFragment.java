@@ -21,14 +21,16 @@ import com.android.renly.edu_yunzhi_teacher.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseFragment;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static com.android.renly.edu_yunzhi_teacher.Fragment.HomeFragment.WHAT_REQUEST_ERROR;
 import static com.android.renly.edu_yunzhi_teacher.Fragment.HomeFragment.WHAT_REQUEST_SUCCESS;
@@ -41,17 +43,17 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
     private int currentType = 1;
     private int CurrentPage = 1;
 
-    @Bind(R.id.btn_1)
+    @BindView(R2.id.btn_1)
     RadioButton btn1;
-    @Bind(R.id.btn_2)
+    @BindView(R2.id.btn_2)
     RadioButton btn2;
-    @Bind(R.id.btn_3)
+    @BindView(R2.id.btn_3)
     RadioButton btn3;
-    @Bind(R.id.btn_change)
+    @BindView(R2.id.btn_change)
     RadioGroup btnChange;
-    @Bind(R.id.recycler_view)
+    @BindView(R2.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.refresh_layout)
+    @BindView(R2.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
     @Override
@@ -119,20 +121,21 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_1:
+            case R2.id.btn_1:
                 Toast.makeText(MyApplication.context, "热帖界面", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_3:
+            case R2.id.btn_3:
                 Toast.makeText(MyApplication.context, "消息界面", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         btn1.setText("热帖");
         btn2.setVisibility(View.GONE);
         btn3.setText("消息");
@@ -141,7 +144,7 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
 
         btnChange.setOnCheckedChangeListener((radioGroup, id) -> {
             int pos = -1;
-            if (id == R.id.btn_1) {
+            if (id == R2.id.btn_1) {
                 pos = TYPE_NEW;
             } else {
                 pos = TYPE_HOT;
@@ -159,7 +162,7 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void refresh() {
@@ -201,10 +204,10 @@ public class MsgFragment extends BaseFragment implements OnClickListener {
 
             public ViewHolder(View view) {
                 super(view);
-                article_title = view.findViewById(R.id.article_title);
-                author_name = view.findViewById(R.id.author_name);
-                reply_count = view.findViewById(R.id.reply_count);
-                is_image = view.findViewById(R.id.is_image);
+                article_title = view.findViewById(R2.id.article_title);
+                author_name = view.findViewById(R2.id.author_name);
+                reply_count = view.findViewById(R2.id.reply_count);
+                is_image = view.findViewById(R2.id.is_image);
             }
         }
 

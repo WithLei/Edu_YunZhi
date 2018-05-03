@@ -20,24 +20,26 @@ import com.android.renly.edu_yunzhi_teacher.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseFragment;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.BatchRadioButton;
 import com.loopj.android.http.RequestParams;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class LearningFragment extends BaseFragment implements View.OnClickListener {
 
-    @Bind(R.id.btn_1)
+    @BindView(R2.id.btn_1)
     BatchRadioButton btn1;
-    @Bind(R.id.btn_2)
+    @BindView(R2.id.btn_2)
     BatchRadioButton btn2;
-    @Bind(R.id.btn_3)
+    @BindView(R2.id.btn_3)
     BatchRadioButton btn3;
-    @Bind(R.id.btn_change)
+    @BindView(R2.id.btn_change)
     RadioGroup btnChange;
-    @Bind(R.id.fl_learning)
+    @BindView(R2.id.fl_learning)
     FrameLayout flLearning;
 
     @Override
@@ -72,21 +74,21 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
             case 0:
                 if (myclassFragment == null) {
                     myclassFragment = new MyclassFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_learning, myclassFragment);
+                    transaction.add(R2.id.fl_learning, myclassFragment);
                 }
                 transaction.show(myclassFragment);//显示当前的Fragment
                 break;
             case 1:
                 if (myworkFragment == null) {
                     myworkFragment = new MyworkFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_learning, myworkFragment);
+                    transaction.add(R2.id.fl_learning, myworkFragment);
                 }
                 transaction.show(myworkFragment);//显示当前的Fragment
                 break;
             case 2:
                 if (mynoteFragment == null) {
                     mynoteFragment = new MynoteFragment();//commit()后调用生命周期方法
-                    transaction.add(R.id.fl_learning, mynoteFragment);
+                    transaction.add(R2.id.fl_learning, mynoteFragment);
                 }
                 transaction.show(mynoteFragment);//显示当前的Fragment
                 break;
@@ -117,11 +119,13 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         btn1.setText("课程");
         btn2.setText("作业");
         btn3.setText("笔记");
@@ -131,21 +135,21 @@ public class LearningFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         //移除所有的未被执行的消息
 //        handler.removeCallbacksAndMessages(null);
     }
 
-    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3})
+    @OnClick({R2.id.btn_1, R2.id.btn_2, R2.id.btn_3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_1:
+            case R2.id.btn_1:
                 setSelect(0);
                 break;
-            case R.id.btn_2:
+            case R2.id.btn_2:
                 setSelect(1);
                 break;
-            case R.id.btn_3:
+            case R2.id.btn_3:
                 setSelect(2);
                 break;
         }

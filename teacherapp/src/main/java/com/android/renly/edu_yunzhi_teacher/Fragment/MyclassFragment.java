@@ -22,6 +22,7 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Course_forAdd;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseFragment;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
@@ -29,27 +30,27 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MyclassFragment extends BaseFragment {
 
-    @Bind(R.id.tv_class_classinfo)
+    @BindView(R2.id.tv_class_classinfo)
     TextView tvClassClassinfo;
-    @Bind(R.id.tv_class_addclass)
+    @BindView(R2.id.tv_class_addclass)
     TextView tvClassAddclass;
-    @Bind(R.id.recycler_myclass_learning)
+    @BindView(R2.id.recycler_myclass_learning)
     RecyclerView recyclerMyclassLearning;
-    @Bind(R.id.tv_myclass_seeall)
+    @BindView(R2.id.tv_myclass_seeall)
     TextView tvMyclassSeeall;
-    @Bind(R.id.ll_class_learnt)
+    @BindView(R2.id.ll_class_learnt)
     LinearLayout llClassLearnt;
-    @Bind(R.id.recycler_myclass_learnt)
+    @BindView(R2.id.recycler_myclass_learnt)
     RecyclerView recyclerMyclassLearnt;
-    @Bind(R.id.rl_class_learnt)
+    @BindView(R2.id.rl_class_learnt)
     RelativeLayout rlClassLearnt;
-    @Bind(R.id.test)
+    @BindView(R2.id.test)
     ImageView test;
 
     @Override
@@ -117,7 +118,7 @@ public class MyclassFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.tv_class_addclass)
+    @OnClick(R2.id.tv_class_addclass)
     public void onViewClicked() {
         //如果为教师用户，将进行以下操作
         Intent intent = new Intent(getActivity(), TeacherAddClassActivity.class);
@@ -138,9 +139,9 @@ public class MyclassFragment extends BaseFragment {
 
             public ViewHolder(View view) {
                 super(view);
-                img = view.findViewById(R.id.iv_item_class_img);
-                title = view.findViewById(R.id.tv_item_class_title);
-                teacher = view.findViewById(R.id.tv_item_class_teacher);
+                img = view.findViewById(R2.id.iv_item_class_img);
+                title = view.findViewById(R2.id.tv_item_class_title);
+                teacher = view.findViewById(R2.id.tv_item_class_teacher);
             }
         }
 

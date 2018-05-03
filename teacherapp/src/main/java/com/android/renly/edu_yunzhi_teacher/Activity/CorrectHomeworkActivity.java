@@ -11,22 +11,23 @@ import com.android.renly.edu_yunzhi_teacher.Adapter.MyClassAdapter;
 import com.android.renly.edu_yunzhi_teacher.Bean.Class_forCorrect;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CorrectHomeworkActivity extends BaseActivity {
 
-    @Bind(R.id.iv_correct_back)
+    @BindView(R2.id.iv_correct_back)
     ImageView ivCorrectBack;
-    @Bind(R.id.iv_correct_search)
+    @BindView(R2.id.iv_correct_search)
     ImageView ivCorrectSearch;
-    @Bind(R.id.iv_correct_more)
+    @BindView(R2.id.iv_correct_more)
     ImageView ivCorrectMore;
-    @Bind(R.id.lv_correct_class)
+    @BindView(R2.id.lv_correct_class)
     ListView lvCorrectClass;
     private List<Class_forCorrect> class_forCorrects = new ArrayList<>();
 
@@ -84,18 +85,18 @@ public class CorrectHomeworkActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.iv_correct_back,R.id.iv_correct_search,R.id.iv_correct_more})
+    @OnClick({R2.id.iv_correct_back,R2.id.iv_correct_search,R2.id.iv_correct_more})
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.iv_correct_back:
+            case R2.id.iv_correct_back:
                 //实现回退操作
                 finish();
                 break;
-            case R.id.iv_correct_search:
+            case R2.id.iv_correct_search:
                 //实现搜索操作
                 Toast.makeText(CorrectHomeworkActivity.this,"搜索",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.iv_correct_more:
+            case R2.id.iv_correct_more:
                 //实现更多操作
                 Toast.makeText(CorrectHomeworkActivity.this,"更多",Toast.LENGTH_SHORT).show();
                 break;

@@ -31,6 +31,7 @@ import com.android.renly.edu_yunzhi_teacher.Common.BaseFragment;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CustomLinearLayoutManager;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
@@ -43,67 +44,70 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class    HomeFragment extends BaseFragment implements View.OnClickListener{
-    @Bind(R.id.banner)
+    @BindView(R2.id.banner)
     Banner banner;
-    @Bind(R.id.iv_home_first)
+    @BindView(R2.id.iv_home_first)
     ImageView ivHomeFirst;
-    @Bind(R.id.tv_home_first)
+    @BindView(R2.id.tv_home_first)
     TextView tvHomeFirst;
-    @Bind(R.id.ll_home_first)
+    @BindView(R2.id.ll_home_first)
     LinearLayout llHomeFirst;
-    @Bind(R.id.iv_home_second)
+    @BindView(R2.id.iv_home_second)
     ImageView ivHomeSecond;
-    @Bind(R.id.tv_home_second)
+    @BindView(R2.id.tv_home_second)
     TextView tvHomeSecond;
-    @Bind(R.id.ll_home_second)
+    @BindView(R2.id.ll_home_second)
     LinearLayout llHomeSecond;
-    @Bind(R.id.iv_home_third)
+    @BindView(R2.id.iv_home_third)
     ImageView ivHomeThird;
-    @Bind(R.id.tv_home_third)
+    @BindView(R2.id.tv_home_third)
     TextView tvHomeThird;
-    @Bind(R.id.ll_home_third)
+    @BindView(R2.id.ll_home_third)
     LinearLayout llHomeThird;
-    @Bind(R.id.iv_home_fourth)
+    @BindView(R2.id.iv_home_fourth)
     ImageView ivHomeFourth;
-    @Bind(R.id.tv_home_fourth)
+    @BindView(R2.id.tv_home_fourth)
     TextView tvHomeFourth;
-    @Bind(R.id.ll_home_fourth)
+    @BindView(R2.id.ll_home_fourth)
     LinearLayout llHomeFourth;
-    @Bind(R.id.iv_home_fifth)
+    @BindView(R2.id.iv_home_fifth)
     ImageView ivHomeFifth;
-    @Bind(R.id.tv_home_fifth)
+    @BindView(R2.id.tv_home_fifth)
     TextView tvHomeFifth;
-    @Bind(R.id.ll_home_fifth)
+    @BindView(R2.id.ll_home_fifth)
     LinearLayout llHomeFifth;
-    @Bind(R.id.iv_home_sixth)
+    @BindView(R2.id.iv_home_sixth)
     ImageView ivHomeSixth;
-    @Bind(R.id.tv_home_sixth)
+    @BindView(R2.id.tv_home_sixth)
     TextView tvHomeSixth;
-    @Bind(R.id.ll_home_sixth)
+    @BindView(R2.id.ll_home_sixth)
     LinearLayout llHomeSixth;
-    @Bind(R.id.iv_home_seventh)
+    @BindView(R2.id.iv_home_seventh)
     ImageView ivHomeSeventh;
-    @Bind(R.id.tv_home_seventh)
+    @BindView(R2.id.tv_home_seventh)
     TextView tvHomeSeventh;
-    @Bind(R.id.ll_home_seventh)
+    @BindView(R2.id.ll_home_seventh)
     LinearLayout llHomeSeventh;
-    @Bind(R.id.iv_home_eighth)
+    @BindView(R2.id.iv_home_eighth)
     ImageView ivHomeEighth;
-    @Bind(R.id.tv_home_eighth)
+    @BindView(R2.id.tv_home_eighth)
     TextView tvHomeEighth;
-    @Bind(R.id.ll_home_eighth)
+    @BindView(R2.id.ll_home_eighth)
     LinearLayout llHomeEighth;
-    @Bind(R.id.lv_home_newsList)
+    @BindView(R2.id.lv_home_newsList)
     RecyclerView lvHomeNewsList;
+
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
+        unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -220,39 +224,39 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override
     public void onClick(View v) {
         MainActivity mainActivity = (MainActivity) getActivity();
         switch (v.getId()){
-            case R.id.ll_home_first:
+            case R2.id.ll_home_first:
                 mainActivity.gotoLearningFragment();
                 break;
-            case R.id.ll_home_second:
+            case R2.id.ll_home_second:
                 ((BaseActivity) this.getActivity()).goToActivity(NoticeActivity.class, null);
                 break;
-            case R.id.ll_home_third:
+            case R2.id.ll_home_third:
                 Intent intent = new Intent(getActivity(),CorrectHomeworkActivity.class);
                 //携带教师信息，可以同步信息
 //                intent.putExtra("Teacher",)
                 startActivity(intent);
                 break;
-            case R.id.ll_home_fourth:
+            case R2.id.ll_home_fourth:
                 Toast.makeText(MyApplication.context,"各类活动",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ll_home_fifth:
+            case R2.id.ll_home_fifth:
                 Toast.makeText(MyApplication.context,"成绩查询",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ll_home_sixth:
+            case R2.id.ll_home_sixth:
                 Toast.makeText(MyApplication.context,"错题分析",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ll_home_seventh:
+            case R2.id.ll_home_seventh:
                 ((BaseActivity) this.getActivity()).goToActivity(TaskActivity.class, null);
 //                Toast.makeText(MyApplication.context,"综合实训",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ll_home_eighth:
+            case R2.id.ll_home_eighth:
                 Toast.makeText(MyApplication.context,"能力档案",Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -320,12 +324,12 @@ public class    HomeFragment extends BaseFragment implements View.OnClickListene
 
             public ViewHolder(View view) {
                 super(view);
-                iv_news_img = view.findViewById(R.id.iv_news_img);
-                tv_item_title = view.findViewById(R.id.tv_item_title);
-                tv_item_content = view.findViewById(R.id.tv_item_content);
-                tv_item_commentCount = view.findViewById(R.id.tv_item_commentCount);
-                tv_item_name = view.findViewById(R.id.tv_item_name);
-                tv_item_time = view.findViewById(R.id.tv_item_time);
+                iv_news_img = view.findViewById(R2.id.iv_news_img);
+                tv_item_title = view.findViewById(R2.id.tv_item_title);
+                tv_item_content = view.findViewById(R2.id.tv_item_content);
+                tv_item_commentCount = view.findViewById(R2.id.tv_item_commentCount);
+                tv_item_name = view.findViewById(R2.id.tv_item_name);
+                tv_item_time = view.findViewById(R2.id.tv_item_time);
             }
         }
 

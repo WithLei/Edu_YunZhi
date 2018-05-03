@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CorrectView;
 
 public class TestActivity extends Activity implements View.OnClickListener {
@@ -37,15 +38,15 @@ public class TestActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        frameLayout = (FrameLayout) findViewById(R.id.fl_boardcontainer);
-        btn_undo = (Button) findViewById(R.id.btn_last);
-        btn_redo = (Button) findViewById(R.id.btn_redo);
-        btn_save = (Button) findViewById(R.id.btn_savesd);
-        btn_recover = (Button) findViewById(R.id.btn_recover);
-        btn_paintcolor = (Button) findViewById(R.id.btn_paintcolor);
-        btn_paintsize = (Button) findViewById(R.id.btn_paintsize);
-        btn_paintstyle = (Button) findViewById(R.id.btn_paintstyle);
-//        sb_size = (SeekBar) findViewById(R.id.sb_size);
+        frameLayout = (FrameLayout) findViewById(R2.id.fl_boardcontainer);
+        btn_undo = (Button) findViewById(R2.id.btn_last);
+        btn_redo = (Button) findViewById(R2.id.btn_redo);
+        btn_save = (Button) findViewById(R2.id.btn_savesd);
+        btn_recover = (Button) findViewById(R2.id.btn_recover);
+        btn_paintcolor = (Button) findViewById(R2.id.btn_paintcolor);
+        btn_paintsize = (Button) findViewById(R2.id.btn_paintsize);
+        btn_paintstyle = (Button) findViewById(R2.id.btn_paintstyle);
+//        sb_size = (SeekBar) findViewById(R2.id.sb_size);
     }
 
     private void initData() {
@@ -91,27 +92,27 @@ public class TestActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_last://撤销
+            case R2.id.btn_last://撤销
                 tuyaView.undo();
                 break;
-            case R.id.btn_redo://重做
+            case R2.id.btn_redo://重做
                 tuyaView.redo();
                 break;
-            case R.id.btn_recover://恢
+            case R2.id.btn_recover://恢
                 tuyaView.recover();
                 break;
-            case R.id.btn_savesd://保存
+            case R2.id.btn_savesd://保存
                 tuyaView.saveToSDCard();
                 break;
-            case R.id.btn_paintcolor:
+            case R2.id.btn_paintcolor:
 //                sb_size.setVisibility(View.GONE);
                 showPaintColorDialog(v);
                 break;
-            case R.id.btn_paintsize:
+            case R2.id.btn_paintsize:
 //                sb_size.setVisibility(View.VISIBLE);
                 showPaintSizeDialog(v);
                 break;
-            case R.id.btn_paintstyle:
+            case R2.id.btn_paintstyle:
 //                sb_size.setVisibility(View.GONE);
                 showMoreDialog(v);
                 break;

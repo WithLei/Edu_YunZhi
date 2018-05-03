@@ -23,6 +23,7 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Course_forAdd;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.Fragment.MyclassFragment;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CircleImageView;
 
 import java.io.File;
@@ -33,27 +34,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class TeacherAddClassActivity extends BaseActivity {
-    @Bind(R.id.ci_addclass_back)
+    @BindView(R2.id.ci_addclass_back)
     CircleImageView ciAddclassBack;
-    @Bind(R.id.tv_addclass_title)
+    @BindView(R2.id.tv_addclass_title)
     TextView tvAddclassTitle;
-    @Bind(R.id.tv_addclass_finish)
+    @BindView(R2.id.tv_addclass_finish)
     TextView tvAddclassFinish;
-    @Bind(R.id.et_addclass_classid)
+    @BindView(R2.id.et_addclass_classid)
     EditText etAddclassClassid;
-    @Bind(R.id.et_addclass_classname)
+    @BindView(R2.id.et_addclass_classname)
     EditText etAddclassClassname;
-    @Bind(R.id.et_addclass_classdesc)
+    @BindView(R2.id.et_addclass_classdesc)
     EditText etAddclassClassdesc;
-    @Bind(R.id.iv_addclass_classiv)
+    @BindView(R2.id.iv_addclass_classiv)
     ImageView ivAddclassClassiv;
-    @Bind(R.id.btn_addclass_takephone)
+    @BindView(R2.id.btn_addclass_takephone)
     Button btnAddclassTakephone;
-    @Bind(R.id.btn_addclass_fromlocal)
+    @BindView(R2.id.btn_addclass_fromlocal)
     Button btnAddclassFromlocal;
     private Course_forAdd addedCourse;
 
@@ -95,12 +96,12 @@ public class TeacherAddClassActivity extends BaseActivity {
     private static final int REQUEST_TAKE_PHOTO = 444;
     private final String IMAGE_TYPE = "image/*";
     private final int IMAGE_CODE = 0;
-    @OnClick({R.id.ci_addclass_back, R.id.tv_addclass_finish, R.id.btn_addclass_takephone, R.id.btn_addclass_fromlocal})
+    @OnClick({R2.id.ci_addclass_back, R2.id.tv_addclass_finish, R2.id.btn_addclass_takephone, R2.id.btn_addclass_fromlocal})
     public void onClick(View v) {
         boolean idEmptyTag = TextUtils.isEmpty(etAddclassClassid.getText().toString());
         boolean nameEmptyTag = TextUtils.isEmpty(etAddclassClassname.getText().toString());
         switch (v.getId()) {
-            case R.id.ci_addclass_back:
+            case R2.id.ci_addclass_back:
                 if ((!idEmptyTag || !nameEmptyTag) && EXIT) {
                     Toast.makeText(TeacherAddClassActivity.this, "亲，课程编号和课程标题还有内容，再按一次退出", Toast.LENGTH_SHORT).show();
                     EXIT = false;
@@ -112,7 +113,7 @@ public class TeacherAddClassActivity extends BaseActivity {
                     finish();
                 }
                 break;
-            case R.id.tv_addclass_finish:
+            case R2.id.tv_addclass_finish:
                 if (idEmptyTag || nameEmptyTag) {
                     Toast.makeText(TeacherAddClassActivity.this, "亲，课程编号和课程标题必填！", Toast.LENGTH_SHORT).show();
                 } else {
@@ -171,7 +172,7 @@ public class TeacherAddClassActivity extends BaseActivity {
                     finish();
                 }
                 break;
-            case R.id.btn_addclass_takephone:
+            case R2.id.btn_addclass_takephone:
                 //                Toast.makeText(TeacherAddClassActivity.this, "拍照获取图片", Toast.LENGTH_SHORT).show();
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // 确保有相机应用
@@ -194,7 +195,7 @@ public class TeacherAddClassActivity extends BaseActivity {
                 }
 
                 break;
-            case R.id.btn_addclass_fromlocal:
+            case R2.id.btn_addclass_fromlocal:
 //                Toast.makeText(TeacherAddClassActivity.this, "从本地获取图片", Toast.LENGTH_SHORT).show();
                 Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
                 getAlbum.setType(IMAGE_TYPE);

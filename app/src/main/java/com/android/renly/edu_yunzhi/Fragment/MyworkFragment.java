@@ -27,14 +27,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class MyworkFragment extends BaseFragment {
-    @Bind(R.id.tv_mywork_seeall)
+    @BindView(R.id.tv_mywork_seeall)
     TextView tvMyworkSeeall;
-    @Bind(R.id.recycler_mywork_homework)
+    @BindView(R.id.recycler_mywork_homework)
     RecyclerView recyclerMyworkHomework;
 
     @Override
@@ -75,11 +76,13 @@ public class MyworkFragment extends BaseFragment {
         return R.layout.fragment_mywork;
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -214,7 +217,7 @@ public class MyworkFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
     protected static final int WHAT_REQUEST_SUCCESS = 1;
     protected static final int WHAT_REQUEST_ERROR = 2;

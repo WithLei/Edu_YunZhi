@@ -5,9 +5,10 @@ import android.widget.TextView;
 
 import com.android.renly.edu_yunzhi_teacher.Bean.Homework_correct;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.Utils.UIUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Administrator on 2018/4/15.
@@ -15,17 +16,17 @@ import butterknife.Bind;
 
 public class MyHomeworkHolder extends BaseHolder<Homework_correct> {
 
-    @Bind(R.id.tv_homework_item_id)
+    @BindView(R2.id.tv_homework_item_id)
     TextView tvHomeworkItemId;
-    @Bind(R.id.tv_homework_item_type)
+    @BindView(R2.id.tv_homework_item_type)
     TextView tvHomeworkItemType;
-    @Bind(R.id.tv_homework_item_teachername)
+    @BindView(R2.id.tv_homework_item_teachername)
     TextView tvHomeworkItemTeachername;
-    @Bind(R.id.tv_homework_item_publishtime)
+    @BindView(R2.id.tv_homework_item_publishtime)
     TextView tvHomeworkItemPublishtime;
-    @Bind(R.id.tv_homework_item_worktime)
+    @BindView(R2.id.tv_homework_item_worktime)
     TextView tvHomeworkItemWorktime;
-    @Bind(R.id.tv_homework_item_situation)
+    @BindView(R2.id.tv_homework_item_situation)
     TextView tvHomeworkItemSituation;
 
     @Override

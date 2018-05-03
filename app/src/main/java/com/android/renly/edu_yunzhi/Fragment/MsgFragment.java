@@ -15,21 +15,22 @@ import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.R;
 import com.loopj.android.http.RequestParams;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MsgFragment extends BaseFragment {
-    @Bind(R.id.fl_msg)
+    @BindView(R.id.fl_msg)
     FrameLayout flMsg;
 
-    @Bind(R.id.btn_1)
+    @BindView(R.id.btn_1)
     RadioButton btn1;
-    @Bind(R.id.btn_2)
+    @BindView(R.id.btn_2)
     RadioButton btn2;
-    @Bind(R.id.btn_3)
+    @BindView(R.id.btn_3)
     RadioButton btn3;
-    @Bind(R.id.btn_change)
+    @BindView(R.id.btn_change)
     RadioGroup btnChange;
 
     @Override
@@ -90,11 +91,13 @@ public class MsgFragment extends BaseFragment {
         }
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         btn1.setText("动态圈");
         btn2.setVisibility(View.GONE);
         btn3.setText("我的消息");
@@ -104,7 +107,7 @@ public class MsgFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @OnClick({R.id.btn_1, R.id.btn_3})

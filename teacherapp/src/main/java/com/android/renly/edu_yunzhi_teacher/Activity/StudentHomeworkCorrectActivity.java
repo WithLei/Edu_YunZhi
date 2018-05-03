@@ -13,31 +13,32 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CorrectView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class StudentHomeworkCorrectActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.tv_studentcorrect_content)
+    @BindView(R2.id.tv_studentcorrect_content)
     TextView tvStudentcorrectContent;
-    @Bind(R.id.tv_studentcorrect_answer)
+    @BindView(R2.id.tv_studentcorrect_answer)
     TextView tvStudentcorrectAnswer;
-    @Bind(R.id.btn_last)
+    @BindView(R2.id.btn_last)
     Button btnLast;
-    @Bind(R.id.btn_redo)
+    @BindView(R2.id.btn_redo)
     Button btnRedo;
-    @Bind(R.id.btn_recover)
+    @BindView(R2.id.btn_recover)
     Button btnRecover;
-    @Bind(R.id.btn_savesd)
+    @BindView(R2.id.btn_savesd)
     Button btnSavesd;
-    @Bind(R.id.btn_paintcolor)
+    @BindView(R2.id.btn_paintcolor)
     Button btnPaintcolor;
-    @Bind(R.id.btn_paintsize)
+    @BindView(R2.id.btn_paintsize)
     Button btnPaintsize;
-    @Bind(R.id.btn_paintstyle)
+    @BindView(R2.id.btn_paintstyle)
     Button btnPaintstyle;
-    @Bind(R.id.fl_boardcontainer)
+    @BindView(R2.id.fl_boardcontainer)
     FrameLayout flBoardcontainer;
 
     private CorrectView tuyaView;
@@ -78,32 +79,32 @@ public class StudentHomeworkCorrectActivity extends BaseActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_last://撤销
+            case R2.id.btn_last://撤销
                 tuyaView.undo();
                 break;
-            case R.id.btn_redo://重做
+            case R2.id.btn_redo://重做
                 tuyaView.redo();
                 break;
-            case R.id.btn_recover://恢复
+            case R2.id.btn_recover://恢复
                 tuyaView.recover();
                 break;
-            case R.id.btn_savesd://保存
+            case R2.id.btn_savesd://保存
                 finish();
 //                tuyaView.saveToSDCard();
                 //以后可以通过saveToSDCard()返回一个bitmap或者Url对象实现对批改成果的存储以及与后台进行同步操作
                 Toast.makeText(StudentHomeworkCorrectActivity.this,"图片保存成功",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_paintcolor:
+            case R2.id.btn_paintcolor:
                 //                sb_size.setVisibility(View.GONE);
                 //选择color
                 showPaintColorDialog(v);
                 break;
-            case R.id.btn_paintsize:
+            case R2.id.btn_paintsize:
                 //                sb_size.setVisibility(View.VISIBLE);
                 //选择size
                 showPaintSizeDialog(v);
                 break;
-            case R.id.btn_paintstyle:
+            case R2.id.btn_paintstyle:
                 //                sb_size.setVisibility(View.GONE);
                 //选择style
                 showMoreDialog(v);

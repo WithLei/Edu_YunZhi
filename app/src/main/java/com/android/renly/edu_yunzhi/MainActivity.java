@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -29,48 +28,49 @@ import com.android.renly.edu_yunzhi.Fragment.LoginFragment;
 import com.android.renly.edu_yunzhi.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi.Fragment.MsgFragment;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.iv_main_bottom_mainpage)
+    @BindView(R.id.iv_main_bottom_mainpage)
     ImageView ivMainBottomMainpage;
-    @Bind(R.id.tv_main_bottom_mainpage)
+    @BindView(R.id.tv_main_bottom_mainpage)
     TextView tvMainBottomMainpage;
-    @Bind(R.id.fl_main)
+    @BindView(R.id.fl_main)
     FrameLayout flMain;
-    @Bind(R.id.ll_main_bottom_mainpage)
+    @BindView(R.id.ll_main_bottom_mainpage)
     LinearLayout llMainBottomMainpage;
-    @Bind(R.id.iv_main_bottom_learning)
+    @BindView(R.id.iv_main_bottom_learning)
     ImageView ivMainBottomLearning;
-    @Bind(R.id.tv_main_bottom_learning)
+    @BindView(R.id.tv_main_bottom_learning)
     TextView tvMainBottomLearning;
-    @Bind(R.id.ll_main_bottom_learning)
+    @BindView(R.id.ll_main_bottom_learning)
     LinearLayout llMainBottomLearning;
-    @Bind(R.id.iv_main_bottom_msg)
+    @BindView(R.id.iv_main_bottom_msg)
     ImageView ivMainBottomMsg;
-    @Bind(R.id.tv_main_bottom_msg)
+    @BindView(R.id.tv_main_bottom_msg)
     TextView tvMainBottomMsg;
-    @Bind(R.id.ll_main_bottom_msg)
+    @BindView(R.id.ll_main_bottom_msg)
     LinearLayout llMainBottomMsg;
-    @Bind(R.id.iv_main_bottom_mine)
+    @BindView(R.id.iv_main_bottom_mine)
     ImageView ivMainBottomMine;
-    @Bind(R.id.tv_main_bottom_mine)
+    @BindView(R.id.tv_main_bottom_mine)
     TextView tvMainBottomMine;
-    @Bind(R.id.ll_main_bottom_mine)
+    @BindView(R.id.ll_main_bottom_mine)
     LinearLayout llMainBottomMine;
     private FragmentTransaction transaction;
+
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        unbinder = ButterKnife.bind(this);
     }
+
 
     @Override
     protected void initData() {
@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity {
 //        Toast.makeText(MainActivity.this,"响应",Toast.LENGTH_SHORT).show();
         SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
-        if(!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(name)) {
             switch (view.getId()) {
                 case R.id.ll_main_bottom_mainpage:
                     setSelect(0);
@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
                     setSelect(3);
                     break;
             }
-        }else
+        } else
             doLogin();
     }
 
@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         //移除所有的未被执行的消息
         handler.removeCallbacksAndMessages(null);
     }
@@ -231,7 +231,7 @@ public class MainActivity extends BaseActivity {
         return super.onKeyUp(keyCode, event);
     }
 
-    public void gotoLearningFragment(){
+    public void gotoLearningFragment() {
         setSelect(1);
     }
 

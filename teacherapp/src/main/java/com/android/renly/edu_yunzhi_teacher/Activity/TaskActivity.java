@@ -21,6 +21,7 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Task;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CustomLinearLayoutManager;
 import com.android.renly.edu_yunzhi_teacher.UI.DropDownMenu;
 
@@ -29,19 +30,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TaskActivity extends BaseActivity {
-    @Bind(R.id.task_img)
+    @BindView(R2.id.task_img)
     ImageView taskImg;
-    @Bind(R.id.dropDownMenu)
+    @BindView(R2.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
-    @Bind(R.id.task_title)
+    @BindView(R2.id.task_title)
     TextView taskTitle;
     RecyclerView recyclerTask;
-    @Bind(R.id.task_add_image)
+    @BindView(R2.id.task_add_image)
     ImageView taskAddImage;
 
     @Override
@@ -208,12 +209,12 @@ public class TaskActivity extends BaseActivity {
 
             public ViewHolder(View view) {
                 super(view);
-                title = view.findViewById(R.id.tv_item_task_title);
-                teacherName = view.findViewById(R.id.tv_item_task_teachername);
-                startTime = view.findViewById(R.id.tv_item_task_time);
-                joinNum = view.findViewById(R.id.tv_item_task_join);
-                process = view.findViewById(R.id.task_process);
-                typeImg = view.findViewById(R.id.item_task_img);
+                title = view.findViewById(R2.id.tv_item_task_title);
+                teacherName = view.findViewById(R2.id.tv_item_task_teachername);
+                startTime = view.findViewById(R2.id.tv_item_task_time);
+                joinNum = view.findViewById(R2.id.tv_item_task_join);
+                process = view.findViewById(R2.id.task_process);
+                typeImg = view.findViewById(R2.id.item_task_img);
             }
         }
 
@@ -308,13 +309,13 @@ public class TaskActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.task_img,R.id.task_add_image})
+    @OnClick({R2.id.task_img,R2.id.task_add_image})
     public void onViewClicked(View v) {
         switch (v.getId()){
-            case R.id.task_img:
+            case R2.id.task_img:
                 finish();
                 break;
-            case R.id.task_add_image:
+            case R2.id.task_add_image:
                 Intent intent = new Intent(TaskActivity.this, TaskAddActivity.class);
                 int requestCode = 1;
                 startActivityForResult(intent, requestCode);

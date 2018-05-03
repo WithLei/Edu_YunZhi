@@ -15,15 +15,16 @@ import android.widget.Toast;
 import com.android.renly.edu_yunzhi_teacher.Common.AppManager;
 import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Welcome extends Activity {
 
-    @Bind(R.id.iv_welcome_icon)
+    @BindView(R2.id.iv_welcome_icon)
     ImageView ivWelcomeIcon;
-    @Bind(R.id.rl_welcome)
+    @BindView(R2.id.rl_welcome)
     RelativeLayout rlWelcome;
 
     public static final int LEAVE_WELCOMEPAGE = 3;

@@ -13,6 +13,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by shkstart on 2016/12/3 0003.
  */
@@ -127,15 +129,15 @@ public abstract class LoadingPage extends FrameLayout {
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get(url(), params(), new AsyncHttpResponseHandler() {
                     @Override
-                    public void onSuccess(String content) {
-                        if (TextUtils.isEmpty(content)) {// "" or null
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode!=0) {// "" or null
 //                    state_current = STATE_EMPTY;
                             resultState = ResultState.EMPTY;
                             resultState.setContent("");
                         } else {
 //                    state_current = STATE_SUCCESS;
                             resultState = ResultState.SUCCESS;
-                            resultState.setContent(content);
+                            resultState.setContent(responseBody.toString());
                         }
 
 //                showSafePage();
@@ -143,7 +145,7 @@ public abstract class LoadingPage extends FrameLayout {
                     }
 
                     @Override
-                    public void onFailure(Throwable error, String content) {
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //                state_current = STATE_ERROR;
                         resultState = ResultState.ERROR;
                         resultState.setContent("");

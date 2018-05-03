@@ -25,6 +25,7 @@ import com.android.renly.edu_yunzhi_teacher.Common.BaseFragment;
 import com.android.renly.edu_yunzhi_teacher.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.Utils.BitmapUtils;
 import com.android.renly.edu_yunzhi_teacher.Utils.UIUtils;
 import com.loopj.android.http.RequestParams;
@@ -33,27 +34,28 @@ import com.squareup.picasso.Transformation;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class MineFragment extends BaseFragment {
 
-    @Bind(R.id.iv_mine_icon)
+    @BindView(R2.id.iv_mine_icon)
     ImageView ivMineIcon;
-    @Bind(R.id.rl_mine_icon)
+    @BindView(R2.id.rl_mine_icon)
     RelativeLayout rlMineIcon;
-    @Bind(R.id.tv_mine_name)
+    @BindView(R2.id.tv_mine_name)
     TextView tvMineName;
-    @Bind(R.id.rl_mine)
+    @BindView(R2.id.rl_mine)
     RelativeLayout rlMine;
-    @Bind(R.id.tv_mine_class)
+    @BindView(R2.id.tv_mine_class)
     TextView tvMineClass;
-    @Bind(R.id.tv_mine_task)
+    @BindView(R2.id.tv_mine_task)
     TextView tvMineTask;
-    @Bind(R.id.tv_mine_grade)
+    @BindView(R2.id.tv_mine_grade)
     TextView tvMineGrade;
-    @Bind(R.id.tv_mine_logout)
+    @BindView(R2.id.tv_mine_logout)
     TextView tvMineLogout;
 
     @Override
@@ -80,7 +82,7 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void isLogin() {
@@ -165,7 +167,7 @@ public class MineFragment extends BaseFragment {
                 .show();
     }
 
-    @OnClick(R.id.iv_mine_icon)
+    @OnClick(R2.id.iv_mine_icon)
     public void setting(View view) {
         //启动用户信息界面的Activity
         if (userisLogin())
@@ -205,28 +207,30 @@ public class MineFragment extends BaseFragment {
 
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
-    @OnClick({R.id.tv_mine_class, R.id.tv_mine_task, R.id.tv_mine_grade, R.id.tv_mine_logout})
+    @OnClick({R2.id.tv_mine_class, R2.id.tv_mine_task, R2.id.tv_mine_grade, R2.id.tv_mine_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_mine_class://课程管理
+            case R2.id.tv_mine_class://课程管理
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.gotoLearningFragment();
 //                LearningFragment learningFragment = (LearningFragment) getFragmentManager().findFragmentById(R.layout.fragment_myclass);
 
                 break;
-            case R.id.tv_mine_task://实训任务
+            case R2.id.tv_mine_task://实训任务
                 break;
-            case R.id.tv_mine_grade://成绩查询
+            case R2.id.tv_mine_grade://成绩查询
                 break;
-            case R.id.tv_mine_logout://退出登录
+            case R2.id.tv_mine_logout://退出登录
                 break;
         }
     }

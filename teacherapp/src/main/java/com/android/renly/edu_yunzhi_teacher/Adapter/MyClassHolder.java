@@ -6,10 +6,11 @@ import android.widget.TextView;
 
 import com.android.renly.edu_yunzhi_teacher.Bean.Class_forCorrect;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Administrator on 2018/4/15.
@@ -17,17 +18,17 @@ import butterknife.Bind;
 
 public class MyClassHolder extends BaseHolder<Class_forCorrect> {
 
-    @Bind(R.id.iv_correct_item_classlogo)
+    @BindView(R2.id.iv_correct_item_classlogo)
     ImageView ivCorrectItemClasslogo;
-    @Bind(R.id.tv_correct_item_classid)
+    @BindView(R2.id.tv_correct_item_classid)
     TextView tvCorrectItemClassid;
-    @Bind(R.id.tv_correct_item_teachername)
+    @BindView(R2.id.tv_correct_item_teachername)
     TextView tvCorrectItemTeachername;
-    @Bind(R.id.tv_correct_item_latestwork)
+    @BindView(R2.id.tv_correct_item_latestwork)
     TextView tvCorrectItemLatestwork;
-    @Bind(R.id.tv_correct_item_latestworktime)
+    @BindView(R2.id.tv_correct_item_latestworktime)
     TextView tvCorrectItemLatestworktime;
-    @Bind(R.id.tv_correct_item_classname)
+    @BindView(R2.id.tv_correct_item_classname)
     TextView tvCorrectItemClassname;
 
     @Override

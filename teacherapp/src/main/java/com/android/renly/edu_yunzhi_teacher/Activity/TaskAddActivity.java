@@ -16,25 +16,26 @@ import android.widget.TextView;
 import com.android.renly.edu_yunzhi_teacher.Bean.Task;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CircleImageView;
 
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TaskAddActivity extends BaseActivity {
 
-    @Bind(R.id.cv_addtask_back)
+    @BindView(R2.id.cv_addtask_back)
     CircleImageView cvAddtaskBack;
-    @Bind(R.id.tv_addtask_title)
+    @BindView(R2.id.tv_addtask_title)
     TextView tvAddtaskTitle;
-    @Bind(R.id.tv_addtask_finish)
+    @BindView(R2.id.tv_addtask_finish)
     TextView tvAddtaskFinish;
-    @Bind(R.id.et_addtask_type)
+    @BindView(R2.id.et_addtask_type)
     EditText etAddtaskType;
-    @Bind(R.id.et_addtask_name)
+    @BindView(R2.id.et_addtask_name)
     EditText etAddtaskName;
     private String[] datas = {"答疑讨论", "课外活动", "实验设计"};
 
@@ -43,22 +44,22 @@ public class TaskAddActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.cv_addtask_back, R.id.et_addtask_type, R.id.tv_addtask_finish})
+    @OnClick({R2.id.cv_addtask_back, R2.id.et_addtask_type, R2.id.tv_addtask_finish})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.cv_addtask_back:
+            case R2.id.cv_addtask_back:
                 finish();
                 break;
-            case R.id.et_addtask_type:
+            case R2.id.et_addtask_type:
                 //构建一个popupwindow的布局
                 View popupView = TaskAddActivity.this.getLayoutInflater().inflate(R.layout.popupwindow, null);
 
                 //为了演示效果，简单的设置了一些数据，实际中大家自己设置数据即可，相信大家都会。
-                ListView lsvMore = (ListView) popupView.findViewById(R.id.lsvMore);
+                ListView lsvMore = (ListView) popupView.findViewById(R2.id.lsvMore);
                 lsvMore.setAdapter(new ArrayAdapter<String>(TaskAddActivity.this, android.R.layout.simple_list_item_1, datas));
 
                 //创建PopupWindow对象，指定宽度和高度
-                PopupWindow window = new PopupWindow(popupView, 400, 400);
+                final PopupWindow window = new PopupWindow(popupView, 400, 400);
                 //设置动画
                 window.setAnimationStyle(R.style.popup_window_anim);
                 //  设置背景颜色
@@ -79,7 +80,7 @@ public class TaskAddActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.tv_addtask_finish:
+            case R2.id.tv_addtask_finish:
                 //通过intent传回数据，刷新adapter
                 String type = etAddtaskType.getText().toString();
                 String name = etAddtaskName.getText().toString();

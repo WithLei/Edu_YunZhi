@@ -21,16 +21,17 @@ import com.loopj.android.http.RequestParams;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.WHAT_REQUEST_ERROR;
 import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.WHAT_REQUEST_SUCCESS;
 
 public class HotNewsFragment extends BaseFragment {
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.refresh_layout)
+    @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
     @Override
@@ -95,11 +96,14 @@ public class HotNewsFragment extends BaseFragment {
         }.start();
     }
 
+
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         refreshLayout.setOnRefreshListener(this::refresh);
         return rootView;
     }
@@ -255,6 +259,6 @@ public class HotNewsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

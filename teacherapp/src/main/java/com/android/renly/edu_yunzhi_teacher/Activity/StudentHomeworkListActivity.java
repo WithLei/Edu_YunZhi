@@ -13,23 +13,24 @@ import com.android.renly.edu_yunzhi_teacher.Bean.Homework_correct;
 import com.android.renly.edu_yunzhi_teacher.Bean.StudentHomework;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class StudentHomeworkListActivity extends BaseActivity {
-    @Bind(R.id.iv_StudentHomeworklist_back)
+    @BindView(R2.id.iv_StudentHomeworklist_back)
     ImageView ivStudentHomeworklistBack;
-    @Bind(R.id.tv_StudentHomeworklist_teachername)
+    @BindView(R2.id.tv_StudentHomeworklist_teachername)
     TextView tvStudentHomeworklistTeachername;
-    @Bind(R.id.iv_StudentHomeworklist_search)
+    @BindView(R2.id.iv_StudentHomeworklist_search)
     ImageView ivStudentHomeworklistSearch;
-    @Bind(R.id.iv_StudentHomeworklist_more)
+    @BindView(R2.id.iv_StudentHomeworklist_more)
     ImageView ivStudentHomeworklistMore;
-    @Bind(R.id.lv_StudentHomeworklist_homework)
+    @BindView(R2.id.lv_StudentHomeworklist_homework)
     ListView lvStudentHomeworklistHomework;
     private List<StudentHomework> studentHomeworkList = new ArrayList<>();
 
@@ -40,7 +41,7 @@ public class StudentHomeworkListActivity extends BaseActivity {
         String homeworkId = homework.getId();
         String teacherName = homework.getTeacherName();
         String homeworkType = homework.getType();
-        String content = homework.getContent();
+        final String content = homework.getContent();
         String[] studentNames = new String[]{
                 "喜羊羊", "美羊羊", "懒羊羊",
                 "沸羊羊", "暖羊羊", "慢羊羊"
@@ -49,7 +50,7 @@ public class StudentHomeworkListActivity extends BaseActivity {
                 "完成", "完成", "未完成",
                 "未完成", "逾期上交", "未完成"
         };
-        String[] answers = new String[]{
+        final String[] answers = new String[]{
                 "  A", "  B", "  C",
                 "  A", "  C", "  D"
         };
@@ -79,16 +80,16 @@ public class StudentHomeworkListActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.iv_StudentHomeworklist_back,R.id.iv_StudentHomeworklist_search,R.id.iv_StudentHomeworklist_more})
+    @OnClick({R2.id.iv_StudentHomeworklist_back,R2.id.iv_StudentHomeworklist_search,R2.id.iv_StudentHomeworklist_more})
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.iv_StudentHomeworklist_back:
+            case R2.id.iv_StudentHomeworklist_back:
                 finish();
                 break;
-            case R.id.iv_StudentHomeworklist_search:
+            case R2.id.iv_StudentHomeworklist_search:
                 Toast.makeText(StudentHomeworkListActivity.this,"搜索",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.iv_StudentHomeworklist_more:
+            case R2.id.iv_StudentHomeworklist_more:
                 Toast.makeText(StudentHomeworkListActivity.this,"更多",Toast.LENGTH_SHORT).show();
                 break;
         }

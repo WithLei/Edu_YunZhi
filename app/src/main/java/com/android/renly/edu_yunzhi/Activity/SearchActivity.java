@@ -6,12 +6,12 @@ import android.widget.TextView;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SearchActivity extends BaseActivity {
-    @Bind(R.id.cancel_view)
+    @BindView(R.id.cancel_view)
     TextView cancelView;
 
     @Override

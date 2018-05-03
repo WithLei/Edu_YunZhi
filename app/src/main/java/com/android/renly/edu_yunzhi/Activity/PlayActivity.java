@@ -21,7 +21,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,7 +33,7 @@ public class PlayActivity extends AppCompatActivity {
     public final static String IMG_TRANSITION = "IMG_TRANSITION";
     public final static String TRANSITION = "TRANSITION";
 
-    @Bind(R.id.video_player)
+    @BindView(R.id.video_player)
     SampleVideo videoPlayer;
 
     OrientationUtils orientationUtils;

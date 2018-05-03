@@ -51,75 +51,78 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
-    @Bind(R.id.banner)
+    @BindView(R.id.banner)
     Banner banner;
-    @Bind(R.id.iv_home_first)
+    @BindView(R.id.iv_home_first)
     ImageView ivHomeFirst;
-    @Bind(R.id.tv_home_first)
+    @BindView(R.id.tv_home_first)
     TextView tvHomeFirst;
-    @Bind(R.id.ll_home_first)
+    @BindView(R.id.ll_home_first)
     LinearLayout llHomeFirst;
-    @Bind(R.id.iv_home_second)
+    @BindView(R.id.iv_home_second)
     ImageView ivHomeSecond;
-    @Bind(R.id.tv_home_second)
+    @BindView(R.id.tv_home_second)
     TextView tvHomeSecond;
-    @Bind(R.id.ll_home_second)
+    @BindView(R.id.ll_home_second)
     LinearLayout llHomeSecond;
-    @Bind(R.id.iv_home_third)
+    @BindView(R.id.iv_home_third)
     ImageView ivHomeThird;
-    @Bind(R.id.tv_home_third)
+    @BindView(R.id.tv_home_third)
     TextView tvHomeThird;
-    @Bind(R.id.ll_home_third)
+    @BindView(R.id.ll_home_third)
     LinearLayout llHomeThird;
-    @Bind(R.id.iv_home_fourth)
+    @BindView(R.id.iv_home_fourth)
     ImageView ivHomeFourth;
-    @Bind(R.id.tv_home_fourth)
+    @BindView(R.id.tv_home_fourth)
     TextView tvHomeFourth;
-    @Bind(R.id.ll_home_fourth)
+    @BindView(R.id.ll_home_fourth)
     LinearLayout llHomeFourth;
-    @Bind(R.id.iv_home_fifth)
+    @BindView(R.id.iv_home_fifth)
     ImageView ivHomeFifth;
-    @Bind(R.id.tv_home_fifth)
+    @BindView(R.id.tv_home_fifth)
     TextView tvHomeFifth;
-    @Bind(R.id.ll_home_fifth)
+    @BindView(R.id.ll_home_fifth)
     LinearLayout llHomeFifth;
-    @Bind(R.id.iv_home_sixth)
+    @BindView(R.id.iv_home_sixth)
     ImageView ivHomeSixth;
-    @Bind(R.id.tv_home_sixth)
+    @BindView(R.id.tv_home_sixth)
     TextView tvHomeSixth;
-    @Bind(R.id.ll_home_sixth)
+    @BindView(R.id.ll_home_sixth)
     LinearLayout llHomeSixth;
-    @Bind(R.id.iv_home_seventh)
+    @BindView(R.id.iv_home_seventh)
     ImageView ivHomeSeventh;
-    @Bind(R.id.tv_home_seventh)
+    @BindView(R.id.tv_home_seventh)
     TextView tvHomeSeventh;
-    @Bind(R.id.ll_home_seventh)
+    @BindView(R.id.ll_home_seventh)
     LinearLayout llHomeSeventh;
-    @Bind(R.id.iv_home_eighth)
+    @BindView(R.id.iv_home_eighth)
     ImageView ivHomeEighth;
-    @Bind(R.id.tv_home_eighth)
+    @BindView(R.id.tv_home_eighth)
     TextView tvHomeEighth;
-    @Bind(R.id.ll_home_eighth)
+    @BindView(R.id.ll_home_eighth)
     LinearLayout llHomeEighth;
-    @Bind(R.id.lv_home_newsList)
+    @BindView(R.id.lv_home_newsList)
     RecyclerView lvHomeNewsList;
-    @Bind(R.id.CircleImageView)
+    @BindView(R.id.CircleImageView)
     com.android.renly.edu_yunzhi.UI.CircleImageView CircleImageView;
-    @Bind(R.id.iv_home_search)
+    @BindView(R.id.iv_home_search)
     ImageView ivHomeSearch;
-    @Bind(R.id.civ_scool)
+    @BindView(R.id.civ_scool)
     com.android.renly.edu_yunzhi.UI.CircleImageView civScool;
-    @Bind(R.id.rl_home_school)
+    @BindView(R.id.rl_home_school)
     RelativeLayout rlHomeSchool;
+
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
+        unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
         EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -241,7 +244,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

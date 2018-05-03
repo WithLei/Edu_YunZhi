@@ -11,25 +11,26 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.UI.CircleImageView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NoticeModifyActivity extends BaseActivity {
 
 
-    @Bind(R.id.notice_modify_back)
+    @BindView(R2.id.notice_modify_back)
     CircleImageView noticeModifyBack;
-    @Bind(R.id.notice_modify_title)
+    @BindView(R2.id.notice_modify_title)
     TextView noticeModifyTitle;
-    @Bind(R.id.notice_modify_finish)
+    @BindView(R2.id.notice_modify_finish)
     TextView noticeModifyFinish;
-    @Bind(R.id.notice_modify_theme)
+    @BindView(R2.id.notice_modify_theme)
     EditText noticeModifyTheme;
-    @Bind(R.id.notice_modify_content)
+    @BindView(R2.id.notice_modify_content)
     EditText noticeModifyContent;
-    @Bind(R.id.notice_modify_teachername)
+    @BindView(R2.id.notice_modify_teachername)
     TextView noticeModifyTeachername;
 
     //通过intent获取从NoticeActivity中获取当前项的数据，并初始化给noticeModifyTheme和noticeModifyTeachername
@@ -66,11 +67,11 @@ public class NoticeModifyActivity extends BaseActivity {
     //设置notice_modify_back以及notice_modify_finish的点击事件监听
     //notice_modify_back：退出当前页面，如果有数据一般不给予退出操作，需要在2S内点击两次才响应退出操作
     //notice_modify_finish：结束addNotice操作，通过intent携带数据，在NoticeActivity中onActivityResult中取得
-    @OnClick({R.id.notice_modify_back, R.id.notice_modify_finish})
+    @OnClick({R2.id.notice_modify_back, R2.id.notice_modify_finish})
     public void onClick(View v) {
         boolean themeEmptyTag = TextUtils.isEmpty(noticeModifyTheme.getText().toString());
         switch (v.getId()) {
-            case R.id.notice_modify_back:
+            case R2.id.notice_modify_back:
                 //                Toast.makeText(NoticeAddActivity.this,"EXIT :"+ EXIT,Toast.LENGTH_SHORT).show();
                 if (!themeEmptyTag && EXIT) {
                     Toast.makeText(NoticeModifyActivity.this, "亲，您的标题还有内容，再按一次退出", Toast.LENGTH_SHORT).show();
@@ -84,7 +85,7 @@ public class NoticeModifyActivity extends BaseActivity {
                     finish();
                 }
                 break;
-            case R.id.notice_modify_finish:
+            case R2.id.notice_modify_finish:
                 if (themeEmptyTag) {
                     Toast.makeText(NoticeModifyActivity.this, "亲，标题不能为空！", Toast.LENGTH_SHORT).show();
                 } else {

@@ -30,16 +30,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TaskActivity extends BaseActivity {
-    @Bind(R.id.task_img)
+    @BindView(R.id.task_img)
     ImageView taskImg;
-    @Bind(R.id.dropDownMenu)
+    @BindView(R.id.dropDownMenu)
     DropDownMenu mDropDownMenu;
-    @Bind(R.id.task_title)
+    @BindView(R.id.task_title)
     TextView taskTitle;
     RecyclerView recyclerTask;
 

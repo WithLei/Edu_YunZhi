@@ -34,18 +34,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserInfoActivity extends BaseActivity {
 
     private static final int PICTURE = 100;
     private static final int CAMERA = 200;
-    @Bind(R.id.iv_user_icon)
+    @BindView(R.id.iv_user_icon)
     ImageView ivUserIcon;
-    @Bind(R.id.btn_user_logout)
+    @BindView(R.id.btn_user_logout)
     Button btnUserLogout;
-    @Bind(R.id.tv_user_change)
+    @BindView(R.id.tv_user_change)
     TextView tvUserChange;
 
     @Override

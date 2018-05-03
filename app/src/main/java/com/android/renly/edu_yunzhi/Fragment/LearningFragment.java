@@ -23,21 +23,22 @@ import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.BatchRadioButton;
 import com.loopj.android.http.RequestParams;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class LearningFragment extends BaseFragment{
 
-    @Bind(R.id.btn_1)
+    @BindView(R.id.btn_1)
     BatchRadioButton btn1;
-    @Bind(R.id.btn_2)
+    @BindView(R.id.btn_2)
     BatchRadioButton btn2;
-    @Bind(R.id.btn_3)
+    @BindView(R.id.btn_3)
     BatchRadioButton btn3;
-    @Bind(R.id.btn_change)
+    @BindView(R.id.btn_change)
     RadioGroup btnChange;
-    @Bind(R.id.fl_learning)
+    @BindView(R.id.fl_learning)
     FrameLayout flLearning;
 
     @Override
@@ -112,11 +113,13 @@ public class LearningFragment extends BaseFragment{
         return R.layout.fragment_learning;
     }
 
+    private Unbinder unbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         btn1.setText("课程");
         btn2.setText("作业");
         btn3.setText("笔记");
@@ -126,7 +129,7 @@ public class LearningFragment extends BaseFragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         //移除所有的未被执行的消息
 //        handler.removeCallbacksAndMessages(null);
     }

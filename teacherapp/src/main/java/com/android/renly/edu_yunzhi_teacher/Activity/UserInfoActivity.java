@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.android.renly.edu_yunzhi_teacher.Common.BaseActivity;
 import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi_teacher.R;
+import com.android.renly.edu_yunzhi_teacher.R2;
 import com.android.renly.edu_yunzhi_teacher.Utils.BitmapUtils;
 
 import java.io.File;
@@ -34,18 +35,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserInfoActivity extends BaseActivity {
 
     private static final int PICTURE = 100;
     private static final int CAMERA = 200;
-    @Bind(R.id.iv_user_icon)
+    @BindView(R2.id.iv_user_icon)
     ImageView ivUserIcon;
-    @Bind(R.id.btn_user_logout)
+    @BindView(R2.id.btn_user_logout)
     Button btnUserLogout;
-    @Bind(R.id.tv_user_change)
+    @BindView(R2.id.tv_user_change)
     TextView tvUserChange;
 
     @Override
@@ -58,7 +59,7 @@ public class UserInfoActivity extends BaseActivity {
         return R.layout.activity_user_info;
     }
 
-    @OnClick(R.id.tv_user_change)
+    @OnClick(R2.id.tv_user_change)
     public void changeIcon(View view){
         String[] items = new String[]{"图库","相机"};
         //提供一个AlertDialog
@@ -179,7 +180,7 @@ public class UserInfoActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.btn_user_logout)
+    @OnClick(R2.id.btn_user_logout)
     public void logout(View view){//"退出登录"button的回调方法
         //1.将保存在sp中的数据清除
         SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
