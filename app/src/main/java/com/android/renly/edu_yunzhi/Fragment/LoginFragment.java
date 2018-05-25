@@ -27,13 +27,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi.Utils.KeyboardWatcher;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
+
+import cz.msebera.android.httpclient.Header;
 
 
 /**
@@ -242,30 +250,67 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
             case R.id.btn_login:
                 String password = et_password.getText().toString();
                 String username = et_mobile.getText().toString();
-                // 获取SharedPreferences对象
-                SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-                // 获取Editor对象
-                SharedPreferences.Editor editor = sharedPre.edit();
-                // 设置参数
-                editor.putString("username", username);
-                editor.putString("password", password);
-                // 提交
-                editor.commit();
 
-                Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
+                if(!TextUtils.isEmpty(password) && !TextUtils.isEmpty(username)){
+                    String url = AppNetConfig.LOGIN;
+                    //http://47.100.116.153:8080/sshSimple/app-studentLogin
+                    RequestParams params = new RequestParams();
+                    params.put("username",username);
+                    params.put("password",password);
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    client.post(url, params, new AsyncHttpResponseHandler() {
 
-                if(rb_stu.isChecked()){//学生登录
-                    //发送事件
-                    EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
-                    getActivity().finish();
-                }
-                else{
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            if(statusCode != 200){
+                                Toast.makeText(getContext(),"登陆失败",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            String response = new String(responseBody);
+                            JSONObject jsonObject = JSON.parseObject(response);
+                            String realName = jsonObject.getString("realname");
+                            String schoolName = JSON.parseObject(jsonObject.get("department").toString()).getString("name");
+
+                            doLogin(username,password,realName,schoolName);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Toast.makeText(getContext(),"联网失败" + statusCode,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else{
+                    //如果用户未输入全部信息
+                    Toast.makeText(this.getContext(),"请输入用户名及密码",Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
 
+    private void doLogin(String username,String password,String realName,String schoolName) {
+        // 获取SharedPreferences对象
+        SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        // 获取Editor对象
+        SharedPreferences.Editor editor = sharedPre.edit();
+        // 设置参数
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.putString("realName",realName);
+        editor.putString("schoolName",schoolName);
+        // 提交
+        editor.commit();
+
+        Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
+
+        if(rb_stu.isChecked()){//学生登录
+            //发送事件
+            EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
+            getActivity().finish();
+        }
+        else{
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        }
+    }
 
 
     @Override

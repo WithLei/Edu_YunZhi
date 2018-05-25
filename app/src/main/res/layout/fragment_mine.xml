@@ -57,6 +57,17 @@
                     android:text="您好，请登录"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_mine_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_mine_name"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="霍格沃茨"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
             </RelativeLayout>
 
             <View

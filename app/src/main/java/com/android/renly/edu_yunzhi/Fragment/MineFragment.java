@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +62,8 @@ public class MineFragment extends BaseFragment {
     TextView tvMineGrade;
     @BindView(R.id.tv_mine_logout)
     TextView tvMineLogout;
+    @BindView(R.id.tv_mine_school)
+    TextView tvMineSchool;
 
     @Override
     protected String getUrl() {
@@ -92,7 +93,7 @@ public class MineFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    public static class MessageEvent{
+    public static class MessageEvent {
         public final String message;
 
         public MessageEvent(String message) {
@@ -103,12 +104,16 @@ public class MineFragment extends BaseFragment {
             return message;
         }
 
-    };
+    }
+
+    ;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-        tvMineName.setText("懒羊羊");
+        SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String realname = sharedPre.getString("realname", "");
+        tvMineName.setText(realname);
         tvMineLogout.setVisibility(View.VISIBLE);
     }
 
@@ -124,7 +129,11 @@ public class MineFragment extends BaseFragment {
             //已经登录过，则直接加载用户的信息并显示
             tvMineLogout.setVisibility(View.VISIBLE);
             ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-            tvMineName.setText("懒羊羊");
+            SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+            String realname = sharedPre.getString("realName", "");
+            String schoolName = sharedPre.getString("schoolName","");
+            tvMineName.setText(realname);
+            tvMineSchool.setText(schoolName);
         }
 
     }
@@ -185,11 +194,10 @@ public class MineFragment extends BaseFragment {
         //启动用户信息界面的Activity
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
-        if (TextUtils.isEmpty(name)){
-            Toast.makeText(MyApplication.context,"打开登录页面",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(MyApplication.context, "打开登录页面", Toast.LENGTH_SHORT).show();
             LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
-        }
-        else
+        } else
             ((BaseActivity) this.getActivity()).goToActivity(UserInfoActivity.class, null);
     }
 
@@ -254,7 +262,7 @@ public class MineFragment extends BaseFragment {
                 SharedPreferences.Editor editor = sharedPre.edit();
                 editor.clear();
                 editor.commit();
-                Toast.makeText(MyApplication.context,"已删除",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.context, "已删除", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
