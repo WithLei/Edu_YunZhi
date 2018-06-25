@@ -262,7 +262,7 @@ public class MineFragment extends BaseFragment {
                 SharedPreferences.Editor editor = sharedPre.edit();
                 editor.clear();
                 editor.commit();
-                Toast.makeText(MyApplication.context, "已删除", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.context, "退出登录", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
