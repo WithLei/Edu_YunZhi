@@ -3,6 +3,7 @@ package com.android.renly.edu_yunzhi.Fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -112,8 +113,9 @@ public class MineFragment extends BaseFragment {
     public void Event(MessageEvent messageEvent) {
         ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
         SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String realname = sharedPre.getString("realname", "");
-        tvMineName.setText(realname);
+        String realname = sharedPre.getString("realName", "");
+        boolean isStudent = sharedPre.getBoolean("isStudent",false);
+        tvMineName.setText(realname + (isStudent ? " 同学，你好" : " 老师，您好"));
         tvMineLogout.setVisibility(View.VISIBLE);
     }
 
@@ -127,13 +129,23 @@ public class MineFragment extends BaseFragment {
 
         } else {
             //已经登录过，则直接加载用户的信息并显示
+            boolean isStudent = sp.getBoolean("isStudent",false);
             tvMineLogout.setVisibility(View.VISIBLE);
             ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-            SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-            String realname = sharedPre.getString("realName", "");
-            String schoolName = sharedPre.getString("schoolName","");
-            tvMineName.setText(realname);
-            tvMineSchool.setText(schoolName);
+            String realName = sp.getString("realName","");
+            String schoolName = sp.getString("schoolName","");
+            Log.e("print","realName[" + realName + "]");
+            Log.e("print","schoolName[" + schoolName + "]");
+            if(isStudent){
+                //学生登录
+                tvMineName.setText(realName + " 同学，你好");
+                tvMineSchool.setText(schoolName);
+            }
+            else{
+                //老师登录
+                tvMineName.setText(realName + " 老师，您好");
+                tvMineSchool.setText(schoolName);
+            }
         }
 
     }
@@ -261,7 +273,9 @@ public class MineFragment extends BaseFragment {
                 SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPre.edit();
                 editor.clear();
-                editor.commit();
+                editor.apply();
+
+                LoadFragmentActivity.lunchFragment(getContext(),LoginFragment.class,null);
                 Toast.makeText(MyApplication.context, "退出登录", Toast.LENGTH_SHORT).show();
                 break;
         }

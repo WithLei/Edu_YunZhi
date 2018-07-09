@@ -1,9 +1,7 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.AbilityActivity;
-import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
@@ -116,6 +113,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     com.android.renly.edu_yunzhi.UI.CircleImageView civScool;
     @BindView(R.id.rl_home_school)
     RelativeLayout rlHomeSchool;
+    @BindView(R.id.tv_home_titleName)
+    TextView tvHomeTitleName;
 
     private Unbinder unbinder;
 
@@ -402,13 +401,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //查看本地是否有用户的登录信息
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
+        boolean isStudent = sp.getBoolean("isStudent", false);
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
             doLogin();
-        }
-        else{
-            CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-            rlHomeSchool.setVisibility(View.VISIBLE);
+        } else {
+            if (isStudent) {
+                CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+                rlHomeSchool.setVisibility(View.VISIBLE);
+            } else {
+                CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
+                rlHomeSchool.setVisibility(View.VISIBLE);
+                tvHomeTitleName.setText("云智教育教师端");
+                tvHomeThird.setText("批改作业");
+                ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.activity));
+                tvHomeFourth.setText("各类活动");
+            }
         }
     }
 

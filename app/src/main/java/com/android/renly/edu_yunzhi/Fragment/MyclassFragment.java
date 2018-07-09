@@ -1,7 +1,9 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,6 +43,10 @@ public class MyclassFragment extends BaseFragment {
     public TextView tvMyclassSeeall;
     @BindView(R.id.recycler_myclass_learnt)
     public RecyclerView recyclerMyclassLearnt;
+    @BindView(R.id.tv_myclass_learning)
+    TextView tvMyclassLearning;
+    @BindView(R.id.tv_myclass_learnt)
+    TextView tvMyclassLearnt;
 
     @Override
     protected String getUrl() {
@@ -54,6 +60,7 @@ public class MyclassFragment extends BaseFragment {
 
     @Override
     protected void initData(String content) {
+        isLogin();
         //初始化数据
         initCoursedata();
         //初始化列表
@@ -66,10 +73,11 @@ public class MyclassFragment extends BaseFragment {
             @Override
             public void onClick(int position) {
 //                Toast.makeText(MyApplication.context,"您点击了"+position+"行",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MyApplication.context,CourseDetailsActivity.class);
-                intent.putExtra("title",learningAdapter.learningData.get(position).name);
+                Intent intent = new Intent(MyApplication.context, CourseDetailsActivity.class);
+                intent.putExtra("title", learningAdapter.learningData.get(position).name);
                 startActivity(intent);
             }
+
             @Override
             public void onLongClick(int position) {
 //                Toast.makeText(MyApplication.context,"您长按点击了"+position+"行",Toast.LENGTH_SHORT).show();
@@ -138,7 +146,18 @@ public class MyclassFragment extends BaseFragment {
 
     @OnClick(R.id.tv_myclass_addclass)
     public void onViewClicked() {
-        startActivity(new Intent(MyApplication.context,SearchActivity.class));
+        startActivity(new Intent(MyApplication.context, SearchActivity.class));
+    }
+
+    private void isLogin() {
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        boolean isStudent = sp.getBoolean("isStudent",true);
+        if(!isStudent){
+            //老师登录
+            tvMyclassLearning.setText("任教的课程");
+            tvMyclassLearnt.setText("教过的课程");
+            tvMyclassAddclass.setText("添加课程");
+        }
     }
 
     public static class courseInfoAdapter extends RecyclerView.Adapter<courseInfoAdapter.ViewHolder> {
@@ -180,14 +199,14 @@ public class MyclassFragment extends BaseFragment {
             String imagePath = course.imgUrl;
             Picasso.with(MyApplication.context).load(imagePath).into(holder.img);
 
-            if( mOnItemClickListener!= null){
-                holder.itemView.setOnClickListener( new View.OnClickListener() {
+            if (mOnItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mOnItemClickListener.onClick(position);
                     }
                 });
-                holder.itemView.setOnLongClickListener( new View.OnLongClickListener() {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         mOnItemClickListener.onLongClick(position);
@@ -203,13 +222,14 @@ public class MyclassFragment extends BaseFragment {
             return learningData.size();
         }
 
-        public interface OnItemClickListener{
-            void onClick( int position);
-            void onLongClick( int position);
+        public interface OnItemClickListener {
+            void onClick(int position);
+
+            void onLongClick(int position);
         }
 
-        public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
-            this. mOnItemClickListener=onItemClickListener;
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.mOnItemClickListener = onItemClickListener;
         }
 
     }

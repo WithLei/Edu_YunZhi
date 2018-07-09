@@ -24,6 +24,7 @@
             YunZhi:civ_border_width="1dp" />
 
         <TextView
+            android:id="@+id/tv_home_titleName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"

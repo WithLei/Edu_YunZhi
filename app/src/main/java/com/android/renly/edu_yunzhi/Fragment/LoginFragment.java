@@ -31,7 +31,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
-import com.android.renly.edu_yunzhi_teacher.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi.Utils.KeyboardWatcher;
@@ -277,6 +276,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                             Toast.makeText(getContext(),"联网失败" + statusCode,Toast.LENGTH_SHORT).show();
+                            String realName = "测试姓名";
+                            String schoolName = "测试学校";
+                            doLogin(username,password,realName,schoolName);
                         }
                     });
                 }else{
@@ -297,19 +299,24 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         editor.putString("password", password);
         editor.putString("realName",realName);
         editor.putString("schoolName",schoolName);
-        // 提交
-        editor.commit();
+
 
         Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
 
         if(rb_stu.isChecked()){//学生登录
             //发送事件
-            EventBus.getDefault().post(new MineFragment.MessageEvent("isLogin"));
+            EventBus.getDefault().post(new MineFragment.MessageEvent("studentLogin"));
+            editor.putBoolean("isStudent",true);
             getActivity().finish();
         }
-        else{
-            startActivity(new Intent(getActivity(), MainActivity.class));
+        else{//老师登录
+            EventBus.getDefault().post(new MineFragment.MessageEvent("teacherLogin"));
+            editor.putBoolean("isStudent",false);
+            getActivity().finish();
         }
+
+        // 提交
+        editor.commit();
     }
 
 

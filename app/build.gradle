@@ -51,7 +51,6 @@ dependencies {
     implementation project(':answer')
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.Yalantis:Context-Menu.Android:1.0.8'
-    implementation project(':teacherapp')
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.alibaba:fastjson:1.2.46'
 }

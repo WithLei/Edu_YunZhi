@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.renly.edu_yunzhi">
     <uses-permission android:name="android.permission.INTERNET"/>
     //读取内存权限
@@ -25,7 +26,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".Common.MyApplication"
@@ -61,34 +63,6 @@
         <activity android:name=".Activity.PKActivity"/>
         <activity android:name=".Activity.AbilityActivity"/>
 
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.MainActivity"/>
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.UserInfoActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.LoadFragmentActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.NoticeActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.NoticeAddActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.NoticeModifyActivity" />
-        <activity
-            android:name="com.android.renly.edu_yunzhi_teacher.Activity.TeacherAddClassActivity"
-            android:label="@string/title_activity_teacher_add_class"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.android.renly.edu_yunzhi_teacher"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.CorrectHomeworkActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.HomeworkListActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.StudentHomeworkListActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.TestActivity"/>
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.StudentHomeworkCorrectActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.TaskActivity" />
-        <activity android:name="com.android.renly.edu_yunzhi_teacher.Activity.TaskAddActivity"></activity>
     </application>
 
 </manifest>
