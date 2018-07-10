@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
+import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Bean.User;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
@@ -94,29 +95,22 @@ public class MineFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    public static class MessageEvent {
-        public final String message;
-
-        public MessageEvent(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-    }
-
-    ;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-        SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String realname = sharedPre.getString("realName", "");
-        boolean isStudent = sharedPre.getBoolean("isStudent",false);
-        tvMineName.setText(realname + (isStudent ? " 同学，你好" : " 老师，您好"));
+        SharedPreferences sp = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String realName = sp.getString("realName", "");
+        boolean isStudent = sp.getBoolean("isStudent",false);
         tvMineLogout.setVisibility(View.VISIBLE);
+        switch (messageEvent.getMessage()){
+            case "studentLogin":
+                tvMineName.setText(realName + " 同学，你好");
+                break;
+            case "teacherLogin":
+                tvMineName.setText(realName + " 老师，您好");
+                break;
+        }
+
     }
 
     private void isLogin() {

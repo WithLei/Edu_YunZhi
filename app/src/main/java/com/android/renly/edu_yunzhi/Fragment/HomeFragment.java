@@ -25,6 +25,7 @@ import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
+import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Bean.News;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
@@ -247,9 +248,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(MineFragment.MessageEvent messageEvent) {
+    public void Event(MessageEvent messageEvent) {
         CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
         rlHomeSchool.setVisibility(View.VISIBLE);
+        SharedPreferences sp = getContext().getSharedPreferences("user_info",Context.MODE_PRIVATE);
+        boolean isStudent = sp.getBoolean("isStudent",false);
+        switch (messageEvent.getMessage()){
+            case "studentLogin":
+                //主界面更改为学生样式
+                tvHomeTitleName.setText("云智教育");
+                tvHomeThird.setText("任务中心");
+                ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.icon_pk));
+                tvHomeFourth.setText("知识对抗");
+                break;
+            case "teacherLogin":
+                //主界面更改为老师样式
+                tvHomeTitleName.setText("云智教育教师端");
+                tvHomeThird.setText("批改作业");
+                ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.activity));
+                tvHomeFourth.setText("各类活动");
+                break;
+        }
     }
 
     @Override

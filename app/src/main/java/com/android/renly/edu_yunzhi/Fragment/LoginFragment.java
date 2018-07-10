@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
@@ -41,6 +43,8 @@ import com.loopj.android.http.RequestParams;
 import org.greenrobot.eventbus.EventBus;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.*;
 
 
 /**
@@ -121,6 +125,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     }
 
     private void initListener() {
+        root.setOnClickListener(this);
         iv_clean_phone.setOnClickListener(this);
         clean_password.setOnClickListener(this);
         iv_show_pwd.setOnClickListener(this);
@@ -223,6 +228,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+            case R.id.root:
+                //收起软键盘
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                break;
             case R.id.iv_clean_phone:
                 et_mobile.setText("");
                 break;
@@ -303,20 +313,23 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
 
         Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
 
-        if(rb_stu.isChecked()){//学生登录
+        if(!rb_teacher.isChecked()){//学生登录
             //发送事件
-            EventBus.getDefault().post(new MineFragment.MessageEvent("studentLogin"));
             editor.putBoolean("isStudent",true);
+            // 提交
+            editor.commit();
+            EventBus.getDefault().post(new MessageEvent("studentLogin"));
             getActivity().finish();
         }
         else{//老师登录
-            EventBus.getDefault().post(new MineFragment.MessageEvent("teacherLogin"));
             editor.putBoolean("isStudent",false);
+            // 提交
+            editor.commit();
+            EventBus.getDefault().post(new MessageEvent("teacherLogin"));
             getActivity().finish();
         }
 
-        // 提交
-        editor.commit();
+
     }
 
 
