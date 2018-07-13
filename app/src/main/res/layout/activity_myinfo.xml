@@ -4,41 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp">
-
-        <TextView
-            android:id="@+id/tv_myinfo_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:drawableLeft="@drawable/back"
-            android:gravity="center"
-            android:text="我"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tv_home_titleName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:maxEms="10"
-            android:text="个人信息"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
+    <include layout="@layout/title" />
 
     <FrameLayout
         android:id="@+id/fl_myinfo_headphoto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/tv_myinfo_headphoto"
@@ -58,51 +30,56 @@
     <FrameLayout
         android:id="@+id/fl_myinfo_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/tv_myinfo_name"
             style="@style/LoginStyle"
-            android:text="名字" />
+            android:text="用户名" />
 
         <TextView
             android:id="@+id/tv_myinfo_setName"
             style="@style/MyinfoStyle"
             android:layout_marginRight="45dp"
-            android:text="renly" />
+            android:text="username" />
     </FrameLayout>
 
-<FrameLayout
-    android:id="@+id/fl_myinfo_realName"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tv_myinfo_realName"
-        style="@style/LoginStyle"
-        android:drawableRight="null"
-        android:text="姓名" />
-    <TextView
-        android:id="@+id/tv_myinfo_setRealName"
-        style="@style/MyinfoStyle"
-        android:layout_marginRight="10dp"
-        android:text="周三石"/>
+    <FrameLayout
+        android:id="@+id/fl_myinfo_realName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_myinfo_realName"
+            style="@style/LoginNoPicStyle"
+            android:text="姓名" />
+
+        <TextView
+            android:id="@+id/tv_myinfo_setRealName"
+            style="@style/MyinfoStyle"
+            android:layout_marginRight="10dp"
+            android:text="realname" />
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fl_myinfo_school"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
+
         <TextView
             android:id="@+id/tv_myinfo_school"
-            style="@style/LoginStyle"
-            android:drawableRight="null"
+            style="@style/LoginNoPicStyle"
             android:text="学校" />
+
         <TextView
             android:id="@+id/tv_myinfo_setSchool"
             style="@style/MyinfoStyle"
             android:layout_marginRight="10dp"
-            android:text="浙江理工大学"/>
+            android:text="shool" />
     </FrameLayout>
 
 

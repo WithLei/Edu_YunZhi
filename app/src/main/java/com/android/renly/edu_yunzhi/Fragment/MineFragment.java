@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
 import com.android.renly.edu_yunzhi.Bean.MessageEvent;
@@ -204,7 +205,7 @@ public class MineFragment extends BaseFragment {
             Toast.makeText(MyApplication.context, "打开登录页面", Toast.LENGTH_SHORT).show();
             LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
         } else
-            ((BaseActivity) this.getActivity()).goToActivity(UserInfoActivity.class, null);
+            ((BaseActivity) this.getActivity()).goToActivity(MyInfoActivity.class, null);
     }
 
     @Override

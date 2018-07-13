@@ -62,6 +62,8 @@
         <activity android:name="com.example.answer.MyErrorQuestionDetailActivity"/>
         <activity android:name=".Activity.PKActivity"/>
         <activity android:name=".Activity.AbilityActivity"/>
+        <activity android:name=".Activity.MyInfoActivity" />
+        <activity android:name=".Activity.setInfoActivity" />
 
     </application>
 

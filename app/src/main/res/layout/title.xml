@@ -1,51 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:orientation="vertical">
+    android:layout_height="52dp"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/lock_title_bg"
-        >
+    <TextView
+        android:id="@+id/tv_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:drawableLeft="@drawable/back"
+        android:gravity="center"
+        android:text="我"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/iv_title_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/left"
-            android:layout_marginLeft="10dp"
-            />
+    <TextView
+        android:id="@+id/tv_title_titleName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:maxEms="10"
+        android:text="个人信息"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="首页"
-            android:textColor="@color/title_text"
-            android:textSize="20sp"
-            android:gravity="center"
-            />
+    <TextView
+        android:id="@+id/tv_title_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/color_title_right"
+        android:textSize="20sp"
+        android:text="完成"/>
 
-        <ImageView
-            android:id="@+id/iv_title_setting"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/my_setting_icon"
-            android:layout_marginRight="10dp"
-            />
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/title_text"
-        ></View>
-
-</LinearLayout>
+</FrameLayout>
