@@ -51,6 +51,7 @@ public class LoadFragmentActivity extends FragmentActivity {
         if (bundle != null) {
             intent.putExtras(bundle);
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

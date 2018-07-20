@@ -1,197 +1,224 @@
 package com.android.renly.edu_yunzhi.Activity;
 
-import android.annotation.TargetApi;
-import android.content.pm.ActivityInfo;
-import android.os.Build;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.transition.Transition;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.android.renly.edu_yunzhi.Bean.SampleVideo;
-import com.android.renly.edu_yunzhi.Bean.SwitchVideoModel;
-import com.android.renly.edu_yunzhi.Listener.OnTransitionListener;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.R;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.tencent.rtmp.ITXLivePlayListener;
+import com.tencent.rtmp.TXLiveBase;
+import com.tencent.rtmp.TXLiveConstants;
+import com.tencent.rtmp.TXLivePlayer;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * 单独的视频播放页面
- * Created by shuyu on 2016/11/11.
- */
-public class PlayActivity extends AppCompatActivity {
 
-    public final static String IMG_TRANSITION = "IMG_TRANSITION";
-    public final static String TRANSITION = "TRANSITION";
+public class PlayActivity extends Activity {
+    @BindView(R.id.video_view)
+    TXCloudVideoView videoView;
+    @BindView(R.id.back_tv)
+    TextView backTv;
+    @BindView(R.id.back_ll)
+    LinearLayout backLl;
+    @BindView(R.id.title_tv)
+    TextView titleTv;
+    @BindView(R.id.btnNew)
+    Button btnNew;
+    @BindView(R.id.btnScan)
+    Button btnScan;
+    @BindView(R.id.roomid)
+    EditText roomid;
+    @BindView(R.id.video_frame)
+    FrameLayout videoFrame;
+    @BindView(R.id.titlebar)
+    RelativeLayout titlebar;
+    @BindView(R.id.loadingImageView)
+    ImageView mLoadingView;
+    private TXCloudVideoView mView;
+    private TXLivePlayer mLivePlayer;
 
-    @BindView(R.id.video_player)
-    SampleVideo videoPlayer;
 
-    OrientationUtils orientationUtils;
+    private String roomName;
 
-    private boolean isTransition;
-
-    private Transition transition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
+        setContentView(R.layout.activity_playroom);
         ButterKnife.bind(this);
-        isTransition = getIntent().getBooleanExtra(TRANSITION, false);
-        init();
+
+        initView();
+        testCode();
+        createPlayer();
+        startPlay();
+        adjustView();
     }
 
-    private void init() {
-        String url = "https://res.exexm.com/cw_145225549855002";
-
-        //String url = "http://7xse1z.com1.z0.glb.clouddn.com/1491813192";
-        //需要路径的
-        //videoPlayer.setUp(url, true, new File(FileUtils.getPath()), "");
-
-        //借用了jjdxm_ijkplayer的URL
-        String source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
-        String name = "普通";
-        SwitchVideoModel switchVideoModel = new SwitchVideoModel(name, source1);
-
-        String source2 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f30.mp4";
-        String name2 = "清晰";
-        SwitchVideoModel switchVideoModel2 = new SwitchVideoModel(name2, source2);
-
-        List<SwitchVideoModel> list = new ArrayList<>();
-        list.add(switchVideoModel);
-        list.add(switchVideoModel2);
-
-        videoPlayer.setUp(list, true, "测试视频");
-
-        //增加封面
-        ImageView imageView = new ImageView(this);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(R.mipmap.xx1);
-        videoPlayer.setThumbImageView(imageView);
-
-        //增加title
-        videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        //videoPlayer.setShowPauseCover(false);
-
-        //videoPlayer.setSpeed(2f);
-
-        //设置返回键
-        videoPlayer.getBackButton().setVisibility(View.VISIBLE);
-
-        //设置旋转
-        orientationUtils = new OrientationUtils(this, videoPlayer);
-
-        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
-        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orientationUtils.resolveByClick();
+    ITXLivePlayListener mListener = new ITXLivePlayListener() {
+        @Override
+        public void onPlayEvent(int event, Bundle bundle) {
+            Log.e("bundle", "bundle == " + bundle.toString() + "\n" + "event == " + event);
+            if (event == TXLiveConstants.PLAY_EVT_PLAY_BEGIN) {
+                stopLoadingAnimation();
+            } else if (event == TXLiveConstants.PLAY_ERR_NET_DISCONNECT || event == TXLiveConstants.PLAY_EVT_PLAY_END) {
+                stopPlay();
+            } else if (event == TXLiveConstants.PLAY_EVT_PLAY_LOADING){
+                startLoadingAnimation();
+            } else if (event == TXLiveConstants.PLAY_EVT_RCV_FIRST_I_FRAME) {
+                stopLoadingAnimation();
             }
-        });
+        }
 
-        //videoPlayer.setBottomProgressBarDrawable(getResources().getDrawable(R.drawable.video_new_progress));
-        //videoPlayer.setDialogVolumeProgressBar(getResources().getDrawable(R.drawable.video_new_volume_progress_bg));
-        //videoPlayer.setDialogProgressBar(getResources().getDrawable(R.drawable.video_new_progress));
-        //videoPlayer.setBottomShowProgressBarDrawable(getResources().getDrawable(R.drawable.video_new_seekbar_progress),
-        //getResources().getDrawable(R.drawable.video_new_seekbar_thumb));
-        //videoPlayer.setDialogProgressColor(getResources().getColor(R.color.colorAccent), -11);
+        @Override
+        public void onNetStatus(Bundle bundle) {
+        }
+    };
 
-        //是否可以滑动调整
-        videoPlayer.setIsTouchWiget(true);
-
-        //设置返回按键功能
-        videoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        //过渡动画
-        initTransition();
+    private void startLoadingAnimation() {
+        if (mLoadingView != null) {
+            mLoadingView.setVisibility(View.VISIBLE);
+            ((AnimationDrawable) mLoadingView.getDrawable()).start();
+        }
     }
 
+    private void stopLoadingAnimation() {
+        if (mLoadingView != null) {
+            mLoadingView.setVisibility(View.GONE);
+            ((AnimationDrawable) mLoadingView.getDrawable()).stop();
+        }
+    }
+
+    private void stopPlay(){
+        if (mLivePlayer != null) {
+            mLivePlayer.stopRecord();
+            mLivePlayer.setPlayListener(null);
+            mLivePlayer.stopPlay(true);
+        }
+    }
+
+    private void initView() {
+        backLl.setVisibility(View.VISIBLE);
+        Intent intent = getIntent();
+        roomName = intent.getStringExtra("RoomName");
+        titleTv.setText(roomName);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLivePlayer.stopPlay(true); // true 代表清除最后一帧画面
+        mView.onDestroy();
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        videoPlayer.onVideoPause();
+        pausePlayer();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        videoPlayer.onVideoResume();
+        resumePlayer();
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (orientationUtils != null)
-            orientationUtils.releaseListener();
+    private void resumePlayer() {
+        // 继续
+        mLivePlayer.resume();
     }
 
-    @Override
-    public void onBackPressed() {
-        //先返回正常状态
-        if (orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            videoPlayer.getFullscreenButton().performClick();
-            return;
+    private void pausePlayer() {
+        // 暂停
+        mLivePlayer.pause();
+    }
+
+    private void adjustView() {
+        /**
+         * 画面调整
+         * view：大小和位置
+         *      如需修改画面的大小及位置，直接调整 step1 中添加的 “video_view” 控件的大小和位置即可。
+         *
+         * setRenderMode：铺满or适应
+         *      可选值	                        含义
+         *      RENDER_MODE_FULL_FILL_SCREEN	将图像等比例铺满整个屏幕，多余部分裁剪掉，此模式下画面不会留黑边，但可能因为部分区域被裁剪而显示不全。
+         *      RENDER_MODE_ADJUST_RESOLUTION	将图像等比例缩放，适配最长边，缩放后的宽和高都不会超过显示区域，居中显示，画面可能会留有黑边。
+         *
+         * setRenderRotation：              画面旋转
+         *      可选值	                        含义
+         *      RENDER_ROTATION_PORTRAIT	    正常播放（Home 键在画面正下方）
+         *      RENDER_ROTATION_LANDSCAPE	    画面顺时针旋转 270 度（Home 键在画面正左方）
+         */
+
+        // 设置填充模式
+        mLivePlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);
+        // 设置画面渲染方向
+        mLivePlayer.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT);
+    }
+
+    private void startPlay() {
+        /**
+         * 启动播放
+         *
+         * 可选值	                枚举值	  含义
+         * PLAY_TYPE_LIVE_RTMP	      0	      传入的 URL 为 RTMP 直播地址
+         * PLAY_TYPE_LIVE_FLV	      1	      传入的 URL 为 FLV 直播地址
+         * PLAY_TYPE_LIVE_RTMP_ACC	  5	      低延迟链路地址（仅适合于连麦场景）
+         * PLAY_TYPE_VOD_HLS	      3	      传入的 URL 为 HLS（m3u8）播放地址
+         */
+        String flvUrl = AppNetConfig.LiveUrl;
+        mLivePlayer.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_FLV); //推荐 FLV
+    }
+
+    private void createPlayer() {
+        /**
+         * 创建 Player
+         *
+         * 视频云 SDK 中的 TXLivePlayer 模块负责实现直播播放功能，
+         * 并使用 setPlayerView 接口将这它与我们刚刚添加到界面上的 video_view 控件进行关联。
+         */
+        //mPlayerView 即 step1 中添加的界面 view
+        mView = (TXCloudVideoView) findViewById(R.id.video_view);
+
+        //创建 player 对象
+        mLivePlayer = new TXLivePlayer(this);
+
+        //关键 player 对象与界面 view
+        mLivePlayer.setPlayerView(mView);
+        mLivePlayer.setPlayListener(mListener);
+    }
+
+    private void testCode() {
+        /**
+         * 测试sdk是否连接
+         */
+        String sdkver = TXLiveBase.getSDKVersionStr();
+        Log.d("liteavsdk", "liteav sdk version is : " + sdkver);
+    }
+
+    @OnClick({R.id.back_ll, R.id.btnNew, R.id.btnScan})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.back_ll:
+                finish();
+                break;
+            case R.id.btnNew:
+                break;
+            case R.id.btnScan:
+                break;
         }
-        //释放所有
-        videoPlayer.setVideoAllCallBack(null);
-        GSYVideoManager.releaseAllVideos();
-        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            super.onBackPressed();
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    finish();
-                    overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-                }
-            }, 500);
-        }
     }
-
-
-    private void initTransition() {
-        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition();
-            ViewCompat.setTransitionName(videoPlayer, IMG_TRANSITION);
-            addTransitionListener();
-            startPostponedEnterTransition();
-        } else {
-            videoPlayer.startPlayLogic();
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private boolean addTransitionListener() {
-        transition = getWindow().getSharedElementEnterTransition();
-        if (transition != null) {
-            transition.addListener(new OnTransitionListener(){
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    super.onTransitionEnd(transition);
-                    videoPlayer.startPlayLogic();
-                    transition.removeListener(this);
-                }
-            });
-            return true;
-        }
-        return false;
-    }
-
 }

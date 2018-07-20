@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.android.renly.edu_yunzhi.Activity.PlayActivity;
+import com.android.renly.edu_yunzhi.Activity.PlayVideoActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
@@ -79,16 +79,12 @@ public class CourseLiveFragment extends BaseFragment {
          * @param activity
          * @param view
          */
-        Intent intent = new Intent(MyApplication.context, PlayActivity.class);
-        intent.putExtra(PlayActivity.TRANSITION, true);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Pair pair = new Pair<>(openBtn, PlayActivity.IMG_TRANSITION);
-            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    getActivity(), pair);
-            ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
-        } else {
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        }
+        Bundle pusherBundle = new Bundle();
+        String PusherRoomName = "噜啦噜啦直播间";
+        pusherBundle.putString("RoomName",PusherRoomName);
+
+        Intent pusherIntent = new Intent(getContext(),PlayActivity.class);
+        pusherIntent.putExtras(pusherBundle);
+        startActivity(pusherIntent);
     }
 }
