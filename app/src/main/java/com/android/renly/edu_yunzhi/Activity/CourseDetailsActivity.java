@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Adapter.MyPagerAdapter;
@@ -32,6 +33,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_coursedetails);
         initFragments();
         initViewPager();
