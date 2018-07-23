@@ -108,6 +108,7 @@ public class PlayActivity extends Activity {
             mLivePlayer.setPlayListener(null);
             mLivePlayer.stopPlay(true);
         }
+        titlebar.setVisibility(View.VISIBLE);
     }
 
     private void initView() {
@@ -140,11 +141,13 @@ public class PlayActivity extends Activity {
     private void resumePlayer() {
         // 继续
         mLivePlayer.resume();
+        titlebar.setVisibility(View.GONE);
     }
 
     private void pausePlayer() {
         // 暂停
         mLivePlayer.pause();
+        titlebar.setVisibility(View.VISIBLE);
     }
 
     private void adjustView() {
