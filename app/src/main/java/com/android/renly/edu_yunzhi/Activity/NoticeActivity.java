@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 
 public class NoticeActivity extends BaseActivity {
     @BindView(R.id.notice_img)
-    CircleImageView noticeImg;
+    ImageView noticeImg;
     @BindView(R.id.notice_title)
     TextView noticeTitle;
     @BindView(R.id.lv_notice_noticeList)

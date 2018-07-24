@@ -18,9 +18,7 @@
             android:scaleType="centerCrop"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
-            android:src="@drawable/back"
-            YunZhi:civ_border_color="@color/white"
-            YunZhi:civ_border_width="1dp" />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/notice_title"
