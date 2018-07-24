@@ -2,18 +2,13 @@ package com.android.renly.edu_yunzhi.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.renly.edu_yunzhi.Activity.PlayActivity;
-import com.android.renly.edu_yunzhi.Activity.PlayVideoActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
-import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
 import com.loopj.android.http.RequestParams;
 

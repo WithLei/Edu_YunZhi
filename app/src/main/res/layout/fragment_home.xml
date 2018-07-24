@@ -16,9 +16,9 @@
             android:id="@+id/CircleImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:scaleType="centerCrop"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/image_placeholder"
             YunZhi:civ_border_color="@color/white"
             YunZhi:civ_border_width="1dp" />
@@ -51,27 +51,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     YunZhi:indicator_height="7dp"
-                    YunZhi:indicator_width="7dp"
-                    YunZhi:indicator_margin="2dp"/>
+                    YunZhi:indicator_margin="2dp"
+                    YunZhi:indicator_width="7dp" />
             </FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:background="@color/white"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,112 +87,129 @@
                     <LinearLayout
                         android:id="@+id/ll_home_first"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_first"
                             style="@style/iv_home_style"
-                            android:src="@drawable/classes"/>
+                            android:src="@drawable/classes" />
+
                         <TextView
                             android:id="@+id/tv_home_first"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_first"/>
+                            android:text="@string/str_home_first" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_second"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_second"
                             style="@style/iv_home_style"
-                            android:src="@drawable/inform"/>
+                            android:src="@drawable/inform" />
+
                         <TextView
                             android:id="@+id/tv_home_second"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_second"/>
+                            android:text="@string/str_home_second" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_third"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_third"
                             style="@style/iv_home_style"
-                            android:src="@drawable/task"/>
+                            android:src="@drawable/task" />
+
                         <TextView
                             android:id="@+id/tv_home_third"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_third"/>
+                            android:text="@string/str_home_third" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_fourth"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_fourth"
                             style="@style/iv_home_style"
-                            android:src="@drawable/icon_pk"/>
+                            android:src="@drawable/icon_pk" />
+
                         <TextView
                             android:id="@+id/tv_home_fourth"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_fourth"/>
+                            android:text="@string/str_home_fourth" />
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/ll_home_fifth"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_fifth"
                             style="@style/iv_home_style"
-                            android:src="@drawable/grade"/>
+                            android:src="@drawable/grade" />
+
                         <TextView
                             android:id="@+id/tv_home_fifth"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_fifth"/>
+                            android:text="@string/str_home_fifth" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_sixth"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_sixth"
                             style="@style/iv_home_style"
-                            android:src="@drawable/wa"/>
+                            android:src="@drawable/wa" />
+
                         <TextView
                             android:id="@+id/tv_home_sixth"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_sixth"/>
+                            android:text="@string/str_home_sixth" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_seventh"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_seventh"
                             style="@style/iv_home_style"
-                            android:src="@drawable/training"/>
+                            android:src="@drawable/training" />
+
                         <TextView
                             android:id="@+id/tv_home_seventh"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_seventh"/>
+                            android:text="@string/str_home_seventh" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_home_eighth"
                         style="@style/ll_home_style">
+
                         <ImageView
                             android:id="@+id/iv_home_eighth"
                             style="@style/iv_home_style"
-                            android:src="@drawable/dataanalyse"/>
+                            android:src="@drawable/dataanalyse" />
+
                         <TextView
                             android:id="@+id/tv_home_eighth"
                             style="@style/tv_home_style"
-                            android:text="@string/str_home_eighth"/>
+                            android:text="@string/str_home_eighth" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -196,50 +219,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
                 android:background="@color/divider_line" />
+
             <RelativeLayout
                 android:id="@+id/rl_home_school"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone">
+
                 <com.android.renly.edu_yunzhi.UI.CircleImageView
                     android:id="@+id/civ_scool"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/appicon"
-                    />
+                    android:src="@mipmap/appicon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:gravity="center"
                     android:layout_toEndOf="@+id/civ_scool"
-                    android:textSize="15sp"
-                    android:text="云智教育机构主页" />
+                    android:gravity="center"
+                    android:text="云智教育机构主页"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
-                    android:text="为您推荐"/>
+                    android:text="为您推荐" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants">
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/lv_home_newsList"
-                    android:scrollbars="none"
+                    style="@style/NewsListStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/NewsListStyle"/>
+                    android:scrollbars="none" />
             </RelativeLayout>
 
         </LinearLayout>

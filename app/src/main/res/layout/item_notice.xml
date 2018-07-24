@@ -61,13 +61,6 @@
             android:layout_marginEnd="15dp"
             android:src="@drawable/right" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/tv_item_notice_time"
-            android:background="@color/bottom_unselect" />
-
     </RelativeLayout>
 
 </LinearLayout>

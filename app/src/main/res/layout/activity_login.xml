@@ -8,12 +8,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-    <ImageView
-        android:id="@+id/close"
-        android:src="@drawable/close"
-        android:layout_width="60dp"
-        android:padding="16dp"
-        android:layout_height="60dp" />
+
     <com.android.renly.edu_yunzhi.UI.DrawableTextView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -134,12 +129,12 @@
             android:background="@color/color_eeeeee" />
 
         <Button
-            android:clickable="true"
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="21dp"
             android:background="@drawable/shape_bg_blue_0283df_r4dp"
+            android:clickable="true"
             android:text="@string/login"
             android:textColor="@color/color_ffffff"
             android:textSize="18dp" />
@@ -191,13 +186,13 @@
 
             <RadioButton
                 android:id="@+id/rb_login_stu"
-                android:button="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:button="@null"
+                android:checked="true"
                 android:text="学生登录"
                 android:textColor="@color/color_radiobutton"
-                android:checked="true"
                 android:textSize="14dp" />
 
             <View
@@ -209,10 +204,10 @@
 
             <RadioButton
                 android:id="@+id/rb_login_teacher"
-                android:button="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:button="@null"
                 android:text="老师登录"
                 android:textColor="@color/color_radiobutton"
                 android:textSize="14dp" />

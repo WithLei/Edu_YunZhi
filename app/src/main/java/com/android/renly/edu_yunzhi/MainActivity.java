@@ -3,6 +3,7 @@ package com.android.renly.edu_yunzhi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,8 +11,10 @@ import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.PusherActivity;
 import com.android.renly.edu_yunzhi.Common.AppManager;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
@@ -61,6 +65,10 @@ public class MainActivity extends BaseActivity {
     TextView tvMainBottomMine;
     @BindView(R.id.ll_main_bottom_mine)
     LinearLayout llMainBottomMine;
+    @BindView(R.id.iv_main_bottom_live)
+    ImageView ivMainBottomLive;
+    private View LiveDialogView;
+    private EditText et_roomName;
     private FragmentTransaction transaction;
 
     private Unbinder unbinder;
@@ -74,6 +82,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        initView();
         //将当前的Activity添加到栈管理中
         AppManager.getInstance().addActivity(this);
 
@@ -81,12 +90,20 @@ public class MainActivity extends BaseActivity {
         setSelect(0);
     }
 
+    private void initView() {
+        if (isStudent()){
+            ivMainBottomLive.setVisibility(View.GONE);
+        }else{
+            ivMainBottomLive.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.ll_main_bottom_mainpage, R.id.ll_main_bottom_learning, R.id.ll_main_bottom_msg, R.id.ll_main_bottom_mine})
+    @OnClick({R.id.ll_main_bottom_mainpage, R.id.ll_main_bottom_learning, R.id.ll_main_bottom_msg, R.id.ll_main_bottom_mine, R.id.iv_main_bottom_live})
     public void showTab(View view) {
 //        Toast.makeText(MainActivity.this,"响应",Toast.LENGTH_SHORT).show();
         SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
@@ -105,9 +122,57 @@ public class MainActivity extends BaseActivity {
                 case R.id.ll_main_bottom_mine:
                     setSelect(3);
                     break;
+                case R.id.iv_main_bottom_live:
+                    startLive();
+                    break;
             }
         } else
             doLogin();
+    }
+
+    private void startLive() {
+        initDialogView();
+        new AlertDialog.Builder(this)
+                .setView(LiveDialogView)
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        gotoPusherActivity();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void initDialogView(){
+        //初始化Dialog的视图
+        LiveDialogView = View.inflate(MainActivity.this,R.layout.dialog_live,null);
+        et_roomName = (EditText) LiveDialogView.findViewById(R.id.et_roomName);
+    }
+
+    private void gotoPusherActivity(){
+        String roomName = et_roomName.getText().toString();
+        if (!roomName.equals("")){
+            Bundle bundle = new Bundle();
+            bundle.putString("RoomName", roomName);
+
+            Message msg = new Message();
+            msg.setData(bundle);
+            msg.what = GOTO_PUSHERACTIVITY;
+
+            Log.e("log","test1");
+            handler.sendMessage(msg);
+            Log.e("log","test2");
+        }else{
+            Toast.makeText(this, "直播名称不能为空", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private HomeFragment homeFragment;
@@ -198,12 +263,26 @@ public class MainActivity extends BaseActivity {
     //重写onkeyup()
 
     private static final int WHAT_RESET_BACK = 1;
+    private static final int GOTO_PUSHERACTIVITY = 2;
+
     private boolean flag = true;
-    Handler handler = new Handler() {
-        public void handlerMessage(Message msg) {
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case WHAT_RESET_BACK:
                     flag = true;//复原
+                    break;
+                case GOTO_PUSHERACTIVITY:
+                    Log.e("log","test3");
+                    String PusherRoomName = msg.getData().getString("RoomName");
+                    Bundle pusherBundle = new Bundle();
+                    pusherBundle.putString("RoomName",PusherRoomName);
+                    Log.e("log","test4");
+
+                    Intent pusherIntent = new Intent(MainActivity.this,PusherActivity.class);
+                    pusherIntent.putExtras(pusherBundle);
+                    startActivity(pusherIntent);
                     break;
             }
         }
@@ -231,23 +310,28 @@ public class MainActivity extends BaseActivity {
         return super.onKeyUp(keyCode, event);
     }
 
+    public void refresh(){
+        onCreate(null);
+    }
+
+    public void gotoHomeFragment(){
+        initView();
+        setSelect(0);
+    }
     public void gotoLearningFragment() {
         setSelect(1);
     }
+    public void gotoMsgFragment(){setSelect(2);}
+    public void gotoMineFragment(){setSelect(3);}
 
-    private void isLogin() {
+    private boolean isStudent() {
         //查看本地是否有用户的登录信息
         SharedPreferences sp = this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String name = sp.getString("username", "");
-        if (TextUtils.isEmpty(name)) {
-            //本地没有保存过用户信息，给出提示：登录
-            doLogin();
-        }
+        return sp.getBoolean("isStudent", false);
     }
 
     //给出提示：登录
     private void doLogin() {
-        Toast.makeText(MyApplication.context, "未登录", Toast.LENGTH_SHORT).show();
         new AlertDialog.Builder(this)
                 .setTitle("提示")
                 .setMessage("您还没有登录哦！亲(^_−)−☆")

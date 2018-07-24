@@ -26,8 +26,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -63,8 +62,7 @@
         <activity android:name=".Activity.SearchActivity"/>
         <activity android:name=".Activity.CourseDetailsActivity"/>
         <activity android:name=".Activity.PlayVideoActivity" />
-        <activity android:name=".Activity.PlayActivity">
-        </activity>
+        <activity android:name=".Activity.PlayActivity" />
         <activity android:name=".Activity.PusherActivity" />
         <activity android:name="com.example.answer.AnalogyExaminationActivity"/>
         <activity android:name="com.example.answer.MyErrorQuestionActivity"/>

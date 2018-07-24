@@ -11,7 +11,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp">
 
-        <com.android.renly.edu_yunzhi.UI.CircleImageView
+        <ImageView
             android:id="@+id/notice_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -48,7 +48,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 android:src="@drawable/importantnotice" />
 
             <RelativeLayout

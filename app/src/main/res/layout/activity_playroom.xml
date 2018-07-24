@@ -31,7 +31,8 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_gravity="center"
-            android:src="@drawable/loading_animation"/>
+            android:src="@drawable/loading_animation"
+            android:visibility="gone"/>
 
 
     </FrameLayout>

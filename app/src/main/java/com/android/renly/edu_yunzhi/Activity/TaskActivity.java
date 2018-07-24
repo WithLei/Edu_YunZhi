@@ -45,7 +45,7 @@ public class TaskActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        initTaskData(null,null);
+        initTaskData();
         initView();
     }
 
@@ -61,7 +61,7 @@ public class TaskActivity extends BaseActivity {
     private ListDropDownAdapter typeAdapter;
 
     private String processs[] = {"全部进度", "进行中", "已结束"};
-    private String type[] = {"全部类型", "答疑讨论", "课外活动", "实验设计"};
+    private String types[] = {"全部类型", "答疑讨论", "课外活动", "实验设计"};
 
     private int constellationPosition = 0;
 
@@ -76,7 +76,7 @@ public class TaskActivity extends BaseActivity {
         //init type menu
         final ListView typeView = new ListView(this);
         typeView.setDividerHeight(0);
-        typeAdapter = new ListDropDownAdapter(this, Arrays.asList(type));
+        typeAdapter = new ListDropDownAdapter(this, Arrays.asList(types));
         typeView.setAdapter(typeAdapter);
 
         //init popupViews
@@ -90,10 +90,20 @@ public class TaskActivity extends BaseActivity {
                 processAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : processs[position]);
                 //init context view
-                if(position==0)
-                    initTaskData(null,null);
-                else
-                    initTaskData(position == 1 ? "进行中" : "已结束",null);
+                switch (position){
+                    case 0:
+                        process = null;
+                        initTaskData();
+                        break;
+                    case 1:
+                        process = "进行中";
+                        initTaskData();
+                        break;
+                    case 2:
+                        process = "已结束";
+                        initTaskData();
+                        break;
+                }
                 initList();
 //                mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, recyclerTask);
                 mDropDownMenu.closeMenu();
@@ -104,20 +114,24 @@ public class TaskActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typeAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[1] : type[position]);
+                mDropDownMenu.setTabText(position == 0 ? headers[1] : types[position]);
 //                init context view
                switch (position){
                    case 0:
-                       initTaskData(null,null);
+                       type = null;
+                       initTaskData();
                        break;
                     case 1:
-                        initTaskData(null,"答疑讨论");
+                        type = "答疑讨论";
+                        initTaskData();
                         break;
                     case 2:
-                        initTaskData(null,"课外活动");
+                        type = "课外活动";
+                        initTaskData();
                         break;
                     case 3:
-                        initTaskData(null,"实验设计");
+                        type = "实验设计";
+                        initTaskData();
                         break;
                 }
                 initList();
@@ -146,9 +160,9 @@ public class TaskActivity extends BaseActivity {
     }
 
     List<Task>taskList;//通知列表
-
+    String process, type;
     //初始化实训列表【暂时写死
-    public void initTaskData(String process,String type) {
+    public void initTaskData() {
         taskList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             //1.

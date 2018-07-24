@@ -108,12 +108,10 @@ public class PlayActivity extends Activity {
             mLivePlayer.setPlayListener(null);
             mLivePlayer.stopPlay(true);
         }
-        titlebar.setVisibility(View.VISIBLE);
     }
 
     private void initView() {
         backLl.setVisibility(View.VISIBLE);
-//        videoFrame.setBackground(getResources().getDrawable(R.drawable.main_bkg));
         Intent intent = getIntent();
         roomName = intent.getStringExtra("RoomName");
         titleTv.setText(roomName);
@@ -141,13 +139,11 @@ public class PlayActivity extends Activity {
     private void resumePlayer() {
         // 继续
         mLivePlayer.resume();
-        titlebar.setVisibility(View.GONE);
     }
 
     private void pausePlayer() {
         // 暂停
         mLivePlayer.pause();
-        titlebar.setVisibility(View.VISIBLE);
     }
 
     private void adjustView() {

@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -27,14 +28,21 @@
             android:gravity="center_vertical|right"
             />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#AAAAAA" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/divider_line"
         android:descendantFocusability="blocksDescendants">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_mywork_homework"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 

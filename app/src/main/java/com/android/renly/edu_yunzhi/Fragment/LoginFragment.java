@@ -33,6 +33,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
+import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.DrawableTextView;
 import com.android.renly.edu_yunzhi.Utils.KeyboardWatcher;
@@ -100,7 +101,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         body = view.findViewById(R.id.body);
         screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
         root = view.findViewById(R.id.root);
-        view.findViewById(R.id.close).setOnClickListener(this);
     }
 
     class MyRadioButtonListener implements RadioGroup.OnCheckedChangeListener{
@@ -239,9 +239,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
             case R.id.clean_password:
                 et_password.setText("");
                 break;
-            case R.id.close:
-                getActivity().finish();
-                break;
             case R.id.iv_show_pwd:
                 if (flag == true) {
                     et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -262,7 +259,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
 
                 if(!TextUtils.isEmpty(password) && !TextUtils.isEmpty(username)){
                     String url = AppNetConfig.LOGIN;
-                    //http://47.100.116.153:8080/sshSimple/app-studentLogin
                     RequestParams params = new RequestParams();
                     params.put("username",username);
                     params.put("password",password);
@@ -319,6 +315,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
             // 提交
             editor.commit();
             EventBus.getDefault().post(new MessageEvent("studentLogin"));
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.refresh();
+            mainActivity.gotoHomeFragment();
             getActivity().finish();
         }
         else{//老师登录
@@ -326,6 +325,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
             // 提交
             editor.commit();
             EventBus.getDefault().post(new MessageEvent("teacherLogin"));
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.refresh();
+            mainActivity.gotoHomeFragment();
             getActivity().finish();
         }
 
