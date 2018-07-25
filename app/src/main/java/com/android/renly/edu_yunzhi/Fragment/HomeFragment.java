@@ -442,17 +442,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     //给出提示：登录
     private void doLogin() {
         Toast.makeText(MyApplication.context, "您还没有登录", Toast.LENGTH_SHORT).show();
-//        new AlertDialog.Builder(this.getActivity())
-//                .setTitle("提示")
-//                .setMessage("您还没有登录哦！亲(^_−)−☆")
-//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-////                            UIUtils.toast("进入登录页面",false);
-//                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
-//                    }
-//                })
-//                .setCancelable(false)
-//                .show();
     }
 }

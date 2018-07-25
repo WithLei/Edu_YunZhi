@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="21dp"
-            android:background="@drawable/shape_bg_blue_0283df_r4dp"
+            android:background="@drawable/background_login_btn"
             android:clickable="true"
             android:text="@string/login"
             android:textColor="@color/color_ffffff"

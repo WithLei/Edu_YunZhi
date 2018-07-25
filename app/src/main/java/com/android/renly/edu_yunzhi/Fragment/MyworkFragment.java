@@ -157,7 +157,7 @@ public class MyworkFragment extends BaseFragment {
 
         //对RecyclerView子项数据进行赋值
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             Homework homework = homeworkList.get(position);
             //设置数据
             holder.title.setText(homework.name);

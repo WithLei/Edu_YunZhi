@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.renly.edu_yunzhi">
     <uses-permission android:name="android.permission.INTERNET"/>
     //读取内存权限
@@ -53,8 +52,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Welcome">
-
         </activity>
+        <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.LoadFragmentActivity"/>
         <activity android:name=".Activity.NoticeActivity"/>
@@ -62,7 +61,7 @@
         <activity android:name=".Activity.SearchActivity"/>
         <activity android:name=".Activity.CourseDetailsActivity"/>
         <activity android:name=".Activity.PlayVideoActivity" />
-        <activity android:name=".Activity.PlayActivity" />
+        <activity android:name=".Activity.PlayActivity" android:hardwareAccelerated="true" />
         <activity android:name=".Activity.PusherActivity" />
         <activity android:name="com.example.answer.AnalogyExaminationActivity"/>
         <activity android:name="com.example.answer.MyErrorQuestionActivity"/>

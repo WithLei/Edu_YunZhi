@@ -21,14 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.LoginActivity;
 import com.android.renly.edu_yunzhi.Activity.PusherActivity;
 import com.android.renly.edu_yunzhi.Common.AppManager;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
-import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.Fragment.HomeFragment;
 import com.android.renly.edu_yunzhi.Fragment.LearningFragment;
-import com.android.renly.edu_yunzhi.Fragment.LoginFragment;
 import com.android.renly.edu_yunzhi.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi.Fragment.MsgFragment;
 
@@ -339,7 +337,8 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                            UIUtils.toast("进入登录页面",false);
-                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
                     }
                 })
                 .setCancelable(true)

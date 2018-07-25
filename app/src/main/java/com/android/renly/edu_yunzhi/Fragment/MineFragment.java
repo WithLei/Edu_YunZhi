@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
+import com.android.renly.edu_yunzhi.Activity.LoginActivity;
 import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
@@ -189,7 +190,8 @@ public class MineFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                            UIUtils.toast("进入登录页面",false);
-                        LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        getActivity().finish();
                     }
                 })
                 .setCancelable(true)
@@ -203,7 +205,8 @@ public class MineFragment extends BaseFragment {
         String name = sp.getString("username", "");
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(MyApplication.context, "打开登录页面", Toast.LENGTH_SHORT).show();
-            LoadFragmentActivity.lunchFragment(MyApplication.context, LoginFragment.class, null);
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
         } else
             ((BaseActivity) this.getActivity()).goToActivity(MyInfoActivity.class, null);
     }
@@ -270,7 +273,8 @@ public class MineFragment extends BaseFragment {
                 editor.clear();
                 editor.apply();
 
-                LoadFragmentActivity.lunchFragment(getContext(),LoginFragment.class,null);
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
                 Toast.makeText(MyApplication.context, "退出登录", Toast.LENGTH_SHORT).show();
                 break;
         }

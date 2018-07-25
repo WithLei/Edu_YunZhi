@@ -112,6 +112,7 @@ public class PlayActivity extends Activity {
 
     private void initView() {
         backLl.setVisibility(View.VISIBLE);
+        titlebar.setVisibility(View.GONE);
         Intent intent = getIntent();
         roomName = intent.getStringExtra("RoomName");
         titleTv.setText(roomName);

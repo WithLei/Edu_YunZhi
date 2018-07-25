@@ -191,7 +191,7 @@ public class MyclassFragment extends BaseFragment {
 
         //对RecyclerView子项数据进行赋值
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             Course course = learningData.get(position);
             //设置数据
             holder.title.setText(course.name);

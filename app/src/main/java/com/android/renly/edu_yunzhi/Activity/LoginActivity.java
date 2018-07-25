@@ -1,19 +1,20 @@
-package com.android.renly.edu_yunzhi.Fragment;
+package com.android.renly.edu_yunzhi.Activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
+import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
@@ -45,14 +47,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.android.renly.edu_yunzhi.Fragment.HomeFragment.*;
-
 
 /**
  * Created by wenzhihao on 2017/8/18.
  */
 
-public class LoginFragment extends Fragment implements View.OnClickListener, KeyboardWatcher.SoftKeyboardStateListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, KeyboardWatcher.SoftKeyboardStateListener {
     private DrawableTextView logo;
     private EditText et_mobile;
     private EditText et_password;
@@ -72,51 +72,53 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
 
     private View root;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_login, container, false);
-        initView(view);
-        initListener();
-        keyboardWatcher = new KeyboardWatcher(getActivity().findViewById(Window.ID_ANDROID_CONTENT));
-        keyboardWatcher.addSoftKeyboardStateListener(this);
-        return view;
+    private void initView() {
+        logo = findViewById(R.id.logo);
+        et_mobile = findViewById(R.id.et_mobile);
+        et_password = findViewById(R.id.et_password);
+        iv_clean_phone = findViewById(R.id.iv_clean_phone);
+        clean_password = findViewById(R.id.clean_password);
+        iv_show_pwd = findViewById(R.id.iv_show_pwd);
+        btn_login = findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(this);
+        forget_password = findViewById(R.id.forget_password);
+        rb_stu = findViewById(R.id.rb_login_stu);
+        rb_teacher = findViewById(R.id.rb_login_teacher);
+        service = findViewById(R.id.service);
+        service.setOnCheckedChangeListener(new MyRadioButtonListener());
+        body = findViewById(R.id.body);
+        screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
+        root = findViewById(R.id.root);
     }
 
-    private void initView(View view) {
-        logo = view.findViewById(R.id.logo);
-        et_mobile = view.findViewById(R.id.et_mobile);
-        et_password = view.findViewById(R.id.et_password);
-        iv_clean_phone = view.findViewById(R.id.iv_clean_phone);
-        clean_password = view.findViewById(R.id.clean_password);
-        iv_show_pwd = view.findViewById(R.id.iv_show_pwd);
-        btn_login = view.findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(this);
-        forget_password = view.findViewById(R.id.forget_password);
-        rb_stu = view.findViewById(R.id.rb_login_stu);
-        rb_teacher = view.findViewById(R.id.rb_login_teacher);
-        service = view.findViewById(R.id.service);
-        service.setOnCheckedChangeListener(new MyRadioButtonListener());
-        body = view.findViewById(R.id.body);
-        screenHeight = this.getResources().getDisplayMetrics().heightPixels; //获取屏幕高度
-        root = view.findViewById(R.id.root);
+    @Override
+    protected void initData() {
+        initView();
+        initListener();
+        keyboardWatcher = new KeyboardWatcher(this.findViewById(Window.ID_ANDROID_CONTENT));
+        keyboardWatcher.addSoftKeyboardStateListener(this);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_login;
     }
 
     class MyRadioButtonListener implements RadioGroup.OnCheckedChangeListener{
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId){
                 case R.id.rb_login_stu:
                     //当用户选中学生时
-                    root.setBackground(getContext().getDrawable(R.mipmap.ic_login_background));
+                    root.setBackground(getDrawable(R.mipmap.ic_login_background));
                     rb_stu.setEnabled(false);
                     rb_teacher.setEnabled(true);
                     break;
                 case R.id.rb_login_teacher:
                     //当用户选中老师时
-                    root.setBackground(getContext().getDrawable(R.drawable.four_screen_bg));
+                    root.setBackground(getDrawable(R.drawable.four_screen_bg));
                     rb_stu.setEnabled(true);
                     rb_teacher.setEnabled(false);
                     break;
@@ -171,7 +173,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                     return;
                 if (!s.toString().matches("[A-Za-z0-9]+")) {
                     String temp = s.toString();
-                    Toast.makeText(getActivity(), R.string.please_input_limit_pwd, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.please_input_limit_pwd, Toast.LENGTH_SHORT).show();
                     s.delete(temp.length() - 1, temp.length());
                     et_password.setSelection(s.length());
                 }
@@ -230,7 +232,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
         switch (id) {
             case R.id.root:
                 //收起软键盘
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             case R.id.iv_clean_phone:
@@ -257,47 +259,47 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
                 String password = et_password.getText().toString();
                 String username = et_mobile.getText().toString();
 
-                if(!TextUtils.isEmpty(password) && !TextUtils.isEmpty(username)){
-                    String url = AppNetConfig.LOGIN;
-                    RequestParams params = new RequestParams();
-                    params.put("username",username);
-                    params.put("password",password);
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    client.post(url, params, new AsyncHttpResponseHandler() {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            if(statusCode != 200){
-                                Toast.makeText(getContext(),"登陆失败",Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            String response = new String(responseBody);
-                            JSONObject jsonObject = JSON.parseObject(response);
-                            String realName = jsonObject.getString("realname");
-                            String schoolName = JSON.parseObject(jsonObject.get("department").toString()).getString("name");
-
-                            doLogin(username,password,realName,schoolName);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Toast.makeText(getContext(),"联网失败" + statusCode,Toast.LENGTH_SHORT).show();
+//                if(!TextUtils.isEmpty(password) && !TextUtils.isEmpty(username)){
+//                    String url = AppNetConfig.LOGIN;
+//                    RequestParams params = new RequestParams();
+//                    params.put("username",username);
+//                    params.put("password",password);
+//                    AsyncHttpClient client = new AsyncHttpClient();
+//                    client.post(url, params, new AsyncHttpResponseHandler() {
+//
+//                        @Override
+//                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                            if(statusCode != 200){
+//                                Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//                            String response = new String(responseBody);
+//                            JSONObject jsonObject = JSON.parseObject(response);
+//                            String realName = jsonObject.getString("realname");
+//                            String schoolName = JSON.parseObject(jsonObject.get("department").toString()).getString("name");
+//
+//                            doLogin(username,password,realName,schoolName);
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                            Toast.makeText(LoginActivity.this,"联网失败" + statusCode,Toast.LENGTH_SHORT).show();
                             String realName = "测试姓名";
                             String schoolName = "测试学校";
                             doLogin(username,password,realName,schoolName);
-                        }
-                    });
-                }else{
-                    //如果用户未输入全部信息
-                    Toast.makeText(this.getContext(),"请输入用户名及密码",Toast.LENGTH_SHORT).show();
-                }
+//                        }
+//                    });
+//                }else{
+//                    //如果用户未输入全部信息
+//                    Toast.makeText(LoginActivity.this,"请输入用户名及密码",Toast.LENGTH_SHORT).show();
+//                }
                 break;
         }
     }
 
     private void doLogin(String username,String password,String realName,String schoolName) {
         // 获取SharedPreferences对象
-        SharedPreferences sharedPre = getContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        SharedPreferences sharedPre = getSharedPreferences("user_info", Context.MODE_PRIVATE);
         // 获取Editor对象
         SharedPreferences.Editor editor = sharedPre.edit();
         // 设置参数
@@ -315,20 +317,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Key
             // 提交
             editor.commit();
             EventBus.getDefault().post(new MessageEvent("studentLogin"));
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.refresh();
-            mainActivity.gotoHomeFragment();
-            getActivity().finish();
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
         }
         else{//老师登录
             editor.putBoolean("isStudent",false);
             // 提交
             editor.commit();
             EventBus.getDefault().post(new MessageEvent("teacherLogin"));
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.refresh();
-            mainActivity.gotoHomeFragment();
-            getActivity().finish();
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
         }
 
 

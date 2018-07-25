@@ -104,7 +104,7 @@ public class HotNewsFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        refreshLayout.setOnRefreshListener(this::refresh);
+//        refreshLayout.setOnRefreshListener(this::refresh);
         return rootView;
     }
 

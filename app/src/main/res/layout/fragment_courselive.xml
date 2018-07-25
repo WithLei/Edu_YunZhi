@@ -49,7 +49,7 @@
     </LinearLayout>
     <Button
         android:id="@+id/open_btn"
-        android:background="@color/summerGreen"
+        android:background="@drawable/background_live_btn"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_width="240dp"
