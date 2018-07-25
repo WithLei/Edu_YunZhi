@@ -286,7 +286,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //                            Toast.makeText(LoginActivity.this,"联网失败" + statusCode,Toast.LENGTH_SHORT).show();
                             String realName = "测试姓名";
                             String schoolName = "测试学校";
-                            doLogin(username,password,realName,schoolName);
+                            String avatarSrc = "http://b305.photo.store.qq.com/psb?/V13Hh3Xy2wrWJw/ZVU219Y5gp2VhDelSYRNr6hA1l3KxRL*UZqj9Bks0VU!/b/dDEBAAAAAAAA&bo=WAJZAlgCWQIRCT4!&rf=viewer_4";
+                            doLogin(username,password,realName,schoolName, avatarSrc);
 //                        }
 //                    });
 //                }else{
@@ -297,7 +298,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void doLogin(String username,String password,String realName,String schoolName) {
+    private void doLogin(String username,String password,String realName,String schoolName ,String avatarSrc) {
         // 获取SharedPreferences对象
         SharedPreferences sharedPre = getSharedPreferences("user_info", Context.MODE_PRIVATE);
         // 获取Editor对象
@@ -307,6 +308,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         editor.putString("password", password);
         editor.putString("realName",realName);
         editor.putString("schoolName",schoolName);
+        editor.putString("avatarSrc",avatarSrc);
 
 
         Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();
@@ -319,6 +321,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             EventBus.getDefault().post(new MessageEvent("studentLogin"));
             startActivity(new Intent(this,MainActivity.class));
             finish();
+            System.gc();
+
         }
         else{//老师登录
             editor.putBoolean("isStudent",false);
@@ -327,6 +331,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             EventBus.getDefault().post(new MessageEvent("teacherLogin"));
             startActivity(new Intent(this,MainActivity.class));
             finish();
+            System.gc();
+
         }
 
 

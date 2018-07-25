@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,20 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
     private LoadingPage loadingPage;
     private Unbinder unbinder;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("print","in basefragemtn1");
         loadingPage = new LoadingPage(container.getContext()) {
             @Override
             public int layoutId() {
                 return getLayoutid();
             }
-
             @Override
             protected void onSuccss(ResultState resultState, View view_success) {
-                unbinder = ButterKnife.bind(BaseFragment.this,view_success);
+                unbinder = ButterKnife.bind(BaseFragment.this, view_success);
+                Log.e("print", "in basefragemtn2");
                 initData(resultState.getContent());
             }
 

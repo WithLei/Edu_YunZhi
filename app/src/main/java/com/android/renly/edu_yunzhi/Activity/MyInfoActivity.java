@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.R;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,10 +78,12 @@ public class MyInfoActivity extends BaseActivity {
         String username = sp.getString("username","");
         String realName = sp.getString("realName","");
         String schoolName = sp.getString("schoolName","");
+        String avatarSrc = sp.getString("avatarSrc", "");
 
         tvMyinfoSetName.setText(username);
         tvMyinfoSetRealName.setText(realName);
         tvMyinfoSetSchool.setText(schoolName);
+        Picasso.with(this).load(avatarSrc).into(ivMyinfoHeadphoto);
     }
 
     @OnClick({R.id.tv_title_back, R.id.fl_myinfo_headphoto, R.id.fl_myinfo_name, R.id.tv_myinfo_qr, R.id.tv_myinfo_more, R.id.tv_myinfo_addr})

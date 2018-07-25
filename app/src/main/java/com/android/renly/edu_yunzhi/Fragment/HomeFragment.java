@@ -287,7 +287,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_home_fourth:
                 startActivity(new Intent(MyApplication.context, PKActivity.class));
-//                Toast.makeText(MyApplication.context, "知识对抗", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll_home_fifth:
                 Toast.makeText(MyApplication.context, "成绩查询", Toast.LENGTH_SHORT).show();
@@ -300,11 +299,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_home_eighth:
                 startActivity(new Intent(MyApplication.context, AbilityActivity.class));
-//                Toast.makeText(MyApplication.context, "能力档案", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_home_search:
                 startActivity(new Intent(MyApplication.context, SearchActivity.class));
-//                ((BaseActivity) this.getActivity()).goToActivity(SearchActivity.class, null);
                 break;
             case R.id.CircleImageView:
 //                isLogin();

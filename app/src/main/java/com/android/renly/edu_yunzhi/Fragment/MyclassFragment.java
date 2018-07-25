@@ -65,6 +65,7 @@ public class MyclassFragment extends BaseFragment {
         initCoursedata();
         //初始化列表
         initList();
+        Log.e("rua","初始化列表");
         initItemClickListener();
     }
 
@@ -94,9 +95,9 @@ public class MyclassFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        Log.e("rua","加载classfragment");
         return rootView;
     }
 

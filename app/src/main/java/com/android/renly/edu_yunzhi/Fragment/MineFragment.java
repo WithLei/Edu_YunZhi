@@ -275,6 +275,7 @@ public class MineFragment extends BaseFragment {
 
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 getActivity().finish();
+                System.gc();
                 Toast.makeText(MyApplication.context, "退出登录", Toast.LENGTH_SHORT).show();
                 break;
         }

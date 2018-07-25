@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,13 +68,14 @@ public class LearningFragment extends BaseFragment{
     private FragmentTransaction transaction;
 
     private void setSelect(int select) {
-        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         transaction = fragmentManager.beginTransaction();
         //隐藏所有fragment
         hideFragments();
         switch (select) {
             case 0:
                 if (myclassFragment == null) {
+                    Log.e("rua","初始化classfragment");
                     myclassFragment = new MyclassFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, myclassFragment);
                 }
@@ -81,6 +83,7 @@ public class LearningFragment extends BaseFragment{
                 break;
             case 1:
                 if (myworkFragment == null) {
+                    Log.e("rua","初始化workfragment");
                     myworkFragment = new MyworkFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, myworkFragment);
                 }
@@ -88,6 +91,7 @@ public class LearningFragment extends BaseFragment{
                 break;
             case 2:
                 if (mynoteFragment == null) {
+                    Log.e("rua","初始化notefragment");
                     mynoteFragment = new MynoteFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, mynoteFragment);
                 }
@@ -134,6 +138,17 @@ public class LearningFragment extends BaseFragment{
         unbinder.unbind();
         //移除所有的未被执行的消息
 //        handler.removeCallbacksAndMessages(null);
+        try{
+            FragmentManager frgManager = getChildFragmentManager();
+            FragmentTransaction transaction = frgManager.beginTransaction();
+            transaction.remove(myclassFragment);
+            transaction.remove(myworkFragment);
+            transaction.remove(mynoteFragment);
+            transaction.commit();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3})

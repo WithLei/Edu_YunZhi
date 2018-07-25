@@ -144,6 +144,7 @@ public class MainActivity extends BaseActivity {
 
                     }
                 })
+                .setTitle("新建直播间")
                 .create()
                 .show();
     }
@@ -179,13 +180,14 @@ public class MainActivity extends BaseActivity {
     private MineFragment mineFragment;
 
     private void setSelect(int select) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
         //隐藏所有fragment的显示
         hideFragments();
         switch (select) {
             case 0:
+                Log.e("print",homeFragment == null ? "true" : "false");
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, homeFragment);
@@ -197,6 +199,7 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomMainpage.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 1:
+                Log.e("print",learningFragment == null ? "true" : "false");
                 if (learningFragment == null) {
                     learningFragment = new LearningFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, learningFragment);
@@ -209,6 +212,7 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomLearning.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 2:
+                Log.e("print",msgFragment == null ? "true" : "false");
                 if (msgFragment == null) {
                     msgFragment = new MsgFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, msgFragment);
@@ -220,6 +224,7 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomMsg.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 3:
+                Log.e("print",mineFragment == null ? "true" : "false");
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, mineFragment);
@@ -293,6 +298,18 @@ public class MainActivity extends BaseActivity {
         unbinder.unbind();
         //移除所有的未被执行的消息
         handler.removeCallbacksAndMessages(null);
+        try{
+            FragmentManager frgManager = this.getSupportFragmentManager();
+            FragmentTransaction transaction = frgManager.beginTransaction();
+            transaction.remove(homeFragment);
+            transaction.remove(learningFragment);
+            transaction.remove(msgFragment);
+            transaction.remove(mineFragment);
+            transaction.commit();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
