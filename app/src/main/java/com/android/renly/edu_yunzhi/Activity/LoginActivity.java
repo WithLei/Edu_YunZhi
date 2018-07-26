@@ -104,6 +104,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         return R.layout.activity_login;
     }
 
+    boolean isStudent = true;
+
     class MyRadioButtonListener implements RadioGroup.OnCheckedChangeListener{
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -115,12 +117,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     root.setBackground(getDrawable(R.mipmap.ic_login_background));
                     rb_stu.setEnabled(false);
                     rb_teacher.setEnabled(true);
+                    isStudent = true;
                     break;
                 case R.id.rb_login_teacher:
                     //当用户选中老师时
                     root.setBackground(getDrawable(R.drawable.four_screen_bg));
                     rb_stu.setEnabled(true);
                     rb_teacher.setEnabled(false);
+                    isStudent = false;
                     break;
             }
         }
@@ -256,11 +260,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     et_password.setSelection(pwd.length());
                 break;
             case R.id.btn_login:
-                String password = et_password.getText().toString();
-                String username = et_mobile.getText().toString();
+                final String password = et_password.getText().toString();
+                final String username = et_mobile.getText().toString();
 
 //                if(!TextUtils.isEmpty(password) && !TextUtils.isEmpty(username)){
-//                    String url = AppNetConfig.LOGIN;
+//                    String url = isStudent ? AppNetConfig.STUDENT_LOGIN : AppNetConfig.TEACHER_LOGIN;
 //                    RequestParams params = new RequestParams();
 //                    params.put("username",username);
 //                    params.put("password",password);
@@ -277,8 +281,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 //                            JSONObject jsonObject = JSON.parseObject(response);
 //                            String realName = jsonObject.getString("realname");
 //                            String schoolName = JSON.parseObject(jsonObject.get("department").toString()).getString("name");
+//                            String avatarSrc = jsonObject.getString("avatar");
 //
-//                            doLogin(username,password,realName,schoolName);
+//                            doLogin(username, password, realName, schoolName, avatarSrc);
 //                        }
 //
 //                        @Override
@@ -287,14 +292,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             String realName = "测试姓名";
                             String schoolName = "测试学校";
                             String avatarSrc = "http://b305.photo.store.qq.com/psb?/V13Hh3Xy2wrWJw/ZVU219Y5gp2VhDelSYRNr6hA1l3KxRL*UZqj9Bks0VU!/b/dDEBAAAAAAAA&bo=WAJZAlgCWQIRCT4!&rf=viewer_4";
-                            doLogin(username,password,realName,schoolName, avatarSrc);
+                            doLogin(username, password, realName, schoolName, avatarSrc);
 //                        }
 //                    });
 //                }else{
 //                    //如果用户未输入全部信息
 //                    Toast.makeText(LoginActivity.this,"请输入用户名及密码",Toast.LENGTH_SHORT).show();
 //                }
-                break;
+//                break;
         }
     }
 
@@ -317,7 +322,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             //发送事件
             editor.putBoolean("isStudent",true);
             // 提交
-            editor.commit();
+            editor.apply();
             EventBus.getDefault().post(new MessageEvent("studentLogin"));
             startActivity(new Intent(this,MainActivity.class));
             finish();

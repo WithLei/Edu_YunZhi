@@ -20,13 +20,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Activity.AbilityActivity;
+import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Bean.News;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
@@ -34,6 +39,8 @@ import com.android.renly.edu_yunzhi.MainActivity;
 import com.android.renly.edu_yunzhi.R;
 import com.android.renly.edu_yunzhi.UI.CircleImageView;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
@@ -52,6 +59,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cz.msebera.android.httpclient.Header;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.banner)
@@ -159,10 +167,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData(String content) {
         isLogin();
-        initNewsdata();
         initOnclickEvent();
-//        登录判断
-//        isLogin();
+        initNewsdata();
         //初始化List
         initList();
         //初始化轮播图
@@ -247,30 +253,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         unbinder.unbind();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(MessageEvent messageEvent) {
-        CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
-        rlHomeSchool.setVisibility(View.VISIBLE);
-        SharedPreferences sp = getContext().getSharedPreferences("user_info",Context.MODE_PRIVATE);
-        boolean isStudent = sp.getBoolean("isStudent",false);
-        switch (messageEvent.getMessage()){
-            case "studentLogin":
-                //主界面更改为学生样式
-                tvHomeTitleName.setText("云智教育");
-                tvHomeThird.setText("任务中心");
-                ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.icon_pk));
-                tvHomeFourth.setText("知识对抗");
-                break;
-            case "teacherLogin":
-                //主界面更改为老师样式
-                tvHomeTitleName.setText("云智教育教师端");
-                tvHomeThird.setText("批改作业");
-                ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.activity));
-                tvHomeFourth.setText("各类活动");
-                break;
-        }
-    }
-
     @Override
     public void onClick(View v) {
         MainActivity mainActivity = (MainActivity) getActivity();
@@ -304,9 +286,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(MyApplication.context, SearchActivity.class));
                 break;
             case R.id.CircleImageView:
-//                isLogin();
+                gotoMyInfoActivity();
                 break;
         }
+    }
+
+    private void gotoMyInfoActivity() {
+        Intent intent = new Intent(getActivity(), MyInfoActivity.class);
+        intent.putExtra("backInfo","首页");
+        startActivity(intent);
     }
 
     public class GlideImageLoader extends ImageLoader {
@@ -320,41 +308,66 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public List<News> data;
     public itemInfoAdapter adapter;
 
-    //广告【暂时写死
+    //广告
     public void initNewsdata() {
         data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            //1.
-            News firstAd = new News();
-            firstAd.title = "区块链 技术峰会";
-            firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
-            firstAd.replyCount = 233;
-            firstAd.username = "微社区";
-            firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-            firstAd.time = 1;
+        RequestParams params = new RequestParams();
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(AppNetConfig.GET_ARTICLE, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode != 200){
 
-            //2.
-            News secondAd = new News();
-            secondAd.title = "一起来看看色彩与树洞的故事";
-            secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
-            secondAd.replyCount = 568;
-            secondAd.username = "资讯";
-            secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
-            secondAd.time = 2;
+                }
+                String response = new String(responseBody);
+                JSONArray jsonArray = JSON.parseArray(response);
+                for(int i = 0;i < jsonArray.size(); i++){
+                    News ad = new News();
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    ad.title = jsonObject.getString("tittle");
+                    ad.content = jsonObject.getString("context");
+                    ad.replyCount = 2333;
+                }
 
-            //3.
-            News thirdAd = new News();
-            thirdAd.title = "水情教育进校园，传递节水正能量";
-            thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
-            thirdAd.replyCount = 1024;
-            thirdAd.username = "家里蹲大学";
-            thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-            thirdAd.time = 10;
+            }
 
-            data.add(firstAd);
-            data.add(secondAd);
-            data.add(thirdAd);
-        }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+//        for (int i = 0; i < 3; i++) {
+//            //1.
+//            News firstAd = new News();
+//            firstAd.title = "区块链 技术峰会";
+//            firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
+//            firstAd.replyCount = 233;
+//            firstAd.username = "微社区";
+//            firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+//            firstAd.time = 1;
+//
+//            //2.
+//            News secondAd = new News();
+//            secondAd.title = "一起来看看色彩与树洞的故事";
+//            secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
+//            secondAd.replyCount = 568;
+//            secondAd.username = "资讯";
+//            secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
+//            secondAd.time = 2;
+//
+//            //3.
+//            News thirdAd = new News();
+//            thirdAd.title = "水情教育进校园，传递节水正能量";
+//            thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
+//            thirdAd.replyCount = 1024;
+//            thirdAd.username = "家里蹲大学";
+//            thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+//            thirdAd.time = 10;
+//
+//            data.add(firstAd);
+//            data.add(secondAd);
+//            data.add(thirdAd);
+//        }
     }
 
 

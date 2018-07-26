@@ -6,21 +6,34 @@
     android:elevation="4dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        +
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_title_back"
+        android:id="@+id/ll_title_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:drawableLeft="@drawable/back"
-        android:gravity="center"
-        android:text="我"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back"/>
+        <TextView
+            android:id="@+id/tv_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:text="取消"
         android:textColor="@color/white"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_title_titleName"
@@ -41,7 +54,7 @@
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="10dp"
         android:textColor="@color/color_title_right"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:text="完成"/>
 
 </FrameLayout>

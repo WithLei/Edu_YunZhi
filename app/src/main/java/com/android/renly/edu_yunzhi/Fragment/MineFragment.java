@@ -200,15 +200,9 @@ public class MineFragment extends BaseFragment {
 
     @OnClick(R.id.iv_mine_icon)
     public void setting(View view) {
-        //启动用户信息界面的Activity
-        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String name = sp.getString("username", "");
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(MyApplication.context, "打开登录页面", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().finish();
-        } else
-            ((BaseActivity) this.getActivity()).goToActivity(MyInfoActivity.class, null);
+        Intent intent = new Intent(getActivity(),MyInfoActivity.class);
+        intent.putExtra("backInfo","我");
+        startActivity(intent);
     }
 
     @Override

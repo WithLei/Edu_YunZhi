@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,16 +49,20 @@ public class MyInfoActivity extends BaseActivity {
     TextView tvMyinfoMore;
     @BindView(R.id.tv_myinfo_addr)
     TextView tvMyinfoAddr;
-    @BindView(R.id.tv_title_back)
-    TextView tvTitleBack;
     @BindView(R.id.tv_title_titleName)
     TextView tvTitleTitleName;
     @BindView(R.id.tv_title_right)
     TextView tvTitleRight;
+    @BindView(R.id.ll_title_back)
+    LinearLayout llTitleBack;
+    @BindView(R.id.tv_title_back)
+    TextView tvTitleBack;
 
     @Override
     protected void initData() {
-
+        Intent intent = getIntent();
+        String backInfo = intent.getStringExtra("backInfo");
+        tvTitleBack.setText(backInfo);
     }
 
     @Override
@@ -74,10 +79,10 @@ public class MyInfoActivity extends BaseActivity {
 
     private void initView() {
         tvTitleRight.setVisibility(View.GONE);
-        SharedPreferences sp = getSharedPreferences("user_info",MODE_PRIVATE);
-        String username = sp.getString("username","");
-        String realName = sp.getString("realName","");
-        String schoolName = sp.getString("schoolName","");
+        SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
+        String username = sp.getString("username", "");
+        String realName = sp.getString("realName", "");
+        String schoolName = sp.getString("schoolName", "");
         String avatarSrc = sp.getString("avatarSrc", "");
 
         tvMyinfoSetName.setText(username);
@@ -86,11 +91,11 @@ public class MyInfoActivity extends BaseActivity {
         Picasso.with(this).load(avatarSrc).into(ivMyinfoHeadphoto);
     }
 
-    @OnClick({R.id.tv_title_back, R.id.fl_myinfo_headphoto, R.id.fl_myinfo_name, R.id.tv_myinfo_qr, R.id.tv_myinfo_more, R.id.tv_myinfo_addr})
+    @OnClick({R.id.ll_title_back, R.id.fl_myinfo_headphoto, R.id.fl_myinfo_name, R.id.tv_myinfo_qr, R.id.tv_myinfo_more, R.id.tv_myinfo_addr})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.tv_title_back:
+            case R.id.ll_title_back:
                 finish();
                 break;
             case R.id.fl_myinfo_headphoto:
@@ -117,5 +122,11 @@ public class MyInfoActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
     }
 }

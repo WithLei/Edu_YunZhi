@@ -75,12 +75,12 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         unbinder = ButterKnife.bind(this);
+        initView();
     }
 
 
     @Override
     protected void initData() {
-        initView();
         //将当前的Activity添加到栈管理中
         AppManager.getInstance().addActivity(this);
 

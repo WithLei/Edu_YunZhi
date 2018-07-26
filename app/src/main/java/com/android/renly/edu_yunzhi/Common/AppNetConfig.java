@@ -7,20 +7,58 @@ package com.android.renly.edu_yunzhi.Common;
 public class AppNetConfig {
     public static final String HOST = "172.20.10.6";//提供IP地址
 
-    public static final String BASE_URL = "http://47.100.116.153:8080/sshSimple/";
+    public static final String BASE_URL = "http://localhost:8080/sshSimple/";
 
-    public static final String INDEX = BASE_URL + "index";//访问首页数据
+    public static final String STUDENT_LOGIN = BASE_URL +"app-studentLogin";
+    /**
+     * String username
+     * String password
+     */
 
-    public static final String LOGIN = BASE_URL +"app-studentLogin";//访问登陆的url
+    public static final String TEACHER_LOGIN = BASE_URL + "app-teacherLogin";
+    /**
+     * String username
+     * String password
+     */
 
-    public static final String PEODUCT = BASE_URL + "product";//访问“所有理财"的url
+    public static final String STUDENT_REGISTER = BASE_URL + "app-studentRegister";
+    /**
+     * String username
+     * String password
+     *
+     * return true/false
+     */
 
-    public static final String UPDATE = BASE_URL + "update.json";
-    //访问服务器当前应用的版本信息
+    public static final String GET_ARTICLE = BASE_URL + "app-getAllArticle";
+    /**
+     * 获取所有资讯信息
+     * 无参
+     */
 
-    public static final String REGISTAR = BASE_URL + "UserRegister";//注册
+    public static final String GET_COURSE = BASE_URL + "app-getAllCourse";
+    /**
+     * 获取所有课程信息
+     * 无参
+     */
 
-    public static final String FEEDBACK = BASE_URL + "FeedBack";//用户反馈
+    public static final String GET_PUSH_URL = BASE_URL + "app-getPushUrl";
+    /**
+     * 获取直播地址
+     * String room 房间名
+     */
+
+    public static final String GET_PLAY_URL = BASE_URL + "app-getPlayUrl";
+    /**
+     * 获取推流地址
+     * String room 房间名
+     * Long long 到期时间 null则默认为24小时有效期
+     */
+
+    public static final String GET_MYCOURSE = BASE_URL + "app-getMyCourse";
+    /**
+     * 获取我的课程
+     * String username
+     */
 
     public static String LiveUrl = "http://27564.liveplay.myqcloud.com/live/27564_desheng.flv";
 
