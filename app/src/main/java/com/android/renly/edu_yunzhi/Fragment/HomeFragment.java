@@ -48,10 +48,6 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,7 +127,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
-        EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -169,8 +164,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         isLogin();
         initOnclickEvent();
         initNewsdata();
-        //初始化List
-        initList();
         //初始化轮播图
         initBanner();
 
@@ -186,11 +179,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    //暂时模拟读取json数据
                     handler.sendEmptyMessage(WHAT_REQUEST_SUCCESS);
                 } catch (Exception e) {
                     handler.sendEmptyMessage(WHAT_REQUEST_ERROR);
-                    Log.e("TAG", "加载数据失败");
                 }
 
             }
@@ -249,7 +240,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
         unbinder.unbind();
     }
 
@@ -293,7 +283,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void gotoMyInfoActivity() {
         Intent intent = new Intent(getActivity(), MyInfoActivity.class);
-        intent.putExtra("backInfo","首页");
+        intent.putExtra("backInfo", "首页");
         startActivity(intent);
     }
 
@@ -306,68 +296,77 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public List<News> data;
+    public List<String> imgs;
     public itemInfoAdapter adapter;
 
     //广告
     public void initNewsdata() {
         data = new ArrayList<>();
+        imgs = new ArrayList<>();
+        imgs.add("http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4");
+        imgs.add("http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4");
+        imgs.add("http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4");
         RequestParams params = new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(AppNetConfig.GET_ARTICLE, params, new AsyncHttpResponseHandler() {
+        client.post(AppNetConfig.GET_ARTICLE, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode != 200){
-
-                }
                 String response = new String(responseBody);
                 JSONArray jsonArray = JSON.parseArray(response);
-                for(int i = 0;i < jsonArray.size(); i++){
+                for (int i = 0; i < jsonArray.size(); i++) {
                     News ad = new News();
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     ad.title = jsonObject.getString("tittle");
                     ad.content = jsonObject.getString("context");
-                    ad.replyCount = 2333;
+                    ad.replyCount = (int) ( Math.random() * 2333 );
+                    ad.img = imgs.get(i % 3);
+                    ad.time = (int) ( Math.random() * 58 ) + 1 ;
+                    JSONObject departmentObject = jsonObject.getJSONObject("department");
+                    JSONObject userObject = jsonObject.getJSONObject("user");
+                    ad.username = departmentObject.getString("name") + " - " + userObject.getString("realname");
+                    data.add(ad);
                 }
-
+                initList();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getActivity(), "网络未连接", Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < 3; i++) {
+                    //1.
+                    News firstAd = new News();
+                    firstAd.title = "区块链 技术峰会";
+                    firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
+                    firstAd.replyCount = 233;
+                    firstAd.username = "微社区";
+                    firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+                    firstAd.time = 1;
 
+                    //2.
+                    News secondAd = new News();
+                    secondAd.title = "一起来看看色彩与树洞的故事";
+                    secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
+                    secondAd.replyCount = 568;
+                    secondAd.username = "资讯";
+                    secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
+                    secondAd.time = 2;
+
+                    //3.
+                    News thirdAd = new News();
+                    thirdAd.title = "水情教育进校园，传递节水正能量";
+                    thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
+                    thirdAd.replyCount = 1024;
+                    thirdAd.username = "家里蹲大学";
+                    thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+                    thirdAd.time = 10;
+
+                    data.add(firstAd);
+                    data.add(secondAd);
+                    data.add(thirdAd);
+                }
+                initList();
             }
         });
-//        for (int i = 0; i < 3; i++) {
-//            //1.
-//            News firstAd = new News();
-//            firstAd.title = "区块链 技术峰会";
-//            firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
-//            firstAd.replyCount = 233;
-//            firstAd.username = "微社区";
-//            firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-//            firstAd.time = 1;
-//
-//            //2.
-//            News secondAd = new News();
-//            secondAd.title = "一起来看看色彩与树洞的故事";
-//            secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
-//            secondAd.replyCount = 568;
-//            secondAd.username = "资讯";
-//            secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
-//            secondAd.time = 2;
-//
-//            //3.
-//            News thirdAd = new News();
-//            thirdAd.title = "水情教育进校园，传递节水正能量";
-//            thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
-//            thirdAd.replyCount = 1024;
-//            thirdAd.username = "家里蹲大学";
-//            thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-//            thirdAd.time = 10;
-//
-//            data.add(firstAd);
-//            data.add(secondAd);
-//            data.add(thirdAd);
-//        }
     }
 
 
@@ -424,6 +423,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         public int getItemCount() {
             return newsList.size();
         }
+
     }
 
     private void isLogin() {
@@ -447,6 +447,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 tvHomeFourth.setText("各类活动");
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        data.clear();
+        initNewsdata();
+
     }
 
     //给出提示：登录

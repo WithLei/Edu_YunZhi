@@ -21,19 +21,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.android.renly.edu_yunzhi.Activity.LoginActivity;
 import com.android.renly.edu_yunzhi.Activity.PusherActivity;
 import com.android.renly.edu_yunzhi.Common.AppManager;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Fragment.HomeFragment;
 import com.android.renly.edu_yunzhi.Fragment.LearningFragment;
 import com.android.renly.edu_yunzhi.Fragment.MineFragment;
 import com.android.renly.edu_yunzhi.Fragment.MsgFragment;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends BaseActivity {
 
@@ -158,16 +166,7 @@ public class MainActivity extends BaseActivity {
     private void gotoPusherActivity(){
         String roomName = et_roomName.getText().toString();
         if (!roomName.equals("")){
-            Bundle bundle = new Bundle();
-            bundle.putString("RoomName", roomName);
-
-            Message msg = new Message();
-            msg.setData(bundle);
-            msg.what = GOTO_PUSHERACTIVITY;
-
-            Log.e("log","test1");
-            handler.sendMessage(msg);
-            Log.e("log","test2");
+            getPushUrl(roomName);
         }else{
             Toast.makeText(this, "直播名称不能为空", Toast.LENGTH_SHORT).show();
         }
@@ -187,7 +186,6 @@ public class MainActivity extends BaseActivity {
         hideFragments();
         switch (select) {
             case 0:
-                Log.e("print",homeFragment == null ? "true" : "false");
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, homeFragment);
@@ -199,7 +197,6 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomMainpage.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 1:
-                Log.e("print",learningFragment == null ? "true" : "false");
                 if (learningFragment == null) {
                     learningFragment = new LearningFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, learningFragment);
@@ -212,7 +209,6 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomLearning.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 2:
-                Log.e("print",msgFragment == null ? "true" : "false");
                 if (msgFragment == null) {
                     msgFragment = new MsgFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, msgFragment);
@@ -224,7 +220,6 @@ public class MainActivity extends BaseActivity {
                 tvMainBottomMsg.setTextColor(getResources().getColor(R.color.home_back_selected));
                 break;
             case 3:
-                Log.e("print",mineFragment == null ? "true" : "false");
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_main, mineFragment);
@@ -277,11 +272,11 @@ public class MainActivity extends BaseActivity {
                     flag = true;//复原
                     break;
                 case GOTO_PUSHERACTIVITY:
-                    Log.e("log","test3");
                     String PusherRoomName = msg.getData().getString("RoomName");
+                    String PushUrl = msg.getData().getString("PushUrl");
                     Bundle pusherBundle = new Bundle();
                     pusherBundle.putString("RoomName",PusherRoomName);
-                    Log.e("log","test4");
+                    pusherBundle.putString("PushUrl",PushUrl);
 
                     Intent pusherIntent = new Intent(MainActivity.this,PusherActivity.class);
                     pusherIntent.putExtras(pusherBundle);
@@ -360,6 +355,34 @@ public class MainActivity extends BaseActivity {
                 })
                 .setCancelable(true)
                 .show();
+    }
+
+    public void getPushUrl(final String roomname) {
+        RequestParams params = new RequestParams();
+        params.put("room",roomname);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(AppNetConfig.GET_PUSH_URL, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String pushUrl = new String(responseBody);
+                Log.e("print","pushUrl:" + pushUrl);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("RoomName", roomname);
+                bundle.putString("PushUrl",pushUrl);
+
+                Message msg = new Message();
+                msg.setData(bundle);
+                msg.what = GOTO_PUSHERACTIVITY;
+
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 
     //当出现未捕获的异常时，能够给用户一个相对友好的提示

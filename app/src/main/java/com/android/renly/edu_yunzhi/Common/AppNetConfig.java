@@ -5,9 +5,9 @@ package com.android.renly.edu_yunzhi.Common;
  */
 
 public class AppNetConfig {
-    public static final String HOST = "172.20.10.6";//提供IP地址
+    public static final String HOST = "192.168.100.225";//提供IP地址
 
-    public static final String BASE_URL = "http://localhost:8080/sshSimple/";
+    public static final String BASE_URL = "http://" + HOST + ":8080/sshSimple/";
 
     public static final String STUDENT_LOGIN = BASE_URL +"app-studentLogin";
     /**
@@ -25,8 +25,14 @@ public class AppNetConfig {
     /**
      * String username
      * String password
-     *
-     * return true/false
+     * 需要更改！！！
+     */
+
+    public static final String TEACHER_REGISTER = BASE_URL + "app-teacherRegister";
+    /**
+     * String username
+     * String password
+     * 需要更改！！！
      */
 
     public static final String GET_ARTICLE = BASE_URL + "app-getAllArticle";
@@ -57,7 +63,31 @@ public class AppNetConfig {
     public static final String GET_MYCOURSE = BASE_URL + "app-getMyCourse";
     /**
      * 获取我的课程
-     * String username
+     * long id
+     */
+
+    public static final String GET_MYMESSAGE = BASE_URL + "app-getMyMessage";
+    /**
+     * 校方公告
+     * long id
+     */
+
+    public static final String GET_MYTRAIN = BASE_URL + "app-getMyTrain";
+    /**
+     * 综合实训
+     * long id
+     */
+
+    public static final String GET_MYGRADE = BASE_URL + "app-getMyGrade";
+    /**
+     * 成绩查询
+     * long id
+     */
+
+    public static final String SET_AVATAR = BASE_URL + "app-updateAvatar";
+    /**
+     * 更改头像
+     * 
      */
 
     public static String LiveUrl = "http://27564.liveplay.myqcloud.com/live/27564_desheng.flv";

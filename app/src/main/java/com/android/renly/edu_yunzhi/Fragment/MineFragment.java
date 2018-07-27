@@ -130,8 +130,6 @@ public class MineFragment extends BaseFragment {
             ivMineIcon.setImageDrawable(getResources().getDrawable(R.drawable.user1));
             String realName = sp.getString("realName","");
             String schoolName = sp.getString("schoolName","");
-            Log.e("print","realName[" + realName + "]");
-            Log.e("print","schoolName[" + schoolName + "]");
             if(isStudent){
                 //学生登录
                 tvMineName.setText(realName + " 同学，你好");
@@ -208,7 +206,6 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("TAG", "mine.onResume()");
 
         //读取本地保存的图片
         readImage();

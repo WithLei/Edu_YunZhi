@@ -2,20 +2,28 @@ package com.android.renly.edu_yunzhi.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.android.renly.edu_yunzhi.Activity.PlayActivity;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cz.msebera.android.httpclient.Header;
 
 public class CourseLiveFragment extends BaseFragment {
     private static final String ARG_TITLE = "title";
@@ -71,15 +79,38 @@ public class CourseLiveFragment extends BaseFragment {
         /**
          * 跳转到视频播放
          *
+         * 首先获取直播地址
          * @param activity
          * @param view
          */
-        Bundle pusherBundle = new Bundle();
-        String PusherRoomName = "噜啦噜啦直播间";
-        pusherBundle.putString("RoomName",PusherRoomName);
+        RequestParams params = new RequestParams();
+        params.put("room", "rua");
 
-        Intent pusherIntent = new Intent(getContext(),PlayActivity.class);
-        pusherIntent.putExtras(pusherBundle);
-        startActivity(pusherIntent);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(AppNetConfig.GET_PLAY_URL, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                JSONArray jsonArray = JSON.parseArray(response);
+                String playUrl = jsonArray.get(2).toString();
+                Log.e("print",playUrl);
+
+                Bundle playBundle = new Bundle();
+                String PlayRoomName = "噜啦噜啦直播间";
+                playBundle.putString("RoomName",PlayRoomName);
+                playBundle.putString("PlayUrl",playUrl);
+                Intent playIntent = new Intent(getContext(),PlayActivity.class);
+                playIntent.putExtras(playBundle);
+
+                startActivity(playIntent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getActivity(), "未获取到直播信息", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

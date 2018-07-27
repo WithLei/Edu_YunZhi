@@ -53,6 +53,7 @@ public class PlayActivity extends Activity {
 
 
     private String roomName;
+    private String playUrl;
 
 
     @Override
@@ -115,6 +116,7 @@ public class PlayActivity extends Activity {
         titlebar.setVisibility(View.GONE);
         Intent intent = getIntent();
         roomName = intent.getStringExtra("RoomName");
+        playUrl = intent.getStringExtra("PlayUrl");
         titleTv.setText(roomName);
     }
 
@@ -180,7 +182,7 @@ public class PlayActivity extends Activity {
          * PLAY_TYPE_LIVE_RTMP_ACC	  5	      低延迟链路地址（仅适合于连麦场景）
          * PLAY_TYPE_VOD_HLS	      3	      传入的 URL 为 HLS（m3u8）播放地址
          */
-        String flvUrl = AppNetConfig.LiveUrl;
+        String flvUrl = playUrl;
         mLivePlayer.startPlay(flvUrl, TXLivePlayer.PLAY_TYPE_LIVE_FLV); //推荐 FLV
     }
 

@@ -75,7 +75,6 @@ public class LearningFragment extends BaseFragment{
         switch (select) {
             case 0:
                 if (myclassFragment == null) {
-                    Log.e("rua","初始化classfragment");
                     myclassFragment = new MyclassFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, myclassFragment);
                 }
@@ -83,7 +82,6 @@ public class LearningFragment extends BaseFragment{
                 break;
             case 1:
                 if (myworkFragment == null) {
-                    Log.e("rua","初始化workfragment");
                     myworkFragment = new MyworkFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, myworkFragment);
                 }
@@ -91,7 +89,6 @@ public class LearningFragment extends BaseFragment{
                 break;
             case 2:
                 if (mynoteFragment == null) {
-                    Log.e("rua","初始化notefragment");
                     mynoteFragment = new MynoteFragment();//commit()后调用生命周期方法
                     transaction.add(R.id.fl_learning, mynoteFragment);
                 }

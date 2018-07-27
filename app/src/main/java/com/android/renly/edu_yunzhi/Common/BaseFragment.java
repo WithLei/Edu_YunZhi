@@ -24,7 +24,6 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e("print","in basefragemtn1");
         loadingPage = new LoadingPage(container.getContext()) {
             @Override
             public int layoutId() {
@@ -33,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
             @Override
             protected void onSuccss(ResultState resultState, View view_success) {
                 unbinder = ButterKnife.bind(BaseFragment.this, view_success);
-                Log.e("print", "in basefragemtn2");
                 initData(resultState.getContent());
             }
 

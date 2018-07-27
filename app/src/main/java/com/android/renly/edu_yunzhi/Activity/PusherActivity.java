@@ -47,6 +47,7 @@ public class PusherActivity extends Activity {
     private TXLivePushConfig mLivePushConfig;
 
     private String roomName;
+    private String pushUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class PusherActivity extends Activity {
         titlebar.setVisibility(View.GONE);
         Intent intent = getIntent();
         roomName = intent.getStringExtra("RoomName");
+        pushUrl = intent.getStringExtra("PushUrl");
+        Log.e("print","pushURL:" + pushUrl);
         titleTv.setText(roomName);
     }
 
@@ -130,7 +133,7 @@ public class PusherActivity extends Activity {
          * startPusher 的作用是告诉 SDK 音视频流要推到哪个推流URL上去。
          * startCameraPreview 则是将界面元素和 Pusher 对象关联起来，从而能够将手机摄像头采集到的画面渲染到屏幕上。
          */
-        String rtmpUrl = AppNetConfig.PosterUrl;
+        String rtmpUrl = pushUrl;
         mLivePusher.startPusher(rtmpUrl);
 
         TXCloudVideoView mCaptureView = (TXCloudVideoView) findViewById(R.id.video_view);
