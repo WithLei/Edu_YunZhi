@@ -56,8 +56,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlMineIcon;
     @BindView(R.id.tv_mine_name)
     TextView tvMineName;
-    @BindView(R.id.rl_mine)
-    RelativeLayout rlMine;
+    @BindView(R.id.rl_mine_title)
+    RelativeLayout rlMineTitle;
     @BindView(R.id.tv_mine_class)
     TextView tvMineClass;
     @BindView(R.id.tv_mine_task)
@@ -82,7 +82,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initData(String content) {
         //判断用户是否已经登录
-        isLogin();
+        initView();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class MineFragment extends BaseFragment {
 
     }
 
-    private void isLogin() {
+    private void initView() {
         //查看本地是否有用户的登录信息
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
@@ -134,11 +134,13 @@ public class MineFragment extends BaseFragment {
                 //学生登录
                 tvMineName.setText(realName + " 同学，你好");
                 tvMineSchool.setText(schoolName);
+                rlMineTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             }
             else{
                 //老师登录
                 tvMineName.setText(realName + " 老师，您好");
                 tvMineSchool.setText(schoolName);
+                rlMineTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
             }
         }
 
@@ -208,7 +210,7 @@ public class MineFragment extends BaseFragment {
         super.onResume();
 
         //读取本地保存的图片
-        readImage();
+//        readImage();
     }
 
     private boolean readImage() {
@@ -237,7 +239,6 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, rootView);

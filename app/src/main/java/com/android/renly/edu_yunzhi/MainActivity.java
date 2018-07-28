@@ -101,6 +101,7 @@ public class MainActivity extends BaseActivity {
             ivMainBottomLive.setVisibility(View.GONE);
         }else{
             ivMainBottomLive.setVisibility(View.VISIBLE);
+            tvMainBottomLearning.setText("教学");
         }
     }
 

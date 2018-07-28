@@ -292,7 +292,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             String realName = "测试姓名";
                             String schoolName = "测试学校";
                             String avatarSrc = "http://b305.photo.store.qq.com/psb?/V13Hh3Xy2wrWJw/ZVU219Y5gp2VhDelSYRNr6hA1l3KxRL*UZqj9Bks0VU!/b/dDEBAAAAAAAA&bo=WAJZAlgCWQIRCT4!&rf=viewer_4";
-                            doLogin(username, password, realName, schoolName, avatarSrc);
+                            long userID = 3;
+                            doLogin(username, password, realName, schoolName, avatarSrc, userID);
 //                        }
 //                    });
 //                }else{
@@ -303,7 +304,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void doLogin(String username,String password,String realName,String schoolName ,String avatarSrc) {
+    private void doLogin(String username,String password,String realName,String schoolName ,String avatarSrc, long userID) {
         // 获取SharedPreferences对象
         SharedPreferences sharedPre = getSharedPreferences("user_info", Context.MODE_PRIVATE);
         // 获取Editor对象
@@ -314,6 +315,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         editor.putString("realName",realName);
         editor.putString("schoolName",schoolName);
         editor.putString("avatarSrc",avatarSrc);
+        editor.putLong("userID",userID);
 
 
         Toast.makeText(MyApplication.context,"登录成功",Toast.LENGTH_SHORT).show();

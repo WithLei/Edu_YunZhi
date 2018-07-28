@@ -1,6 +1,8 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +25,6 @@ import butterknife.Unbinder;
 public class MsgFragment extends BaseFragment {
     @BindView(R.id.fl_msg)
     FrameLayout flMsg;
-
     @BindView(R.id.btn_1)
     RadioButton btn1;
     @BindView(R.id.btn_2)
@@ -32,6 +33,8 @@ public class MsgFragment extends BaseFragment {
     RadioButton btn3;
     @BindView(R.id.btn_change)
     RadioGroup btnChange;
+    @BindView(R.id.fl_msg_title)
+    FrameLayout flMsgTitle;
 
     @Override
     protected String getUrl() {
@@ -49,7 +52,20 @@ public class MsgFragment extends BaseFragment {
 
     @Override
     protected void initData(String content) {
-//        setSelect(0);
+        initView();
+    }
+
+    private void initView() {
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        boolean isStudent = sp.getBoolean("isStudent", false);
+        if (isStudent) {
+            //学生角色
+            flMsgTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            //教师角色
+            flMsgTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+        }
+
     }
 
     @Override

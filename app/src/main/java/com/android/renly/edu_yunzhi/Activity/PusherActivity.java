@@ -122,7 +122,7 @@ public class PusherActivity extends Activity {
         mLivePushConfig.enablePureAudioPush(true);   // true 为启动纯音频推流，而默认值是 false；
         mLivePusher.setConfig(mLivePushConfig);      // 重新设置 config
 
-        String rtmpUrl = AppNetConfig.PosterUrl;
+        String rtmpUrl = pushUrl;
         mLivePusher.startPusher(rtmpUrl);
     }
 

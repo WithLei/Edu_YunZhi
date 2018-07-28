@@ -20,6 +20,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 专门提供为处理一些UI相关的问题而创建的工具类
  */
@@ -145,4 +148,14 @@ public class UIUtils {
             return point;
         }
     }
+
+    /**
+     * 时间戳转换为时间
+     */
+     public static String timeStampToTime(long timeStamp){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy - MM - dd HH:mm:ss");//这个是你要转成后的时间的格式
+        String sd = sdf.format(new Date(timeStamp));   // 时间戳转换成时间
+        return sd;
+    }
+
 }

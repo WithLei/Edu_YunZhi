@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingLeft="10dp"
-        android:paddingRight="5dp">
+        android:paddingRight="5dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/tv_item_notice_title"

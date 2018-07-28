@@ -5,9 +5,9 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/fl_msg_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:id="@+id/tb_test"
         android:background="?attr/colorPrimary"
         android:elevation="4dp">
 

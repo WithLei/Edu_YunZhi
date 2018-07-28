@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.LoginActivity;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
@@ -31,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class LearningFragment extends BaseFragment{
+public class LearningFragment extends BaseFragment {
 
     @BindView(R.id.btn_1)
     BatchRadioButton btn1;
@@ -43,6 +41,8 @@ public class LearningFragment extends BaseFragment{
     RadioGroup btnChange;
     @BindView(R.id.fl_learning)
     FrameLayout flLearning;
+    @BindView(R.id.lv_learning_title)
+    FrameLayout lvLearningTitle;
 
     @Override
     protected String getUrl() {
@@ -56,10 +56,22 @@ public class LearningFragment extends BaseFragment{
 
     @Override
     protected void initData(String content) {
+        initView();
         //默认显示首页
         setSelect(0);
-        //登录判断
-//        isLogin();
+    }
+
+    private void initView() {
+        SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        boolean isStudent = sp.getBoolean("isStudent", false);
+        if(isStudent){
+           //学生角色
+           lvLearningTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }else{
+            //教师角色
+            lvLearningTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+        }
+
     }
 
     private static MyclassFragment myclassFragment;
@@ -135,15 +147,14 @@ public class LearningFragment extends BaseFragment{
         unbinder.unbind();
         //移除所有的未被执行的消息
 //        handler.removeCallbacksAndMessages(null);
-        try{
+        try {
             FragmentManager frgManager = getChildFragmentManager();
             FragmentTransaction transaction = frgManager.beginTransaction();
             transaction.remove(myclassFragment);
             transaction.remove(myworkFragment);
             transaction.remove(mynoteFragment);
             transaction.commit();
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -191,7 +202,7 @@ public class LearningFragment extends BaseFragment{
                 .show();
     }
 
-    public void gotoClassFragment(){
+    public void gotoClassFragment() {
         setSelect(0);
     }
 

@@ -10,10 +10,10 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +29,6 @@ import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
-import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Bean.News;
 import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
@@ -120,6 +119,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     RelativeLayout rlHomeSchool;
     @BindView(R.id.tv_home_titleName)
     TextView tvHomeTitleName;
+    @BindView(R.id.fl_home_title)
+    FrameLayout flHomeTitle;
 
     private Unbinder unbinder;
 
@@ -161,7 +162,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData(String content) {
-        isLogin();
+        initView();
         initOnclickEvent();
         initNewsdata();
         //初始化轮播图
@@ -246,7 +247,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         MainActivity mainActivity = (MainActivity) getActivity();
-        isLogin();
         switch (v.getId()) {
             case R.id.ll_home_first:
                 mainActivity.gotoLearningFragment();
@@ -318,9 +318,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     ad.title = jsonObject.getString("tittle");
                     ad.content = jsonObject.getString("context");
-                    ad.replyCount = (int) ( Math.random() * 2333 );
+                    ad.replyCount = (int) (Math.random() * 2333);
                     ad.img = imgs.get(i % 3);
-                    ad.time = (int) ( Math.random() * 58 ) + 1 ;
+                    ad.time = (int) (Math.random() * 58) + 1;
                     JSONObject departmentObject = jsonObject.getJSONObject("department");
                     JSONObject userObject = jsonObject.getJSONObject("user");
                     ad.username = departmentObject.getString("name") + " - " + userObject.getString("realname");
@@ -426,25 +426,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private void isLogin() {
-        //查看本地是否有用户的登录信息
+    private void initView() {
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
         boolean isStudent = sp.getBoolean("isStudent", false);
+
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
             doLogin();
         } else {
             if (isStudent) {
+                //学生角色
                 CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
                 rlHomeSchool.setVisibility(View.VISIBLE);
+                flHomeTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             } else {
+                //教师角色
                 CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
                 rlHomeSchool.setVisibility(View.VISIBLE);
                 tvHomeTitleName.setText("云智教育教师端");
                 tvHomeThird.setText("批改作业");
                 ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.activity));
                 tvHomeFourth.setText("各类活动");
+                flHomeTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
             }
         }
     }

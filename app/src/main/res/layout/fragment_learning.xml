@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <FrameLayout
+        android:id="@+id/lv_learning_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:elevation="4dp">
 
         <RadioGroup

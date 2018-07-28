@@ -17,10 +17,10 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/rl_mine"
+                android:id="@+id/rl_mine_title"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:background="?attr/colorPrimary"
+                android:background="@color/colorPrimary"
                 android:gravity="center">
 
                 <RelativeLayout

@@ -7,9 +7,10 @@
     tools:context="com.android.renly.edu_yunzhi.Fragment.HomeFragment">
 
     <FrameLayout
+        android:id="@+id/fl_home_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:elevation="4dp">
 
         <com.android.renly.edu_yunzhi.UI.CircleImageView
@@ -32,8 +33,7 @@
             android:maxEms="10"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/iv_home_search"
