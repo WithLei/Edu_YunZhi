@@ -266,8 +266,6 @@ public class NoticeActivity extends BaseActivity {
             switch (msg.what) {
                 case WHAT_REQUEST_SUCCESS:
                     lvNoticeNoticeList.setAdapter(noticeAdapter);
-                    Log.e("print","send msg");
-//                    recyclerMyclassLearnt.setAdapter(learningAdapter);
                     break;
                 case WHAT_REQUEST_ERROR:
                     Toast.makeText(MyApplication.context, "加载数据失败", Toast.LENGTH_LONG).show();

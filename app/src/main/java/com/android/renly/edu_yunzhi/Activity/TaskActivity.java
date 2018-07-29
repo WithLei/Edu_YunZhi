@@ -1,30 +1,39 @@
 package com.android.renly.edu_yunzhi.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Adapter.ListDropDownAdapter;
 import com.android.renly.edu_yunzhi.Bean.Task;
+import com.android.renly.edu_yunzhi.Common.AppNetConfig;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.Common.MyApplication;
 import com.android.renly.edu_yunzhi.R;
-import com.android.renly.edu_yunzhi.UI.CircleImageView;
 import com.android.renly.edu_yunzhi.UI.CustomLinearLayoutManager;
 import com.android.renly.edu_yunzhi.UI.DropDownMenu;
+import com.android.renly.edu_yunzhi.Utils.UIUtils;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +42,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
+import cz.msebera.android.httpclient.Header;
 
 public class TaskActivity extends BaseActivity {
     @BindView(R.id.task_img)
@@ -42,11 +53,12 @@ public class TaskActivity extends BaseActivity {
     @BindView(R.id.task_title)
     TextView taskTitle;
     RecyclerView recyclerTask;
+    @BindView(R.id.fl_task_title)
+    FrameLayout flTaskTitle;
 
     @Override
     protected void initData() {
         initTaskData();
-        initView();
     }
 
     @Override
@@ -65,7 +77,16 @@ public class TaskActivity extends BaseActivity {
 
     private int constellationPosition = 0;
 
+    private boolean isStudent;
+    private long userID;
+
     private void initView() {
+        if (isStudent){
+            flTaskTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }else{
+            flTaskTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+        }
+        showTaskList = taskList;
 
         //init process menu
         final ListView processView = new ListView(this);
@@ -90,18 +111,19 @@ public class TaskActivity extends BaseActivity {
                 processAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : processs[position]);
                 //init context view
-                switch (position){
+                switch (position) {
                     case 0:
+                        Log.e("print", taskList.size() + "");
                         process = null;
-                        initTaskData();
+                        filterList();
                         break;
                     case 1:
                         process = "进行中";
-                        initTaskData();
+                        filterList();
                         break;
                     case 2:
                         process = "已结束";
-                        initTaskData();
+                        filterList();
                         break;
                 }
                 initList();
@@ -116,22 +138,22 @@ public class TaskActivity extends BaseActivity {
                 typeAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : types[position]);
 //                init context view
-               switch (position){
-                   case 0:
-                       type = null;
-                       initTaskData();
-                       break;
+                switch (position) {
+                    case 0:
+                        type = null;
+                        filterList();
+                        break;
                     case 1:
                         type = "答疑讨论";
-                        initTaskData();
+                        filterList();
                         break;
                     case 2:
                         type = "课外活动";
-                        initTaskData();
+                        filterList();
                         break;
                     case 3:
                         type = "实验设计";
-                        initTaskData();
+                        filterList();
                         break;
                 }
                 initList();
@@ -159,11 +181,68 @@ public class TaskActivity extends BaseActivity {
         }
     }
 
-    List<Task>taskList;//通知列表
-    String process, type;
-    //初始化实训列表【暂时写死
-    public void initTaskData() {
+
+    private void initTaskData() {
         taskList = new ArrayList<>();
+
+        SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
+        isStudent = sp.getBoolean("isStudent", false);
+        userID = sp.getLong("userID", 0);
+
+        RequestParams params = new RequestParams();
+        params.put("id", userID);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(AppNetConfig.GET_MYTRAIN, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                JSONArray array = JSON.parseArray(response);
+                for (int i = 0; i < array.size(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    Task task = new Task();
+                    task.title = object.getString("title");
+                    switch (object.getInteger("type")) {
+                        case 0:
+                            task.type = "答疑讨论";
+                            break;
+                        case 1:
+                            task.type = "课外活动";
+                            break;
+                        case 2:
+                            task.type = "实验设计";
+                            break;
+                        default:
+                            task.type = "未分类";
+                            break;
+                    }
+                    task.process = object.getInteger("process") == 1 ? "已结束" : "进行中";
+                    task.joinNum = (int) (Math.random() * 100) + 1;
+                    task.teacherName = object.getString("poster");
+                    task.startTime = UIUtils.timeStampToShortTime(object.getLong("time"));
+                    task.content = object.getString("content");
+
+
+                    taskList.add(task);
+                }
+                initFailTaskData();
+                initView();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(TaskActivity.this, "网络开小差咯", Toast.LENGTH_SHORT).show();
+                initFailTaskData();
+                initView();
+            }
+        });
+    }
+
+    List<Task> taskList;//通知列表
+    List<Task> showTaskList;//用于展示的通知列表
+    String process, type;
+
+    //初始化实训列表
+    public void initFailTaskData() {
         for (int i = 0; i < 2; i++) {
             //1.
             Task firstTask = new Task();
@@ -173,6 +252,7 @@ public class TaskActivity extends BaseActivity {
             firstTask.joinNum = 33;
             firstTask.process = "进行中";
             firstTask.type = "答疑讨论";
+            firstTask.content = "测试内容1";
 
             //2.
             Task secondTask = new Task();
@@ -182,6 +262,7 @@ public class TaskActivity extends BaseActivity {
             secondTask.joinNum = 65;
             secondTask.process = "进行中";
             secondTask.type = "课外活动";
+            secondTask.content = "测试内容2";
 
             //3.
             Task thirdTask = new Task();
@@ -191,18 +272,21 @@ public class TaskActivity extends BaseActivity {
             thirdTask.joinNum = 18;
             thirdTask.process = "已结束";
             thirdTask.type = "实验设计";
+            thirdTask.content = "测试内容3";
 
-            if (firstTask.process.equals(process)||process == null)
-                if(firstTask.type.equals(type)||type == null)
-                    taskList.add(firstTask);
+            taskList.add(firstTask);
+            taskList.add(secondTask);
+            taskList.add(thirdTask);
+        }
+    }
 
-            if (secondTask.process.equals(process)||process == null)
-                if(secondTask.type.equals(type)||type == null)
-                    taskList.add(secondTask);
-
-            if (thirdTask.process.equals(process)||process == null)
-                if(thirdTask.type.equals(type)||type == null)
-                    taskList.add(thirdTask);
+    public void filterList() {
+        showTaskList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task.process.equals(process) || process == null)
+                if (task.type.equals(type) || type == null)
+                    showTaskList.add(task);
         }
     }
 
@@ -210,6 +294,7 @@ public class TaskActivity extends BaseActivity {
 
     public class taskInfoAdapter extends RecyclerView.Adapter<taskInfoAdapter.ViewHolder> {
         private List<Task> taskList;//通知列表
+
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView title;
@@ -246,20 +331,20 @@ public class TaskActivity extends BaseActivity {
         //对RecyclerView子项数据进行赋值
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Task task = taskList.get(position);
+            final Task task = taskList.get(position);
             //设置数据
             holder.title.setText(task.title);
             holder.startTime.setText(task.startTime);
             holder.teacherName.setText(task.teacherName);
             holder.process.setText(task.process);
-            holder.joinNum.setText("共 "+task.joinNum+" 人参加");
+            holder.joinNum.setText("共 " + task.joinNum + " 人参加");
             /**
              * 类型
              * 答疑讨论 - 课外活动 - 实验设计
              * 进度
              * 进行中 - 已结束
              */
-            switch (task.type){
+            switch (task.type) {
                 case "答疑讨论":
                     holder.typeImg.setImageDrawable(getResources().getDrawable(R.drawable.activitieslisticondiscuss));
                     break;
@@ -269,7 +354,27 @@ public class TaskActivity extends BaseActivity {
                 case "实验设计":
                     holder.typeImg.setImageDrawable(getResources().getDrawable(R.drawable.activitieslisticonassignment));
                     break;
+                default:
+                    holder.typeImg.setImageDrawable(getResources().getDrawable(R.drawable.activitieslisticondiscuss));
+                    break;
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(TaskActivity.this,TaskInfoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Task",task.toString());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    return false;
+                }
+            });
         }
 
         //返回子项个数
@@ -283,13 +388,10 @@ public class TaskActivity extends BaseActivity {
     protected static final int WHAT_REQUEST_ERROR = 2;
 
     private void initList() {
-
-        taskInfoAdapter = new taskInfoAdapter(taskList);
-//        learntAdapter = new LearningFragment.courselearntInfoAdapter(learntData);
+        taskInfoAdapter = new taskInfoAdapter(showTaskList);
         CustomLinearLayoutManager layoutmanager = new CustomLinearLayoutManager(MyApplication.context);
         layoutmanager.setScrollEnabled(true);
         //设置RecyclerView 布局
-//        recyclerMyclassLearnt.setLayoutManager(layoutmanager);
         recyclerTask.setLayoutManager(layoutmanager);
         new Thread() {
             @Override
@@ -322,11 +424,18 @@ public class TaskActivity extends BaseActivity {
         }
     };
 
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @OnClick(R.id.task_img)

@@ -121,8 +121,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     TextView tvHomeTitleName;
     @BindView(R.id.fl_home_title)
     FrameLayout flHomeTitle;
+    @BindView(R.id.tv_home_school)
+    TextView tvHomeSchool;
 
     private Unbinder unbinder;
+    private boolean isStudent;
+    private String schoolName;
 
     @Nullable
     @Override
@@ -429,7 +433,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initView() {
         SharedPreferences sp = this.getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String name = sp.getString("username", "");
-        boolean isStudent = sp.getBoolean("isStudent", false);
+        isStudent = sp.getBoolean("isStudent", false);
+        schoolName = sp.getString("schoolName","");
 
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
@@ -451,6 +456,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 flHomeTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
             }
         }
+        tvHomeSchool.setText(schoolName);
     }
 
     @Override

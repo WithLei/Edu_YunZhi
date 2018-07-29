@@ -14,6 +14,7 @@ public class Task {
     public int joinNum;//参与活动人数
     public String type;//活动类型
     public String process;//活动进度
+    public String content;
     /**
      * 类型
      * 答疑讨论 - 课外活动 - 实验设计

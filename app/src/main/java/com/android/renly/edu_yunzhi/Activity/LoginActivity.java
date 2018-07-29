@@ -292,7 +292,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                             String realName = "测试姓名";
                             String schoolName = "测试学校";
                             String avatarSrc = "http://b305.photo.store.qq.com/psb?/V13Hh3Xy2wrWJw/ZVU219Y5gp2VhDelSYRNr6hA1l3KxRL*UZqj9Bks0VU!/b/dDEBAAAAAAAA&bo=WAJZAlgCWQIRCT4!&rf=viewer_4";
-                            long userID = 3;
+                            long userID = 6;
                             doLogin(username, password, realName, schoolName, avatarSrc, userID);
 //                        }
 //                    });

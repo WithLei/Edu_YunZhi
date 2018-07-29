@@ -70,6 +70,7 @@
         <activity android:name=".Activity.AbilityActivity"/>
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.setInfoActivity" />
+        <activity android:name=".Activity.TaskInfoActivity" />
 
     </application>
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    xmlns:YunZhi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <FrameLayout
+        android:id="@+id/fl_task_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:elevation="4dp">
 
         <ImageView
@@ -29,8 +29,7 @@
             android:maxEms="10"
             android:text="综合实训"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
     </FrameLayout>
     <com.android.renly.edu_yunzhi.UI.DropDownMenu
         android:id="@+id/dropDownMenu"
