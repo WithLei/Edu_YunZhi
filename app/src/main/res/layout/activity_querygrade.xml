@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorQuery">
+    android:background="@color/colorGrade"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/fl_querygrade_title"
@@ -16,10 +16,10 @@
             android:id="@+id/iv_query_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:scaleType="centerCrop"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
             android:src="@drawable/back" />
 
         <TextView
@@ -38,8 +38,9 @@
         android:id="@+id/ll_query"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_below="@id/fl_querygrade_title"
+        android:background="@color/colorQuery"
+        android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:visibility="visible">
@@ -81,35 +82,36 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:background="@drawable/shape_bg_white_top"
             android:hint="请输入准考证号/学号"
             android:inputType="number"
-            android:background="@drawable/shape_bg_white_top" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divider_line"/>
+            android:background="@color/divider_line" />
 
         <EditText
             android:id="@+id/et_query_pwd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:background="@drawable/shape_bg_white_bottom"
             android:hint="请输入密码"
             android:inputType="textPassword"
-            android:background="@drawable/shape_bg_white_bottom" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
         <Button
             android:id="@+id/btn_query"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/background_live_btn"
             android:text="查询成绩"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:background="@drawable/background_live_btn"/>
+            android:textSize="20sp" />
     </LinearLayout>
 
     <ImageView
@@ -120,16 +122,97 @@
         android:src="@drawable/loading_animation"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/ll_grade"
+    <RelativeLayout
+        android:id="@+id/rl_grade"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fl_querygrade_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_querygrade"
         android:orientation="vertical"
         android:padding="20dp"
         android:visibility="gone">
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="90dp"
+            android:layout_marginStart="30dp"
+            android:text="分数："
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_grade_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textColor="#06B9D1"
+            android:layout_toRightOf="@id/tv_grade"
+            android:layout_alignBaseline="@id/tv_grade"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_grade_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="25dp"
+            android:text="课程："
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_grade_classname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_grade_class"
+            android:layout_toRightOf="@id/tv_grade_class"
+            android:text="测试课程"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_querygrade_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_grade_class"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:text="用户名"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_grade_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="25dp"
+            android:text="教师："
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_grade_teachername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_grade_teacher"
+            android:layout_toRightOf="@id/tv_grade_teacher"
+            android:text="测试教师"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

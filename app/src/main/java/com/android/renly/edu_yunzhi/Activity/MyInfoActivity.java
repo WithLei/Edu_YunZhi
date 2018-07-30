@@ -57,6 +57,8 @@ public class MyInfoActivity extends BaseActivity {
     LinearLayout llTitleBack;
     @BindView(R.id.tv_title_back)
     TextView tvTitleBack;
+    @BindView(R.id.fl_myinfo_title)
+    FrameLayout flMyinfoTitle;
 
     @Override
     protected void initData() {
@@ -84,7 +86,15 @@ public class MyInfoActivity extends BaseActivity {
         String realName = sp.getString("realName", "");
         String schoolName = sp.getString("schoolName", "");
         String avatarSrc = sp.getString("avatarSrc", "");
+        boolean isStudent = sp.getBoolean("isStudent", false);
 
+        if (isStudent) {
+            //学生角色
+            flMyinfoTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            //教师角色
+            flMyinfoTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+        }
         tvMyinfoSetName.setText(username);
         tvMyinfoSetRealName.setText(realName);
         tvMyinfoSetSchool.setText(schoolName);
