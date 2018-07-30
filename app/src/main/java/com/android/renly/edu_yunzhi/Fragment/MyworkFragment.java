@@ -1,6 +1,7 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,17 +40,7 @@ public class MyworkFragment extends BaseFragment {
     RecyclerView recyclerMyworkHomework;
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         initHomeworkdata();
         initList();
         initItemClickListener();

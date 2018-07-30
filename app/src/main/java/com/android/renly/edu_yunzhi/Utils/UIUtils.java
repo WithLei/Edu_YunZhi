@@ -46,9 +46,7 @@ public class UIUtils {
     }
 
     public static View getView(int viewID){
-        Log.e("TAG","1.viewID:"+viewID);
         View view = View.inflate(getContext(),viewID,null);
-        Log.e("TAG","2.viewID:"+viewID);
         return view;
     }
 

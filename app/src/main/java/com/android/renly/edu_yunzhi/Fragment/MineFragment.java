@@ -18,11 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.renly.edu_yunzhi.Activity.LoadFragmentActivity;
 import com.android.renly.edu_yunzhi.Activity.LoginActivity;
 import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
-import com.android.renly.edu_yunzhi.Activity.UserInfoActivity;
 import com.android.renly.edu_yunzhi.Bean.MessageEvent;
 import com.android.renly.edu_yunzhi.Bean.User;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
@@ -70,17 +68,7 @@ public class MineFragment extends BaseFragment {
     TextView tvMineSchool;
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         //判断用户是否已经登录
         initView();
     }

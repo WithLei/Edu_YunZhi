@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.renly.edu_yunzhi.Adapter.RecyclerAdapter;
 import com.android.renly.edu_yunzhi.Common.BaseFragment;
 import com.android.renly.edu_yunzhi.R;
 import com.loopj.android.http.RequestParams;
@@ -41,12 +40,6 @@ public class CourseIntroductionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_courseintro, container, false);
-
-//        initData();
-//        mRecyclerView = v.findViewById(R.id.courseintro_recyclerview);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-//        mRecyclerView.setAdapter(new RecyclerAdapter(mRecyclerView.getContext(), mDatas));
-
         return v;
     }
 

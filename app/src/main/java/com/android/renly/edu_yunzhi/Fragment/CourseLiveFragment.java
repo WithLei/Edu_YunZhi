@@ -1,5 +1,6 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,17 +40,7 @@ public class CourseLiveFragment extends BaseFragment {
     }
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
 
     }
 
@@ -62,7 +53,6 @@ public class CourseLiveFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;

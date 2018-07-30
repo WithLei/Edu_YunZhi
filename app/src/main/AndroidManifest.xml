@@ -55,7 +55,6 @@
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.UserInfoActivity" />
-        <activity android:name=".Activity.LoadFragmentActivity"/>
         <activity android:name=".Activity.NoticeActivity"/>
         <activity android:name=".Activity.TaskActivity"/>
         <activity android:name=".Activity.SearchActivity"/>
@@ -66,11 +65,12 @@
         <activity android:name="com.example.answer.AnalogyExaminationActivity"/>
         <activity android:name="com.example.answer.MyErrorQuestionActivity"/>
         <activity android:name="com.example.answer.MyErrorQuestionDetailActivity"/>
-        <activity android:name=".Activity.PKActivity"/>
+        <activity android:name=".Activity.PKActivity" />
         <activity android:name=".Activity.AbilityActivity"/>
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.setInfoActivity" />
         <activity android:name=".Activity.TaskInfoActivity" />
+        <activity android:name=".Activity.QueryGradeActivity" />
 
     </application>
 

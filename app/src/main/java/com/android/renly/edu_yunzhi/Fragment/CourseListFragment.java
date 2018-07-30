@@ -1,5 +1,6 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,23 +35,12 @@ public class CourseListFragment extends BaseFragment {
         fra.setArguments(bundle);
         return fra;
     }
-
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
-        recyclerviewCourselist.setLayoutManager(new LinearLayoutManager(MyApplication.context));
+    protected void initData(Context content) {
+        recyclerviewCourselist.setLayoutManager(new LinearLayoutManager(content));
         CourseTitle courseTitle = initTitleData();
 
-        CourseListAdapter courseListAdapter = new CourseListAdapter(MyApplication.context,courseTitle);
+        CourseListAdapter courseListAdapter = new CourseListAdapter(content,courseTitle);
         recyclerviewCourselist.setAdapter(courseListAdapter);
 
     }

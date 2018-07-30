@@ -2,8 +2,11 @@ package com.android.renly.edu_yunzhi.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.android.renly.edu_yunzhi.Bean.Task;
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.R;
@@ -28,8 +31,10 @@ public class TaskInfoActivity extends BaseActivity {
     private void initView() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Serializable s = bundle.getSerializable("Task");
-        tvTaskinfo.setText(s.toString());
+        String s = bundle.getString("Task");
+        Task task = JSON.parseObject(s, new TypeReference<Task>(){});
+        tvTaskinfo.setText(s);
+        Log.e("print",task.toString());
     }
 
     @Override

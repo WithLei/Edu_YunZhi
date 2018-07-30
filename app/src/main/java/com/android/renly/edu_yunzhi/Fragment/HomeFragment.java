@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.android.renly.edu_yunzhi.Activity.AbilityActivity;
 import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
+import com.android.renly.edu_yunzhi.Activity.QueryGradeActivity;
 import com.android.renly.edu_yunzhi.Activity.SearchActivity;
 import com.android.renly.edu_yunzhi.Activity.TaskActivity;
 import com.android.renly.edu_yunzhi.Bean.News;
@@ -131,18 +133,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     protected static final int WHAT_REQUEST_SUCCESS = 1;
@@ -165,7 +158,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     };
 
     @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         initView();
         initOnclickEvent();
         initNewsdata();
@@ -265,7 +258,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(MyApplication.context, PKActivity.class));
                 break;
             case R.id.ll_home_fifth:
-                Toast.makeText(MyApplication.context, "成绩查询", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MyApplication.context, QueryGradeActivity.class));
                 break;
             case R.id.ll_home_sixth:
                 Toast.makeText(MyApplication.context, "错题分析", Toast.LENGTH_SHORT).show();
@@ -330,47 +323,52 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     ad.username = departmentObject.getString("name") + " - " + userObject.getString("realname");
                     data.add(ad);
                 }
+                initFailData();
                 initList();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(getActivity(), "网络未连接", Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < 3; i++) {
-                    //1.
-                    News firstAd = new News();
-                    firstAd.title = "区块链 技术峰会";
-                    firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
-                    firstAd.replyCount = 233;
-                    firstAd.username = "微社区";
-                    firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-                    firstAd.time = 1;
-
-                    //2.
-                    News secondAd = new News();
-                    secondAd.title = "一起来看看色彩与树洞的故事";
-                    secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
-                    secondAd.replyCount = 568;
-                    secondAd.username = "资讯";
-                    secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
-                    secondAd.time = 2;
-
-                    //3.
-                    News thirdAd = new News();
-                    thirdAd.title = "水情教育进校园，传递节水正能量";
-                    thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
-                    thirdAd.replyCount = 1024;
-                    thirdAd.username = "家里蹲大学";
-                    thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
-                    thirdAd.time = 10;
-
-                    data.add(firstAd);
-                    data.add(secondAd);
-                    data.add(thirdAd);
-                }
+                initFailData();
                 initList();
             }
         });
+    }
+
+    public void initFailData(){
+        for (int i = 0; i < 3; i++) {
+            //1.
+            News firstAd = new News();
+            firstAd.title = "区块链 技术峰会";
+            firstAd.content = "《麻省理工科技评论》第二届区块链技术峰会将于4月22日在该平台中文同传...";
+            firstAd.replyCount = 233;
+            firstAd.username = "微社区";
+            firstAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/FRp*yIwJptgrSPi272ndSLj3OyHQnVqfiCU.AARr6Rc!/b/dAgBAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+            firstAd.time = 1;
+
+            //2.
+            News secondAd = new News();
+            secondAd.title = "一起来看看色彩与树洞的故事";
+            secondAd.content = "由学生社团联合会主办、观鸟协会联合美术学院承办的...";
+            secondAd.replyCount = 568;
+            secondAd.username = "资讯";
+            secondAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/dpXhe5yTB4cUOd7h16wy*P3EwgYd24tcF7WedTIFGbA!/b/dEMBAAAAAAAA&bo=wAY4BEALCAcDGYI!&rf=viewer_4";
+            secondAd.time = 2;
+
+            //3.
+            News thirdAd = new News();
+            thirdAd.title = "水情教育进校园，传递节水正能量";
+            thirdAd.content = "3月22日至28日期间，肇庆学院在发展门口正门、紫荆校道悬挂中国水周宣传口号...";
+            thirdAd.replyCount = 1024;
+            thirdAd.username = "家里蹲大学";
+            thirdAd.img = "http://m.qpic.cn/psb?/V13Hh3Xy2gxYy4/OLlz35YPjnY23QvJaVbfJhEh0tbQPn28DF49A6XE5jw!/b/dPMAAAAAAAAA&bo=wAY4BEALCAcDCZI!&rf=viewer_4";
+            thirdAd.time = 10;
+
+            data.add(firstAd);
+            data.add(secondAd);
+            data.add(thirdAd);
+        }
     }
 
 
@@ -439,12 +437,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (TextUtils.isEmpty(name)) {
             //本地没有保存过用户信息，给出提示：登录
             doLogin();
+            Log.e("print","isEmpty()");
         } else {
             if (isStudent) {
                 //学生角色
                 CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
                 rlHomeSchool.setVisibility(View.VISIBLE);
                 flHomeTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                Log.e("print","isStudent()");
             } else {
                 //教师角色
                 CircleImageView.setImageDrawable(getResources().getDrawable(R.drawable.user1));
@@ -454,6 +454,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ivHomeFourth.setImageDrawable(getResources().getDrawable(R.drawable.activity));
                 tvHomeFourth.setText("各类活动");
                 flHomeTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+                Log.e("print","isTeacher()");
             }
         }
         tvHomeSchool.setText(schoolName);

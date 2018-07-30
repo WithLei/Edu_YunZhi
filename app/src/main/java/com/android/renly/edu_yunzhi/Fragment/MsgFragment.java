@@ -36,22 +36,12 @@ public class MsgFragment extends BaseFragment {
     @BindView(R.id.fl_msg_title)
     FrameLayout flMsgTitle;
 
-    @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
     private static HotNewsFragment hotNewsFragment;
     private static MyMsgFragment myMsgFragment;
     private FragmentTransaction transaction;
 
     @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         initView();
     }
 
@@ -61,9 +51,21 @@ public class MsgFragment extends BaseFragment {
         if (isStudent) {
             //学生角色
             flMsgTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            btn1.setBackground(getResources().getDrawable(R.drawable.switch_left_bg));
+            btn2.setBackground(getResources().getDrawable(R.drawable.switch_center_bg));
+            btn3.setBackground(getResources().getDrawable(R.drawable.switch_right_bg));
+            btn1.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
+            btn2.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
+            btn3.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
         } else {
             //教师角色
             flMsgTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+            btn1.setBackground(getResources().getDrawable(R.drawable.switch_left_teacher_bg));
+            btn2.setBackground(getResources().getDrawable(R.drawable.switch_center_teacher_bg));
+            btn3.setBackground(getResources().getDrawable(R.drawable.switch_right_teacher_bg));
+            btn1.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
+            btn2.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
+            btn3.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
         }
 
     }

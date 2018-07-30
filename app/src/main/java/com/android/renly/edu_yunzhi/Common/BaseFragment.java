@@ -2,87 +2,41 @@ package com.android.renly.edu_yunzhi.Common;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.renly.edu_yunzhi.UI.LoadingPage;
-import com.loopj.android.http.RequestParams;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
-    private LoadingPage loadingPage;
-    private Unbinder unbinder;
+    private View mContentView;
+    private Context mContent;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        loadingPage = new LoadingPage(container.getContext()) {
-            @Override
-            public int layoutId() {
-                return getLayoutid();
-            }
-            @Override
-            protected void onSuccss(ResultState resultState, View view_success) {
-                unbinder = ButterKnife.bind(BaseFragment.this, view_success);
-                initData(resultState.getContent());
-            }
-
-            @Override
-            protected RequestParams params() {
-                return getParams();
-            }
-
-            @Override
-            public String url() {
-                return getUrl();
-            }
-        };
-//        View view = UIUtils.getView(getLayoutid());
-//        ButterKnife.bind(this,view);
-//        initTitle();
-//        initData();
-        initImageLoader(MyApplication.context);
-        return loadingPage;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mContentView = inflater.inflate(getLayoutid(),container,false);
+        mContent = getContext();
+//        ButterKnife.bind(mContentView);
+        return mContentView;
     }
-
-    protected abstract String getUrl();
-
-    protected abstract RequestParams getParams();
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        show();
-    }
-
-    private void show() {
-        loadingPage.show();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initData(mContent);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     //初始化界面的数据
-    protected abstract void initData(String content);
+    protected abstract void initData(Context content);
 
     public abstract int getLayoutid();
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    //Toolbar
-    public static void initImageLoader(Context context) {
-        ImageLoaderConfiguration config =
-                new ImageLoaderConfiguration.Builder(context).threadPoolSize(5).build();
-
-        ImageLoader.getInstance().init(config);
     }
 }

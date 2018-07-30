@@ -1,5 +1,6 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,17 +40,7 @@ public class CourseCommentFragment extends BaseFragment {
     }
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
 
     }
 

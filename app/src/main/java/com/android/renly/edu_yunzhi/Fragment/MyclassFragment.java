@@ -49,17 +49,7 @@ public class MyclassFragment extends BaseFragment {
     TextView tvMyclassLearnt;
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         isLogin();
         //初始化数据
         initCoursedata();

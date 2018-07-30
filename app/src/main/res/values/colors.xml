@@ -4,6 +4,7 @@
     <color name="colorTeacherPrimary">#f4a460</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorQuery">#E0EEFF</color>
 
     <color name="home_back_unselected">#676767</color>
     <color name="home_back_selected">#3883D1</color>

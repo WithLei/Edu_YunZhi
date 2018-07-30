@@ -363,7 +363,7 @@ public class TaskActivity extends BaseActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(TaskActivity.this,TaskInfoActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Task",task.toString());
+                    bundle.putString("Task",JSON.toJSONString(task));
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

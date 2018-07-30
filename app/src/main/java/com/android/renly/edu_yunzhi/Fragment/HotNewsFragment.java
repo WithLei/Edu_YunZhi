@@ -1,5 +1,6 @@
 package com.android.renly.edu_yunzhi.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,17 +36,7 @@ public class HotNewsFragment extends BaseFragment {
     SwipeRefreshLayout refreshLayout;
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         initTopicsdata();
         initAdapter();
     }

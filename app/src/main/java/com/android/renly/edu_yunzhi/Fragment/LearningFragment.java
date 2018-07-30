@@ -45,17 +45,7 @@ public class LearningFragment extends BaseFragment {
     FrameLayout lvLearningTitle;
 
     @Override
-    protected String getUrl() {
-        return null;
-    }
-
-    @Override
-    protected RequestParams getParams() {
-        return null;
-    }
-
-    @Override
-    protected void initData(String content) {
+    protected void initData(Context content) {
         initView();
         //默认显示首页
         setSelect(0);
@@ -67,9 +57,21 @@ public class LearningFragment extends BaseFragment {
         if(isStudent){
            //学生角色
            lvLearningTitle.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+           btn1.setBackground(getResources().getDrawable(R.drawable.switch_left_bg));
+           btn2.setBackground(getResources().getDrawable(R.drawable.switch_center_bg));
+           btn3.setBackground(getResources().getDrawable(R.drawable.switch_right_bg));
+           btn1.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
+           btn2.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
+           btn3.setTextColor(getResources().getColorStateList(R.color.text_primary_white));
         }else{
             //教师角色
             lvLearningTitle.setBackgroundColor(getResources().getColor(R.color.colorTeacherPrimary));
+            btn1.setBackground(getResources().getDrawable(R.drawable.switch_left_teacher_bg));
+            btn2.setBackground(getResources().getDrawable(R.drawable.switch_center_teacher_bg));
+            btn3.setBackground(getResources().getDrawable(R.drawable.switch_right_teacher_bg));
+            btn1.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
+            btn2.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
+            btn3.setTextColor(getResources().getColorStateList(R.color.text_primary_teacher));
         }
 
     }
@@ -132,7 +134,6 @@ public class LearningFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         btn1.setText("课程");

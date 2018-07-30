@@ -194,8 +194,13 @@ public class MainActivity extends BaseActivity {
                 transaction.show(homeFragment);//显示当前的Fragment
 
                 //改变图片和文字颜色
-                ivMainBottomMainpage.setImageResource(R.drawable.homepageblue);
-                tvMainBottomMainpage.setTextColor(getResources().getColor(R.color.home_back_selected));
+                if (isStudent()){
+                    ivMainBottomMainpage.setImageResource(R.drawable.homepageblue);
+                    tvMainBottomMainpage.setTextColor(getResources().getColor(R.color.home_back_selected));
+                }else{
+                    ivMainBottomMainpage.setImageResource(R.drawable.homepageteacher);
+                    tvMainBottomMainpage.setTextColor(getResources().getColor(R.color.colorTeacherPrimary));
+                }
                 break;
             case 1:
                 if (learningFragment == null) {
@@ -206,8 +211,13 @@ public class MainActivity extends BaseActivity {
 
 
                 //改变图片和文字颜色
-                ivMainBottomLearning.setImageResource(R.drawable.questionsblue);
-                tvMainBottomLearning.setTextColor(getResources().getColor(R.color.home_back_selected));
+                if (isStudent()){
+                    ivMainBottomLearning.setImageResource(R.drawable.questionsblue);
+                    tvMainBottomLearning.setTextColor(getResources().getColor(R.color.home_back_selected));
+                }else{
+                    ivMainBottomLearning.setImageResource(R.drawable.questionsteacher);
+                    tvMainBottomLearning.setTextColor(getResources().getColor(R.color.colorTeacherPrimary));
+                }
                 break;
             case 2:
                 if (msgFragment == null) {
@@ -217,8 +227,13 @@ public class MainActivity extends BaseActivity {
                 transaction.show(msgFragment);//显示当前的Fragment
 
                 //改变图片和文字颜色
-                ivMainBottomMsg.setImageResource(R.drawable.interactiveblue);
-                tvMainBottomMsg.setTextColor(getResources().getColor(R.color.home_back_selected));
+                if(isStudent()){
+                    ivMainBottomMsg.setImageResource(R.drawable.interactiveblue);
+                    tvMainBottomMsg.setTextColor(getResources().getColor(R.color.home_back_selected));
+                }else{
+                    ivMainBottomMsg.setImageResource(R.drawable.interactiveteacher);
+                    tvMainBottomMsg.setTextColor(getResources().getColor(R.color.colorTeacherPrimary));
+                }
                 break;
             case 3:
                 if (mineFragment == null) {
@@ -228,8 +243,13 @@ public class MainActivity extends BaseActivity {
                 transaction.show(mineFragment);//显示当前的Fragment
 
                 //改变图片和文字颜色
-                ivMainBottomMine.setImageResource(R.drawable.mine_fill);
-                tvMainBottomMine.setTextColor(getResources().getColor(R.color.home_back_selected));
+                if(isStudent()){
+                    ivMainBottomMine.setImageResource(R.drawable.mine_fill);
+                    tvMainBottomMine.setTextColor(getResources().getColor(R.color.home_back_selected));
+                }else{
+                    ivMainBottomMine.setImageResource(R.drawable.mineteacher);
+                    tvMainBottomMine.setTextColor(getResources().getColor(R.color.colorTeacherPrimary));
+                }
                 break;
         }
         transaction.commit();//提交事务
