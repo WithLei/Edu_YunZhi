@@ -26,6 +26,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.android.renly.edu_yunzhi.Activity.AbilityActivity;
 import com.android.renly.edu_yunzhi.Activity.MyInfoActivity;
+import com.android.renly.edu_yunzhi.Activity.NoteActivity;
 import com.android.renly.edu_yunzhi.Activity.NoticeActivity;
 import com.android.renly.edu_yunzhi.Activity.PKActivity;
 import com.android.renly.edu_yunzhi.Activity.QueryGradeActivity;
@@ -261,7 +262,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(MyApplication.context, QueryGradeActivity.class));
                 break;
             case R.id.ll_home_sixth:
-                Toast.makeText(MyApplication.context, "错题分析", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MyApplication.context, NoteActivity.class));
                 break;
             case R.id.ll_home_seventh:
                 ((BaseActivity) this.getActivity()).goToActivity(TaskActivity.class, null);

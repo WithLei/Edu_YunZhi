@@ -28,8 +28,7 @@
             android:maxEms="10"
             android:text="校方公告"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
     </FrameLayout>
 
     <ScrollView

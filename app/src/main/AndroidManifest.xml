@@ -71,6 +71,8 @@
         <activity android:name=".Activity.setInfoActivity" />
         <activity android:name=".Activity.TaskInfoActivity" />
         <activity android:name=".Activity.QueryGradeActivity" />
+        <activity android:name=".Activity.NoteActivity" />
+        <activity android:name=".Activity.EditNoteActivity" />
 
     </application>
 
