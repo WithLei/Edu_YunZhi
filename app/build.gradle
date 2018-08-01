@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:support-v4:27.1.1'
@@ -54,7 +54,8 @@ dependencies {
     implementation 'com.github.Yalantis:Context-Menu.Android:1.0.8'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.alibaba:fastjson:1.2.46'
-
     // 导入腾讯云直播SDK aar
     compile(name: 'LiteAVSDK_Professional_4.9.4663', ext: 'aar')
+    implementation files('libs/Msc.jar')
+    implementation files('libs/Sunflower.jar')
 }
