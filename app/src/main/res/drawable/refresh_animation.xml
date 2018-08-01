@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/refresh_image_1" android:duration="120" />
-    <item android:drawable="@drawable/refresh_image_2" android:duration="120" />
-    <item android:drawable="@drawable/refresh_image_3" android:duration="120" />
-    <item android:drawable="@drawable/refresh_image_4" android:duration="120" />
-    <item android:drawable="@drawable/refresh_image_5" android:duration="120" />
+    <item android:drawable="@drawable/refresh_image_1" android:duration="80" />
+    <item android:drawable="@drawable/refresh_image_2" android:duration="80" />
+    <item android:drawable="@drawable/refresh_image_3" android:duration="80" />
+    <item android:drawable="@drawable/refresh_image_4" android:duration="80" />
+    <item android:drawable="@drawable/refresh_image_5" android:duration="80" />
 
 </animation-list>
