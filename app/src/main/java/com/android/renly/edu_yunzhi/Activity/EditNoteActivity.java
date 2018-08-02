@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,14 +17,13 @@ import android.widget.Toast;
 
 import com.android.renly.edu_yunzhi.Common.BaseActivity;
 import com.android.renly.edu_yunzhi.R;
+import com.android.renly.edu_yunzhi.Utils.ButtonDialogView;
 import com.android.renly.edu_yunzhi.Utils.JsonParser;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
@@ -61,6 +59,8 @@ public class EditNoteActivity extends BaseActivity {
     EditText etNote;
     @BindView(R.id.tv_editnote_time)
     TextView tvEditnoteTime;
+    @BindView(R.id.iv_notepic)
+    ImageView ivNotepic;
 
     private Unbinder unbinder;
 
@@ -150,6 +150,9 @@ public class EditNoteActivity extends BaseActivity {
                 break;
             case R.id.iv_editnote_pic:
                 Toast.makeText(this, "拍照输入", Toast.LENGTH_SHORT).show();
+                View v = View.inflate(this,R.layout.item_note,null);
+                ButtonDialogView dialogView = new ButtonDialogView(EditNoteActivity.this,v,true,true);
+                dialogView.show();
                 break;
         }
     }
