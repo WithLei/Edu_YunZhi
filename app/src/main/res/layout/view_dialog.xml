@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
     <Button
         android:id="@+id/dialog_btn1"
         android:layout_width="match_parent"
@@ -11,17 +10,32 @@
         android:text="Button"
         android:textSize="17sp"
         android:textColor="@color/black38_text"
-        android:layout_marginBottom="5dp"
-        android:background="@color/white"/>
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/switch_dialog"/>
 
     <Button
         android:id="@+id/dialog_btn2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
         android:text="Button"
         android:textSize="17sp"
         android:textColor="@color/black38_text"
-        android:background="@color/white"/>
+        android:background="@drawable/switch_dialog"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gray"
+        android:alpha="0.5"
+        />
+
+    <Button
+        android:id="@+id/dialog_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Button"
+        android:textSize="17sp"
+        android:textColor="@color/black38_text"
+        android:background="@drawable/switch_dialog"/>
 
 </LinearLayout>

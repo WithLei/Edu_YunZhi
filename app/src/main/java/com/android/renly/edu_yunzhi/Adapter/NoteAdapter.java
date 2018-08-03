@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.renly.edu_yunzhi.Activity.EditNoteActivity;
+import com.android.renly.edu_yunzhi.Activity.NoteActivity;
 import com.android.renly.edu_yunzhi.Bean.Note;
 import com.android.renly.edu_yunzhi.R;
 
@@ -75,6 +76,7 @@ public class NoteAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 list.remove(position);
+                notifyDataSetChanged();
             }
         });
         holder.itemNote.setOnClickListener(new View.OnClickListener() {
