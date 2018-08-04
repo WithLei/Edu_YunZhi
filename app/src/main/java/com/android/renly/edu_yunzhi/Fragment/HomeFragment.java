@@ -330,7 +330,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getActivity(), "网络未连接", Toast.LENGTH_SHORT).show();
                 initFailData();
                 initList();
             }
