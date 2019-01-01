@@ -5,13 +5,6 @@ README: [English](https://github.com/WithLei/Edu_YunZhi/blob/master/README.md) |
 
 >  为打造创新型教育模式，有效聚集教育产业链的上下游，提高学生的学习效率和学校的管理效率，本人及所在团队为发包方文思海辉有限公司开发了云智教育APP平台系统。支持运用网络、多媒体和多种交互手段进行教学互动，提供海量教育资源、使教育可以随时、随地、分享、共享。
 
-## Installation
-
-1. install the java JDK7.
-2. clone this repo.
-3. run make.bat if on windows, make.sh if on linux, or compile it with netbeans.
-4. add the .jar file created to your project.
-
 ## 项目展示
 ![host](https://github.com/WithLei/Edu_YunZhi/blob/master/screenshots/1.png)
 
