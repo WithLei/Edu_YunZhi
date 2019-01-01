@@ -5,13 +5,6 @@ README: [English](https://github.com/WithLei/Edu_YunZhi/blob/master/README.md) |
 
 >  In order to create an innovative education model, effectively integrate upstream and downstream of the education industry chain, and improve student learning efficiency and school management efficiency, I and my team developed the Yunzhi Education APP platform system for the contractor Fang Wensi Haihui Co., Ltd. Support the use of network, multimedia and multiple interactive means of teaching interaction, provide massive educational resources, so that education can be anytime, anywhere and share.
 
-## Installation
-
-1. install the java JDK7.
-2. clone this repo.
-3. run make.bat if on windows, make.sh if on linux, or compile it with netbeans.
-4. add the .jar file created to your project.
-
 ## 项目展示
 ![host](https://github.com/WithLei/Edu_YunZhi/blob/master/screenshots/1.png)
 
